@@ -7,6 +7,14 @@ class SightListScreen extends StatefulWidget {
   State<SightListScreen> createState() => _SightListScreenState();
 }
 
+const _mainTextStyle = TextStyle(
+  color: Color(0xFF252849),
+  fontSize: 32.0,
+  height: 1.12,
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+);
+
 class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
@@ -15,20 +23,28 @@ class _SightListScreenState extends State<SightListScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         toolbarHeight: 72 + 64,
-        title: const Padding(
-          padding: EdgeInsets.fromLTRB(16, 64, 16, 0),
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 64, 16, 0),
           child: SizedBox(
             height: 72,
-            child: Text(
-              'Список\nинтересных мест',
-              style: TextStyle(
-                color: Color(0xFF252849),
-                fontSize: 32.0,
-                height: 1.12,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w700,
+            child: RichText(
+              text: TextSpan(
+                style: _mainTextStyle,
+                children: [
+                  TextSpan(
+                    children: [
+                      TextSpan(text: 'C', style: _mainTextStyle.copyWith(color: const Color(0xFF4CAF50))),
+                      const TextSpan(text: 'писок\n'),
+                    ],
+                  ),
+                  TextSpan(
+                    children: [
+                      TextSpan(text: 'и', style: _mainTextStyle.copyWith(color: const Color(0xFFFCDD3D))),
+                      const TextSpan(text: 'нтересных мест'),
+                    ],
+                  ),
+                ],
               ),
-              maxLines: 2,
             ),
           ),
         ),
