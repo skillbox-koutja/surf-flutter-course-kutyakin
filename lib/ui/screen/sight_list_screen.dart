@@ -17,10 +17,10 @@ class _SightListScreenState extends State<SightListScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         toolbarHeight: 72 + 64,
-        title: Align(
+        title: const Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
+            padding: EdgeInsets.fromLTRB(16, 64, 16, 16),
             child: SizedBox(
               height: 72,
               child: Text(

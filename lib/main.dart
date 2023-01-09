@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/mocks.dart';
 
 void main() {
   runApp(const App());
@@ -10,9 +12,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Places',
-      home: SightListScreen(),
+      // home: SightListScreen(),
+      home: SightDetails(sight: restaurant),
     );
   }
 }
