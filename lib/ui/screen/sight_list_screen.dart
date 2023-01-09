@@ -13,11 +13,10 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        toolbarHeight: 72 + 64,
-        title: const Align(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(72 + 64 + 16),
+        child: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.fromLTRB(16, 64, 16, 16),
