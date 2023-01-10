@@ -1,6 +1,6 @@
-import 'package:places/domain/map_coordinates.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/domain/sight_type.dart';
+import 'package:places/domain/map/map_coordinates.dart';
+import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/sight/sight_type.dart';
 
 const List<Sight> sights = [
   Sight(

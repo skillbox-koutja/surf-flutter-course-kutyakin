@@ -9,5 +9,5 @@ enum SightType {
   const SightType(this.title);
 
   @override
-  String toString() => 'SightType($name)';
+  String toString() => 'SightType($title)';
 }

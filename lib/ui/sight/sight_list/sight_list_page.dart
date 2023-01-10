@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/screen/sight_card.dart';
+import 'package:places/ui/sight/sight_list/widgets/sight_card.dart';
 
-class SightListScreen extends StatefulWidget {
-  const SightListScreen({Key? key}) : super(key: key);
+class SightListPage extends StatefulWidget {
+  const SightListPage({Key? key}) : super(key: key);
 
   @override
-  State<SightListScreen> createState() => _SightListScreenState();
+  State<SightListPage> createState() => _SightListPageState();
 }
 
-class _SightListScreenState extends State<SightListScreen> {
+class _SightListPageState extends State<SightListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

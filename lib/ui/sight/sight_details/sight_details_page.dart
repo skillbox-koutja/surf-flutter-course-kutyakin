@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/domain/sight/sight.dart';
 
-class SightDetails extends StatefulWidget {
+class SightDetailsPage extends StatefulWidget {
   final Sight sight;
 
-  const SightDetails({required this.sight, Key? key}) : super(key: key);
+  const SightDetailsPage({required this.sight, Key? key}) : super(key: key);
 
   @override
-  State<SightDetails> createState() => _SightDetailsState();
+  State<SightDetailsPage> createState() => _SightDetailsPageState();
 }
 
-class _SightDetailsState extends State<SightDetails> {
+class _SightDetailsPageState extends State<SightDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
