@@ -21,8 +21,17 @@ class _SightDetailsState extends State<SightDetails> {
               decoration: BoxDecoration(
                 color: Colors.grey.shade600,
               ),
-              child: SizedBox.expand(
-                child: Stack(children: [
+              child: Stack(
+                children: [
+                  SizedBox.expand(
+                    child: Image.network(
+                      widget.sight.imageUrl,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        return loadingProgress == null ? child : const Center(child: CircularProgressIndicator());
+                      },
+                    ),
+                  ),
                   Positioned(
                     top: 36,
                     left: 16,
@@ -37,7 +46,7 @@ class _SightDetailsState extends State<SightDetails> {
                       ),
                     ),
                   ),
-                ]),
+                ],
               ),
             ),
           ),

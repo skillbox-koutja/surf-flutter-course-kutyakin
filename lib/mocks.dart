@@ -3,7 +3,8 @@ import 'package:places/domain/sight.dart';
 final restaurant = Sight(
   name: 'Пряности и радости',
   coordinates: MapCoordinates(lat: 0.04, long: 0.04),
-  imageUrl: 'https://24warez.ru/uploads/posts/050318/221314/2.jpg',
+  imageUrl:
+      'https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg?w=2000&t=st=1673350186~exp=1673350786~hmac=032547a723606804dc49088c1e06a30e43adf4caa5c821578112f0017b2daf5e',
   details:
       'Пряный вкус радостной жизни вместе с\u{00A0}шеф-поваром Изо Дзандзава, благодаря которой у\u{00A0}гостей ресторана есть возможность выбирать из\u{00A0}двух направлений: европейского и\u{00A0}восточного',
   type: 'ресторан',
@@ -21,8 +22,7 @@ final List<Sight> sights = [
   Sight(
     name: 'Храм Василия Блаженного',
     coordinates: MapCoordinates(lat: 0.02, long: 0.02),
-    imageUrl:
-        'https://kartinkin.net/pics/uploads/posts/2022-08/1660314555_62-kartinkin-net-p-khram-vasiliya-blazhennogo-moskva-krasivo-66.jpg',
+    imageUrl: 'https://sevizm.mos.ru/presscenter/Храм%20Василия%20Блаженного%20с%20сайта%20liveinternet.ru.jpg',
     details: 'Храм Василия Блаженного – самая знаменитая достопримечательность на Красной площади',
     type: 'храм',
   ),

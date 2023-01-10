@@ -18,51 +18,55 @@ class SightCard extends StatelessWidget {
         children: [
           Flexible(
             flex: 3,
-            child: SizedBox(
-              width: double.infinity,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade600,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: FutureBuilder<bool>(
+                    future: Future.delayed(
+                      const Duration(seconds: 1),
+                      () => true,
+                    ), // a previously-obtained Future<String> or null
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      return _SightImage(imageUrl: sight.imageUrl);
+                    },
+                  ),
                 ),
-                child: Padding(
+                Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            sight.type,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              height: 1.29,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700,
-                            ),
+                      Text(
+                        sight.type,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          height: 1.29,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 3, right: 2),
+                        child: ColoredBox(
+                          color: Colors.white,
+                          child: SizedBox.square(
+                            dimension: 20,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3, right: 2),
-                            child: ColoredBox(
-                              color: Colors.white,
-                              child: SizedBox.square(
-                                dimension: 20,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-          SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Flexible(
             flex: 2,
             child: Padding(
@@ -81,14 +85,9 @@ class SightCard extends StatelessWidget {
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
-                    height: 2,
-                  ),
+                  const SizedBox(height: 2),
                   LayoutBuilder(
-                    builder: (
-                      BuildContext context,
-                      BoxConstraints constraints,
-                    ) {
+                    builder: (context, constraints) {
                       return ConstrainedBox(
                         constraints: BoxConstraints(
                           maxWidth: constraints.maxWidth / 2,
@@ -113,6 +112,28 @@ class SightCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _SightImage extends StatelessWidget {
+  final String imageUrl;
+
+  const _SightImage({required this.imageUrl, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      imageUrl,
+      fit: BoxFit.fitWidth,
+      loadingBuilder: (context, child, loadingProgress) {
+        return loadingProgress == null
+            ? ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                child: child,
+              )
+            : const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }
