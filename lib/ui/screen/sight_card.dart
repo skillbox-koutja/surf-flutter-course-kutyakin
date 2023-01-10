@@ -33,7 +33,7 @@ class SightCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            sight.type,
+                            sight.type.title,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,

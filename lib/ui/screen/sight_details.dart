@@ -59,7 +59,7 @@ class _SightDetailsState extends State<SightDetails> {
                   ),
                   SizedBox(height: 2),
                   Text(
-                    widget.sight.type,
+                    widget.sight.type.title,
                     style: const TextStyle(
                       color: Color(0xFF3B3E5B),
                       fontSize: 14.0,

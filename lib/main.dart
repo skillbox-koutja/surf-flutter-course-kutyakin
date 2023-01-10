@@ -15,7 +15,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Places',
       // home: SightListScreen(),
-      home: SightDetails(sight: restaurant),
+      home: SightDetails(sight: sights.last),
     );
   }
 }
