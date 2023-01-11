@@ -20,17 +20,18 @@ class _SightListPageState extends State<SightListPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
-            children: [
-              for (var sight in sights)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: SizedBox(
-                    height: 188,
-                    width: double.infinity,
-                    child: SightCard(sight: sight),
+            children: sights
+                .map(
+                  (sight) => Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: SizedBox(
+                      height: 188,
+                      width: double.infinity,
+                      child: SightCard(sight: sight),
+                    ),
                   ),
-                ),
-            ],
+                )
+                .toList(),
           ),
         ),
       ),
