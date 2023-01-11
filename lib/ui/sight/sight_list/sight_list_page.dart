@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
+import 'package:places/assets/theme/typography.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/sight/sight_list/widgets/sight_card.dart';
-import 'package:places/ui/theme/typography.dart';
 
 class SightListPage extends StatefulWidget {
   const SightListPage({Key? key}) : super(key: key);
@@ -15,27 +15,7 @@ class _SightListPageState extends State<SightListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        toolbarHeight: 72 + 64,
-        title: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
-            child: SizedBox(
-              height: 72,
-              child: Text(
-                AppMessages.sightsList.pageTitle,
-                style: const AppLargeTitleStyle(
-                  color: Color(0xFF3B3E5B),
-                ),
-                maxLines: 2,
-              ),
-            ),
-          ),
-        ),
-      ),
+      appBar: _AppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -55,6 +35,36 @@ class _SightListPageState extends State<SightListPage> {
         ),
       ),
       resizeToAvoidBottomInset: false,
+    );
+  }
+}
+
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Size get preferredSize => const Size.fromHeight(72 + 64 + 16);
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
+          child: SizedBox(
+            height: 72,
+            child: Text(
+              AppMessages.sightsList.pageTitle,
+              style: const AppLargeTitleStyle(
+                color: Color(0xFF3B3E5B),
+              ),
+              maxLines: 2,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

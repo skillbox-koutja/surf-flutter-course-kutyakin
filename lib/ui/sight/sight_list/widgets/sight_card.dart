@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/theme/colors.dart';
+import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
-import 'package:places/ui/theme/colors.dart';
-import 'package:places/ui/theme/typography.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
