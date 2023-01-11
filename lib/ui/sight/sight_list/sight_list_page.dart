@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/sight/sight_list/widgets/sight_card.dart';
 import 'package:places/ui/theme/typography.dart';
@@ -18,15 +19,15 @@ class _SightListPageState extends State<SightListPage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         toolbarHeight: 72 + 64,
-        title: const Align(
+        title: Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(16, 64, 16, 16),
+            padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
             child: SizedBox(
               height: 72,
               child: Text(
-                'Список\nинтересных мест',
-                style: AppLargeTitleStyle(
+                AppMessages.sightsList.pageTitle,
+                style: const AppLargeTitleStyle(
                   color: Color(0xFF3B3E5B),
                 ),
                 maxLines: 2,
