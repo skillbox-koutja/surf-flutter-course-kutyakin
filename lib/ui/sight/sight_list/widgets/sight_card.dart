@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/theme/colors.dart';
+import 'package:places/ui/theme/typography.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
@@ -12,7 +14,7 @@ class SightCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      color: Colors.grey.shade100,
+      color: AppColors.background,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -20,8 +22,8 @@ class SightCard extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade600,
+                decoration: const BoxDecoration(
+                  color: AppColors.placeholder,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 ),
                 child: Padding(
@@ -34,18 +36,14 @@ class SightCard extends StatelessWidget {
                         children: [
                           Text(
                             sight.type.title,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              height: 1.29,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700,
+                            style: const AppSmallBoldStyle(
+                              color: AppColors.white,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3, right: 2),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 3, right: 2),
                             child: ColoredBox(
-                              color: Colors.white,
+                              color: AppColors.white,
                               child: SizedBox.square(
                                 dimension: 20,
                               ),
@@ -67,24 +65,16 @@ class SightCard extends StatelessWidget {
                 children: [
                   Text(
                     sight.name,
-                    style: const TextStyle(
-                      color: Color(0xFF3B3E5B),
-                      fontSize: 16.0,
-                      height: 1.25,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
+                    style: const AppTextStyle(
+                      color: AppColors.secondary,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     sight.details,
-                    style: const TextStyle(
-                      color: Color(0xFF7C7E92),
-                      fontSize: 14.0,
-                      height: 1.29,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
+                    style: const AppSmallStyle(
+                      color: AppColors.secondary2,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

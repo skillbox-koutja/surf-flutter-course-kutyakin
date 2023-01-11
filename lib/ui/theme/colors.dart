@@ -1,6 +1,8 @@
 import 'package:flutter/painting.dart';
 
 class AppColors {
+  static const background = Color(0xFFF5F5F5);
+  static const placeholder = Color(0xFF757575);
   static const white = Color(0xFFFFFFFF);
   static const dark = Color(0xFF1A1A20);
   static const secondary = Color(0xFF3B3E5B);

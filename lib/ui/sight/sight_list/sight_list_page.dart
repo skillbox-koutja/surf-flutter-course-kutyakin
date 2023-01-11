@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/sight/sight_list/widgets/sight_card.dart';
+import 'package:places/ui/theme/typography.dart';
 
 class SightListPage extends StatefulWidget {
   const SightListPage({Key? key}) : super(key: key);
@@ -25,12 +26,8 @@ class _SightListPageState extends State<SightListPage> {
               height: 72,
               child: Text(
                 'Список\nинтересных мест',
-                style: TextStyle(
+                style: AppLargeTitleStyle(
                   color: Color(0xFF3B3E5B),
-                  fontSize: 32.0,
-                  height: 1.12,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
                 ),
                 maxLines: 2,
               ),
