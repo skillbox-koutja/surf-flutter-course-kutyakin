@@ -3,6 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/icons/svg_icons.dart';
 
 class SightDetailsBody extends StatelessWidget {
   final Sight sight;
@@ -41,15 +42,23 @@ class SightDetailsBody extends StatelessWidget {
               color: AppColors.whiteGreen,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: SizedBox(
-              height: 48,
-              child: Center(
-                child: Text(
-                  AppMessages.sightDetails.makeRouteButtonTitle,
-                  style: const AppButtonStyle(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const GoSvgIcon(
                     color: AppColors.white,
                   ),
-                ),
+                  const SizedBox(width: 10),
+                  Text(
+                    AppMessages.sightDetails.makeRouteButtonTitle,
+                    style: const AppButtonStyle(
+                      color: AppColors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -61,8 +70,42 @@ class SightDetailsBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: Center(child: Text(AppMessages.sightDetails.planButtonTitle))),
-            Expanded(child: Center(child: Text(AppMessages.sightDetails.favoriteButtonTitle))),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const CalendarSvgIcon(
+                    color: AppColors.secondary,
+                  ),
+                  const SizedBox(width: 9),
+                  Text(
+                    AppMessages.sightDetails.planButtonTitle,
+                    style: const AppSmallStyle(
+                      color: AppColors.secondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const FullHeartSvgIcon(
+                    color: AppColors.secondary,
+                  ),
+                  const SizedBox(width: 9),
+                  Text(
+                    AppMessages.sightDetails.favoriteButtonTitle,
+                    style: const AppSmallStyle(
+                      color: AppColors.secondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ],

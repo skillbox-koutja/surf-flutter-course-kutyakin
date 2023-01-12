@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/images/loading_progress_value.dart';
+import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightDetailsHeader extends StatelessWidget {
   final Sight sight;
@@ -18,18 +20,20 @@ class SightDetailsHeader extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox.expand(
-              child: Image.network(
-                sight.imageUrl,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  return loadingProgress == null
-                      ? child
-                      : Center(
-                          child: CircularProgressIndicator(
-                            value: LoadingProgressValue.fromImageChunkEvent(loadingProgress).value,
-                          ),
-                        );
-                },
+              child: ImageOverlay(
+                image: Image.network(
+                  sight.imageUrl,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    return loadingProgress == null
+                        ? child
+                        : Center(
+                            child: CircularProgressIndicator(
+                              value: LoadingProgressValue.fromImageChunkEvent(loadingProgress).value,
+                            ),
+                          );
+                  },
+                ),
               ),
             ),
             Positioned(
@@ -42,6 +46,9 @@ class SightDetailsHeader extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.white,
                     borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: const ArrowSvgIcon(
+                    color: AppColors.whiteMain,
                   ),
                 ),
               ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
+import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
+import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/sight/sight_list/widgets/sight_card.dart';
+import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/sight/sight_card/sight_card.dart';
 
 class SightListPage extends StatefulWidget {
   const SightListPage({Key? key}) : super(key: key);
@@ -24,14 +27,46 @@ class _SightListPageState extends State<SightListPage> {
                 .map(
                   (sight) => Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
-                    child: SightCard(sight: sight),
+                    child: _SightCard(sight: sight),
                   ),
                 )
                 .toList(),
           ),
         ),
       ),
-      resizeToAvoidBottomInset: false,
+    );
+  }
+}
+
+class _SightCard extends StatelessWidget {
+  final Sight sight;
+
+  const _SightCard({required this.sight, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 188, maxWidth: 328),
+      child: SightCard(
+        header: SightCardHeader(
+          image: SightImage(sight: sight, fit: BoxFit.fitWidth),
+          typeText: SightTypeText(sight: sight),
+          actions: const SightActions(
+            children: [
+              HeartSvgIcon(
+                color: AppColors.white,
+              ),
+            ],
+          ),
+        ),
+        body: SightCardBody(
+          children: [
+            SightNameText(sight: sight),
+            const SizedBox(height: 2),
+            SightDetailsText(sight: sight),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -55,7 +90,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               AppMessages.sightsList.pageTitle,
               style: const AppLargeTitleStyle(
-                color: Color(0xFF3B3E5B),
+                color: AppColors.whiteMain,
               ),
               maxLines: 2,
             ),
