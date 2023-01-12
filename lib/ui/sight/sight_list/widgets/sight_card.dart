@@ -18,7 +18,8 @@ class SightCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          Flexible(
+            flex: 3,
             child: SizedBox(
               width: double.infinity,
               child: DecoratedBox(
@@ -57,27 +58,36 @@ class SightCard extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          Flexible(
+            flex: 2,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 16),
                   Text(
                     sight.name,
                     style: const AppTextStyle(
                       color: AppColors.secondary,
                     ),
-                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    sight.details,
-                    style: const AppSmallStyle(
-                      color: AppColors.secondary2,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      return ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: constraints.maxWidth / 2,
+                        ),
+                        child: Text(
+                          sight.details,
+                          style: const AppSmallStyle(
+                            color: AppColors.secondary2,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
