@@ -11,23 +11,30 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      color: AppColors.background,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            flex: 3,
-            child: _SightCardHeader(sight: sight),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 188, maxWidth: 328),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        color: AppColors.background,
+        child: AspectRatio(
+          aspectRatio: 3 / 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                flex: 3,
+                child: _SightCardHeader(sight: sight),
+              ),
+              Flexible(
+                flex: 2,
+                child: _SightCardBody(sight: sight),
+              ),
+            ],
           ),
-          Flexible(
-            flex: 2,
-            child: _SightCardBody(sight: sight),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -94,21 +101,12 @@ class _SightCardBody extends StatelessWidget {
             ),
             overflow: TextOverflow.ellipsis,
           ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: constraints.maxWidth / 2,
-                ),
-                child: Text(
-                  sight.details,
-                  style: const AppSmallStyle(
-                    color: AppColors.secondary2,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              );
-            },
+          Text(
+            sight.details,
+            style: const AppSmallStyle(
+              color: AppColors.secondary2,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
