@@ -24,11 +24,7 @@ class _SightListPageState extends State<SightListPage> {
                 .map(
                   (sight) => Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
-                    child: SizedBox(
-                      height: 188,
-                      width: double.infinity,
-                      child: SightCard(sight: sight),
-                    ),
+                    child: SightCard(sight: sight),
                   ),
                 )
                 .toList(),
