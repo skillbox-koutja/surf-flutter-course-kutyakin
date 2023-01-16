@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/assets/theme/colors.dart';
 
 class ImageOverlay extends StatelessWidget {
   final Image image;
@@ -20,8 +21,8 @@ class ImageOverlay extends StatelessWidget {
                 begin: const Alignment(0.0, -1.3125),
                 end: const Alignment(0.0, 1.6354),
                 colors: [
-                  const Color(0xFF252849),
-                  const Color(0xFF3B3E5B).withOpacity(0.08),
+                  AppColors.whiteMain,
+                  AppColors.secondary.withOpacity(0.08),
                 ],
               ),
             ),
