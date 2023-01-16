@@ -73,7 +73,6 @@ class SightDetailsBody extends StatelessWidget {
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const CalendarSvgIcon(
                     color: AppColors.secondary,
@@ -91,7 +90,6 @@ class SightDetailsBody extends StatelessWidget {
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const FullHeartSvgIcon(
                     color: AppColors.secondary,
