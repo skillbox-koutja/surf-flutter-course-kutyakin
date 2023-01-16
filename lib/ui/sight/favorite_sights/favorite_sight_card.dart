@@ -4,6 +4,14 @@ import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/domain/sight/sight_status.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
+import 'package:places/ui/sight/sight_card/widgets/actions.dart';
+import 'package:places/ui/sight/sight_card/widgets/body.dart';
+import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
+import 'package:places/ui/sight/sight_card/widgets/header.dart';
+import 'package:places/ui/sight/sight_card/widgets/image.dart';
+import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
+import 'package:places/ui/sight/sight_card/widgets/status_text.dart';
+import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
 
 class FavoriteSightCard extends StatelessWidget {
   final FavoriteSight favoriteSight;
