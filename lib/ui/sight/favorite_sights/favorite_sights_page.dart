@@ -7,6 +7,24 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sight_list.dart';
 
+final certainPlannedSights = sights
+    .map(
+      (sight) => FavoriteSight.certainPlanned(
+        sight: sight,
+        date: DateTime(2022, 1, 15),
+      ),
+    )
+    .toList();
+
+final certainDoneSights = sights
+    .map(
+      (sight) => FavoriteSight.certainDone(
+        sight: sight,
+        date: DateTime(2021, 1, 12),
+      ),
+    )
+    .toList();
+
 class FavoriteSightsPage extends StatefulWidget {
   const FavoriteSightsPage({Key? key}) : super(key: key);
 
@@ -37,13 +55,7 @@ class _FavoriteSightsPageState extends State<FavoriteSightsPage> {
         body: TabBarView(
           children: [
             FavoriteSightList(
-              children: sights
-                  .map(
-                    (sight) => FavoriteSight.certainPlanned(
-                      sight: sight,
-                      date: DateTime(2022, 1, 15),
-                    ),
-                  )
+              children: certainPlannedSights
                   .map(
                     (favoriteSight) => FavoriteSightCard(
                       favoriteSight: favoriteSight,
@@ -53,13 +65,7 @@ class _FavoriteSightsPageState extends State<FavoriteSightsPage> {
                   .toList(),
             ),
             FavoriteSightList(
-              children: sights
-                  .map(
-                    (sight) => FavoriteSight.certainDone(
-                      sight: sight,
-                      date: DateTime(2021, 1, 12),
-                    ),
-                  )
+              children: certainDoneSights
                   .map(
                     (favoriteSight) => FavoriteSightCard(
                       favoriteSight: favoriteSight,
