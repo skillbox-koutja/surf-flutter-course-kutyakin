@@ -12,34 +12,34 @@ class SightDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+    final colorsTheme = theme.extension<CustomColors>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           sight.name,
-          style: const AppTitleStyle(
-            color: AppColors.secondary,
-          ),
+          style: textTheme?.title,
         ),
         const SizedBox(height: 2),
         Text(
           sight.type.title,
-          style: const AppSmallBoldStyle(
-            color: AppColors.secondary,
+          style: textTheme?.smallBold?.copyWith(
+            color: AppColors.secondary2,
           ),
         ),
         const SizedBox(height: 24),
         Text(
           sight.details,
-          style: const AppSmallStyle(
-            color: AppColors.secondary,
-          ),
+          style: textTheme?.small,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24),
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: AppColors.whiteGreen,
+              color: colorsTheme?.green,
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: Padding(
@@ -54,7 +54,7 @@ class SightDetailsBody extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     AppMessages.sightDetails.makeRouteButtonTitle,
-                    style: const AppButtonStyle(
+                    style: textTheme?.button?.copyWith(
                       color: AppColors.white,
                     ),
                   ),
@@ -75,13 +75,13 @@ class SightDetailsBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CalendarSvgIcon(
-                    color: AppColors.secondary,
+                    color: AppColors.inactive,
                   ),
                   const SizedBox(width: 9),
                   Text(
                     AppMessages.sightDetails.planButtonTitle,
-                    style: const AppSmallStyle(
-                      color: AppColors.secondary,
+                    style: textTheme?.small?.copyWith(
+                      color: AppColors.inactive,
                     ),
                   ),
                 ],
@@ -91,15 +91,13 @@ class SightDetailsBody extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const FullHeartSvgIcon(
-                    color: AppColors.secondary,
+                  FullHeartSvgIcon(
+                    color: theme.primaryColor,
                   ),
                   const SizedBox(width: 9),
                   Text(
                     AppMessages.sightDetails.favoriteButtonTitle,
-                    style: const AppSmallStyle(
-                      color: AppColors.secondary,
-                    ),
+                    style: textTheme?.small,
                   ),
                 ],
               ),

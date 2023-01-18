@@ -35,20 +35,21 @@ class FavoriteSightsPage extends StatefulWidget {
 class _FavoriteSightsPageState extends State<FavoriteSightsPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: theme.scaffoldBackgroundColor,
           centerTitle: true,
           elevation: 0,
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
               AppMessages.favoriteSights.pageTitle,
-              style: const AppSubtitleStyle(
-                color: AppColors.whiteMain,
-              ),
+              style: textTheme?.subtitle,
             ),
           ),
         ),

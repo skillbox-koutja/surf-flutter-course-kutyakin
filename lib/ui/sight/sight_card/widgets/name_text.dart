@@ -10,11 +10,12 @@ class SightNameText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+
     return Text(
       sight.name,
-      style: const AppTextStyle(
-        color: AppColors.secondary,
-      ),
+      style: textTheme?.text,
       overflow: TextOverflow.ellipsis,
     );
   }

@@ -15,12 +15,14 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      color: AppColors.background,
+      color: theme.cardColor,
       child: AspectRatio(
         aspectRatio: 3 / 2,
         child: Column(
