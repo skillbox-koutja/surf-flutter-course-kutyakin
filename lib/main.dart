@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/theme.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/icons/svg_icons.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sights_page.dart';
+import 'package:places/ui/sight/favorite_sights/favorite_sights_screen.dart';
 import 'package:places/ui/sight/sight_details/sight_details_page.dart';
-import 'package:places/ui/sight/sight_list/sight_list_page.dart';
+import 'package:places/ui/sight/sight_list/sight_list_screen.dart';
 
 void main() {
   runApp(const App());
@@ -33,9 +32,9 @@ class _AppState extends State<App> {
           controller: pageController,
           onPageChanged: onPageChanged,
           children: [
-            const SightListPage(),
+            const SightListScreen(),
             SightDetailsPage(sight: sights.last),
-            const FavoriteSightsPage(),
+            const FavoriteSightsScreen(),
           ],
         ),
         bottomNavigationBar: _BottomNavigationBar(

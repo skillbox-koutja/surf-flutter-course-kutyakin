@@ -25,14 +25,14 @@ final certainDoneSights = sights
     )
     .toList();
 
-class FavoriteSightsPage extends StatefulWidget {
-  const FavoriteSightsPage({Key? key}) : super(key: key);
+class FavoriteSightsScreen extends StatefulWidget {
+  const FavoriteSightsScreen({Key? key}) : super(key: key);
 
   @override
-  State<FavoriteSightsPage> createState() => _FavoriteSightsPageState();
+  State<FavoriteSightsScreen> createState() => _FavoriteSightsScreenState();
 }
 
-class _FavoriteSightsPageState extends State<FavoriteSightsPage> {
+class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

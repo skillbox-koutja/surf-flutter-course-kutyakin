@@ -14,14 +14,14 @@ import 'package:places/ui/sight/sight_card/widgets/image.dart';
 import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
 
-class SightListPage extends StatefulWidget {
-  const SightListPage({Key? key}) : super(key: key);
+class SightListScreen extends StatefulWidget {
+  const SightListScreen({Key? key}) : super(key: key);
 
   @override
-  State<SightListPage> createState() => _SightListPageState();
+  State<SightListScreen> createState() => _SightListScreenState();
 }
 
-class _SightListPageState extends State<SightListPage> {
+class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
