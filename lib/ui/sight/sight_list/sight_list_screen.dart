@@ -55,27 +55,24 @@ class _SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 188, maxWidth: 328),
-      child: SightCard(
-        header: SightCardHeader(
-          image: SightImage(sight: sight, fit: BoxFit.fitWidth),
-          typeText: SightTypeText(sight: sight),
-          actions: const SightActions(
-            children: [
-              HeartSvgIcon(
-                color: AppColors.white,
-              ),
-            ],
-          ),
-        ),
-        body: SightCardBody(
+    return SightCard(
+      header: SightCardHeader(
+        image: SightImage(sight: sight, fit: BoxFit.fitWidth),
+        typeText: SightTypeText(sight: sight),
+        actions: const SightActions(
           children: [
-            SightNameText(sight: sight),
-            const SizedBox(height: 2),
-            SightDetailsText(sight: sight),
+            HeartSvgIcon(
+              color: AppColors.white,
+            ),
           ],
         ),
+      ),
+      body: SightCardBody(
+        children: [
+          SightNameText(sight: sight),
+          const SizedBox(height: 2),
+          SightDetailsText(sight: sight),
+        ],
       ),
     );
   }
