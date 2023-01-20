@@ -29,15 +29,18 @@ class _SightListPageState extends State<SightListPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: sights
-                .map(
-                  (sight) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: _SightCard(sight: sight),
-                  ),
-                )
-                .toList(),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: sights
+                  .map(
+                    (sight) => Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: _SightCard(sight: sight),
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       ),
@@ -84,9 +87,12 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: theme.scaffoldBackgroundColor,
       ),
       child: Align(
         alignment: Alignment.topLeft,
@@ -96,9 +102,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
             height: 72,
             child: Text(
               AppMessages.sightsList.pageTitle,
-              style: const AppLargeTitleStyle(
-                color: AppColors.whiteMain,
-              ),
+              style: textTheme?.largeTitle,
               maxLines: 2,
             ),
           ),

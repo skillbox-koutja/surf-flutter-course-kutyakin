@@ -10,9 +10,12 @@ class SightDetailsText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+
     return Text(
       sight.details,
-      style: const AppSmallStyle(
+      style: textTheme?.small?.copyWith(
         color: AppColors.secondary2,
       ),
       overflow: TextOverflow.ellipsis,

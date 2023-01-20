@@ -37,7 +37,7 @@ class SightDetailsHeader extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 36,
+              top: 36 + MediaQuery.of(context).padding.top,
               left: 16,
               child: SizedBox(
                 height: 32,

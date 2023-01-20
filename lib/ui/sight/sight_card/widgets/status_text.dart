@@ -10,9 +10,12 @@ class SightStatusText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+
     return Text(
       status.toString(),
-      style: AppSmallStyle(
+      style: textTheme?.small?.copyWith(
         color: color,
       ),
       overflow: TextOverflow.ellipsis,
