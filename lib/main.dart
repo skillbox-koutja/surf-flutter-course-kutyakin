@@ -1,90 +1,145 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:places/assets/theme/colors.dart';
+import 'package:places/assets/theme/theme.dart';
+import 'package:places/mocks.dart';
+import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/sight/favorite_sights/favorite_sights_page.dart';
+import 'package:places/ui/sight/sight_details/sight_details_page.dart';
+import 'package:places/ui/sight/sight_list/sight_list_page.dart';
 
 void main() {
   runApp(const App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final PageController pageController = PageController();
+  int selectedIndex = 0;
+  bool isDark = false;
+
+  @override
   Widget build(BuildContext context) {
-    // final widget = MyFirstStatelessWidget();
-    const widget = MyFirstStatefulWidget();
-
-    if (kDebugMode) {
-      print('[App] context.runtimeType: ${widget.getRuntimeType}');
-    }
-
     return MaterialApp(
-      title: 'App',
-      home: widget,
+      title: 'Places',
+      theme: isDark ? darkTheme : lightTheme,
+      home: Scaffold(
+        body: PageView(
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          children: [
+            const SightListPage(),
+            SightDetailsPage(sight: sights.last),
+            const FavoriteSightsPage(),
+          ],
+        ),
+        bottomNavigationBar: _BottomNavigationBar(
+          currentIndex: selectedIndex,
+          onTap: onTap,
+          onChangeThemeTap: () {
+            setState(() {
+              isDark = !isDark;
+            });
+          },
+        ),
+      ),
     );
   }
-}
 
-class BuildCounter {
-  int _value = 0;
-
-  void increment() {
-    _value += 1;
+  void onPageChanged(int page) {
+    setState(() {
+      selectedIndex = page;
+    });
   }
 
-  void log(String widgetName) {
-    if (kDebugMode) {
-      print('Счетчик[$widgetName]: $_value');
-    }
+  void onTap(int page) {
+    pageController.jumpToPage(page);
   }
 }
 
-class MyFirstStatelessWidget extends StatelessWidget {
-  final buildCounter = BuildCounter();
+class _BottomNavigationBar extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+  final void Function() onChangeThemeTap;
 
-  Type get getRuntimeType => runtimeType;
-
-  MyFirstStatelessWidget({Key? key}) : super(key: key);
+  const _BottomNavigationBar({
+    required this.currentIndex,
+    required this.onTap,
+    required this.onChangeThemeTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    buildCounter
-      ..increment()
-      ..log('MyFirstStatelessWidget');
+    final theme = Theme.of(context);
+    final bottomNavigationBarTheme = theme.bottomNavigationBarTheme;
 
-    if (kDebugMode) {
-      print('context.runtimeType: ${context.runtimeType}');
-    }
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: bottomNavigationBarTheme.backgroundColor,
+        border: Border(
+          top: BorderSide(
+            color: theme.dividerColor,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 34).copyWith(top: 1),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          elevation: 0,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: ListSvgIcon(
+                color: bottomNavigationBarTheme.unselectedItemColor,
+              ),
+              activeIcon: FullListSvgIcon(
+                color: bottomNavigationBarTheme.selectedItemColor,
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: MapSvgIcon(
+                color: bottomNavigationBarTheme.unselectedItemColor,
+              ),
+              activeIcon: MapSvgIcon(
+                color: bottomNavigationBarTheme.selectedItemColor,
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: HeartSvgIcon(
+                color: bottomNavigationBarTheme.unselectedItemColor,
+              ),
+              activeIcon: FullHeartSvgIcon(
+                color: bottomNavigationBarTheme.selectedItemColor,
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SettingsSvgIcon(
+                color: bottomNavigationBarTheme.unselectedItemColor,
+              ),
+              label: '',
+            ),
+          ],
+          currentIndex: currentIndex,
+          onTap: (index) {
+            if (index > 2) {
+              return onChangeThemeTap();
+            }
 
-    return const Center(
-      child: Text('Hello!'),
-    );
-  }
-}
-
-class MyFirstStatefulWidget extends StatefulWidget {
-  Type get getRuntimeType => runtimeType;
-
-  const MyFirstStatefulWidget({Key? key}) : super(key: key);
-
-  @override
-  State<MyFirstStatefulWidget> createState() => _MyFirstStatefulWidgetState();
-}
-
-class _MyFirstStatefulWidgetState extends State<MyFirstStatefulWidget> {
-  final buildCounter = BuildCounter();
-
-  @override
-  Widget build(BuildContext context) {
-    buildCounter
-      ..increment()
-      ..log('MyFirstStatefulWidget');
-
-    if (kDebugMode) {
-      print('context.runtimeType: ${context.runtimeType}');
-    }
-
-    return const Center(
-      child: Text('Hello!'),
+            onTap(index);
+          },
+        ),
+      ),
     );
   }
 }
