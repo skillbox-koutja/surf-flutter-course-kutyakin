@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/theme.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sights_screen.dart';
 import 'package:places/ui/sight/sight_details/sight_details_page.dart';
 import 'package:places/ui/sight/sight_list/sight_list_screen.dart';
@@ -99,7 +99,7 @@ class _BottomNavigationBar extends StatelessWidget {
               icon: ListSvgIcon(
                 color: bottomNavigationBarTheme.unselectedItemColor,
               ),
-              activeIcon: FullListSvgIcon(
+              activeIcon: ListSvgIcon.filled(
                 color: bottomNavigationBarTheme.selectedItemColor,
               ),
               label: '',
@@ -117,7 +117,7 @@ class _BottomNavigationBar extends StatelessWidget {
               icon: HeartSvgIcon(
                 color: bottomNavigationBarTheme.unselectedItemColor,
               ),
-              activeIcon: FullHeartSvgIcon(
+              activeIcon: HeartSvgIcon.filled(
                 color: bottomNavigationBarTheme.selectedItemColor,
               ),
               label: '',

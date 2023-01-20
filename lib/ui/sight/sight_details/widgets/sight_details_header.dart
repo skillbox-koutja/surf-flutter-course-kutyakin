@@ -47,7 +47,7 @@ class SightDetailsHeader extends StatelessWidget {
                     color: AppColors.white,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: const ArrowSvgIcon(
+                  child: const ChevronLeftSvgIcon(
                     color: AppColors.whiteMain,
                   ),
                 ),

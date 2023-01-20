@@ -1,26 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/ui/icons/svg_icon.dart';
 
-abstract class SvgIcon extends StatelessWidget {
-  final String path;
-  final Color? color;
-
-  const SvgIcon({required this.path, this.color, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      path,
-      color: color,
-    );
-  }
-}
-
-class ArrowSvgIcon extends SvgIcon {
-  const ArrowSvgIcon({
+class BucketSvgIcon extends SvgIcon {
+  const BucketSvgIcon({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/arrow.svg');
+  }) : super(path: 'assets/icons/bucket.svg');
 }
 
 class CalendarSvgIcon extends SvgIcon {
@@ -28,13 +12,81 @@ class CalendarSvgIcon extends SvgIcon {
     super.key,
     super.color,
   }) : super(path: 'assets/icons/calendar.svg');
-}
 
-class CrossSvgIcon extends SvgIcon {
-  const CrossSvgIcon({
+  const CalendarSvgIcon.filled({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/cross.svg');
+  }) : super(path: 'assets/icons/calendar_filled.svg');
+}
+
+class CameraSvgIcon extends SvgIcon {
+  const CameraSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/camera.svg');
+}
+
+class CardSvgIcon extends SvgIcon {
+  const CardSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/card.svg');
+}
+
+class ChevronLeftSvgIcon extends SvgIcon {
+  const ChevronLeftSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/chevron_left.svg');
+}
+
+class ChevronRightSvgIcon extends SvgIcon {
+  const ChevronRightSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/chevron_right.svg');
+}
+
+class ClearSvgIcon extends SvgIcon {
+  const ClearSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/clear.svg');
+}
+
+class CloseSvgIcon extends SvgIcon {
+  const CloseSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/close.svg');
+}
+
+class DeleteSvgIcon extends SvgIcon {
+  const DeleteSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/delete.svg');
+}
+
+class FileSvgIcon extends SvgIcon {
+  const FileSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/file.svg');
+}
+
+class FilterSvgIcon extends SvgIcon {
+  const FilterSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/filter.svg');
+}
+
+class GeolocationSvgIcon extends SvgIcon {
+  const GeolocationSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/geolocation.svg');
 }
 
 class GoSvgIcon extends SvgIcon {
@@ -44,53 +96,39 @@ class GoSvgIcon extends SvgIcon {
   }) : super(path: 'assets/icons/go.svg');
 }
 
-class Go64SvgIcon extends SvgIcon {
-  const Go64SvgIcon({
+class InfoSvgIcon extends SvgIcon {
+  const InfoSvgIcon({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/go_64.svg');
+  }) : super(path: 'assets/icons/info.svg');
 }
 
-class HeartSvgIcon extends SvgIcon {
-  const HeartSvgIcon({
+class PhotoSvgIcon extends SvgIcon {
+  const PhotoSvgIcon({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/heart.svg');
+  }) : super(path: 'assets/icons/photo.svg');
 }
 
-class FullHeartSvgIcon extends SvgIcon {
-  const FullHeartSvgIcon({
+class PlusSvgIcon extends SvgIcon {
+  const PlusSvgIcon({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/heart_full.svg');
+  }) : super(path: 'assets/icons/plus.svg');
 }
 
-class ListSvgIcon extends SvgIcon {
-  const ListSvgIcon({
+class RefreshSvgIcon extends SvgIcon {
+  const RefreshSvgIcon({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/list.svg');
+  }) : super(path: 'assets/icons/refresh.svg');
 }
 
-class FullListSvgIcon extends SvgIcon {
-  const FullListSvgIcon({
+class SearchSvgIcon extends SvgIcon {
+  const SearchSvgIcon({
     super.key,
     super.color,
-  }) : super(path: 'assets/icons/list_full.svg');
-}
-
-class MapSvgIcon extends SvgIcon {
-  const MapSvgIcon({
-    super.key,
-    super.color,
-  }) : super(path: 'assets/icons/map.svg');
-}
-
-class SettingsSvgIcon extends SvgIcon {
-  const SettingsSvgIcon({
-    super.key,
-    super.color,
-  }) : super(path: 'assets/icons/settings.svg');
+  }) : super(path: 'assets/icons/search.svg');
 }
 
 class ShareSvgIcon extends SvgIcon {
@@ -100,16 +138,30 @@ class ShareSvgIcon extends SvgIcon {
   }) : super(path: 'assets/icons/share.svg');
 }
 
-class EmptySightListSvgIcon extends SvgIcon {
-  const EmptySightListSvgIcon({
-    super.key,
-    super.color,
-  }) : super(path: 'assets/icons/sight_list_empty.svg');
-}
-
 class TickSvgIcon extends SvgIcon {
   const TickSvgIcon({
     super.key,
     super.color,
   }) : super(path: 'assets/icons/tick.svg');
+}
+
+class WayArrowLeftSvgIcon extends SvgIcon {
+  const WayArrowLeftSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/way_arrow_left.svg');
+}
+
+class WayArrowRightSvgIcon extends SvgIcon {
+  const WayArrowRightSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/way_arrow_right.svg');
+}
+
+class WayArrowUpwardSvgIcon extends SvgIcon {
+  const WayArrowUpwardSvgIcon({
+    super.key,
+    super.color,
+  }) : super(path: 'assets/icons/way_arrow_upward.svg');
 }

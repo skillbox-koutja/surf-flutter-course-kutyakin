@@ -80,7 +80,7 @@ class PlannedFavoriteActions extends StatelessWidget {
         CalendarSvgIcon(
           color: AppColors.white,
         ),
-        CrossSvgIcon(
+        CloseSvgIcon(
           color: AppColors.white,
         ),
       ],
@@ -100,7 +100,7 @@ class DoneFavoriteActions extends StatelessWidget {
         ShareSvgIcon(
           color: AppColors.white,
         ),
-        CrossSvgIcon(
+        CloseSvgIcon(
           color: AppColors.white,
         ),
       ],

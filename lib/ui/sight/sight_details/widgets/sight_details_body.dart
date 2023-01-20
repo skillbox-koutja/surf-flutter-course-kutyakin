@@ -3,6 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 
 class SightDetailsBody extends StatelessWidget {
@@ -91,7 +92,7 @@ class SightDetailsBody extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FullHeartSvgIcon(
+                  HeartSvgIcon.filled(
                     color: theme.primaryColor,
                   ),
                   const SizedBox(width: 9),
