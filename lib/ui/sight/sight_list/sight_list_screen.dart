@@ -59,10 +59,15 @@ class _SightCard extends StatelessWidget {
       header: SightCardHeader(
         image: SightImage(sight: sight, fit: BoxFit.fitWidth),
         typeText: SightTypeText(sight: sight),
-        actions: const SightActions(
+        actions: SightActions(
           children: [
-            HeartSvgIcon(
-              color: AppColors.white,
+            GestureDetector(
+              onTap: () {
+                print('HeartSvgIcon: ${sight.name}'); // ignore: avoid_print
+              },
+              child: const HeartSvgIcon(
+                color: AppColors.white,
+              ),
             ),
           ],
         ),

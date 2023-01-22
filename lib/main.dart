@@ -32,8 +32,8 @@ class _AppState extends State<App> {
           controller: pageController,
           onPageChanged: onPageChanged,
           children: [
-            const SightListScreen(),
             SightDetailsPage(sight: sights.last),
+            const SightListScreen(),
             const FavoriteSightsScreen(),
           ],
         ),
@@ -96,19 +96,19 @@ class _BottomNavigationBar extends StatelessWidget {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-              icon: ListSvgIcon(
+              icon: MapSvgIcon(
                 color: bottomNavigationBarTheme.unselectedItemColor,
               ),
-              activeIcon: ListSvgIcon.filled(
+              activeIcon: MapSvgIcon(
                 color: bottomNavigationBarTheme.selectedItemColor,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: MapSvgIcon(
+              icon: ListSvgIcon(
                 color: bottomNavigationBarTheme.unselectedItemColor,
               ),
-              activeIcon: MapSvgIcon(
+              activeIcon: ListSvgIcon.filled(
                 color: bottomNavigationBarTheme.selectedItemColor,
               ),
               label: '',

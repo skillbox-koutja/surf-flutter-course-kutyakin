@@ -2,6 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 
+ButtonStyle buildElevatedButtonStyle({
+  required Color foregroundColor,
+  required Color backgroundColor,
+  required Color disabledBackgroundColor,
+  required Color disabledForegroundColor,
+}) {
+  return ElevatedButton.styleFrom(
+    elevation: 0,
+    padding: const EdgeInsets.all(12),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+    textStyle: const AppButtonStyle(),
+    foregroundColor: foregroundColor,
+    backgroundColor: backgroundColor,
+    disabledBackgroundColor: disabledBackgroundColor,
+    disabledForegroundColor: disabledForegroundColor,
+  );
+}
+
+ButtonStyle buildTextButtonStyle({
+  required Color foregroundColor,
+  required Color disabledForegroundColor,
+}) {
+  return TextButton.styleFrom(
+    textStyle: const AppSmallStyle(),
+    foregroundColor: foregroundColor,
+    disabledForegroundColor: disabledForegroundColor,
+  );
+}
+
 final lightTheme = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: AppColors.secondary,
@@ -30,9 +61,19 @@ final lightTheme = ThemeData(
     unselectedItemColor: AppColors.secondary,
   ),
   fontFamily: 'Roboto',
-  buttonTheme: const ButtonThemeData(
-    buttonColor: AppColors.whiteGreen,
-    disabledColor: AppColors.inactive,
+  textButtonTheme: TextButtonThemeData(
+    style: buildTextButtonStyle(
+      foregroundColor: AppColors.secondary,
+      disabledForegroundColor: AppColors.inactive,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: buildElevatedButtonStyle(
+      backgroundColor: AppColors.whiteGreen,
+      foregroundColor: AppColors.white,
+      disabledBackgroundColor: AppColors.background,
+      disabledForegroundColor: AppColors.inactive,
+    ),
   ),
 ).copyWith(
   extensions: [
@@ -63,9 +104,19 @@ final darkTheme = ThemeData(
     unselectedItemColor: AppColors.background,
   ),
   fontFamily: 'Roboto',
-  buttonTheme: const ButtonThemeData(
-    buttonColor: AppColors.blackGreen,
-    disabledColor: AppColors.inactive,
+  textButtonTheme: TextButtonThemeData(
+    style: buildTextButtonStyle(
+      foregroundColor: AppColors.white,
+      disabledForegroundColor: AppColors.inactive,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: buildElevatedButtonStyle(
+      backgroundColor: AppColors.blackGreen,
+      foregroundColor: AppColors.white,
+      disabledBackgroundColor: AppColors.dark,
+      disabledForegroundColor: AppColors.inactive,
+    ),
   ),
 ).copyWith(
   extensions: [

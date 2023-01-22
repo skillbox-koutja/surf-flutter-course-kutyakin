@@ -12,6 +12,9 @@ class SightDetailsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorsTheme = theme.extension<CustomColors>();
+
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: AppColors.placeholder,
@@ -39,16 +42,21 @@ class SightDetailsHeader extends StatelessWidget {
             Positioned(
               top: 36 + MediaQuery.of(context).padding.top,
               left: 16,
-              child: SizedBox(
-                height: 32,
-                width: 32,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const ChevronLeftSvgIcon(
-                    color: AppColors.whiteMain,
+              child: GestureDetector(
+                onTap: () {
+                  print('ChevronLeftSvgIcon: back'); // ignore: avoid_print
+                },
+                child: SizedBox(
+                  height: 32,
+                  width: 32,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: colorsTheme?.iconBackground,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: ChevronLeftSvgIcon(
+                      color: colorsTheme?.icon,
+                    ),
                   ),
                 ),
               ),

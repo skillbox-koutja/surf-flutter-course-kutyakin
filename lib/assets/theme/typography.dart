@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:places/assets/theme/colors.dart';
 
 class AppLargeTitleStyle extends TextStyle {
@@ -97,7 +96,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       color: AppColors.whiteMain,
     ),
     title: AppTitleStyle(
-      color: AppColors.whiteMain,
+      color: AppColors.secondary,
     ),
     subtitle: AppSubtitleStyle(
       color: AppColors.whiteMain,
@@ -106,10 +105,13 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       color: AppColors.whiteMain,
     ),
     smallBold: AppSmallBoldStyle(
-      color: AppColors.whiteMain,
+      color: AppColors.secondary,
     ),
     small: AppSmallStyle(
-      color: AppColors.whiteMain,
+      color: AppColors.secondary,
+    ),
+    smallSecondary: AppSmallStyle(
+      color: AppColors.secondary2,
     ),
     superSmall: AppSuperSmallStyle(
       color: AppColors.whiteMain,
@@ -133,10 +135,13 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       color: AppColors.white,
     ),
     smallBold: AppSmallBoldStyle(
-      color: AppColors.white,
+      color: AppColors.secondary2,
     ),
     small: AppSmallStyle(
       color: AppColors.white,
+    ),
+    smallSecondary: AppSmallStyle(
+      color: AppColors.inactive,
     ),
     superSmall: AppSuperSmallStyle(
       color: AppColors.white,
@@ -152,6 +157,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
   final TextStyle? text;
   final TextStyle? smallBold;
   final TextStyle? small;
+  final TextStyle? smallSecondary;
   final TextStyle? superSmall;
   final TextStyle? button;
 
@@ -162,6 +168,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     this.text,
     this.smallBold,
     this.small,
+    this.smallSecondary,
     this.superSmall,
     this.button,
   });
@@ -174,6 +181,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     TextStyle? text,
     TextStyle? smallBold,
     TextStyle? small,
+    TextStyle? smallSecondary,
     TextStyle? superSmall,
     TextStyle? button,
   }) {
@@ -184,6 +192,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       text: text ?? this.text,
       smallBold: smallBold ?? this.smallBold,
       small: small ?? this.small,
+      smallSecondary: smallSecondary ?? this.smallSecondary,
       superSmall: superSmall ?? this.superSmall,
       button: button ?? this.button,
     );
@@ -202,6 +211,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       text: TextStyle.lerp(text, other.text, t),
       smallBold: TextStyle.lerp(smallBold, other.smallBold, t),
       small: TextStyle.lerp(small, other.small, t),
+      smallSecondary: TextStyle.lerp(smallSecondary, other.smallSecondary, t),
       superSmall: TextStyle.lerp(superSmall, other.superSmall, t),
       button: TextStyle.lerp(button, other.button, t),
     );
@@ -215,6 +225,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       'text: $text, '
       'smallBold: $smallBold, '
       'small: $small, '
+      'smallSecondary: $smallSecondary, '
       'superSmall: $superSmall, '
       'button: $button, '
       ')';

@@ -15,9 +15,7 @@ class SightDetailsText extends StatelessWidget {
 
     return Text(
       sight.details,
-      style: textTheme?.small?.copyWith(
-        color: AppColors.secondary2,
-      ),
+      style: textTheme?.small,
       overflow: TextOverflow.ellipsis,
     );
   }
