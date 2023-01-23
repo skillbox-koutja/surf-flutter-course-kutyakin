@@ -104,6 +104,9 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     text: AppTextStyle(
       color: AppColors.whiteMain,
     ),
+    textSecondary: AppTextStyle(
+      color: AppColors.secondary2,
+    ),
     smallBold: AppSmallBoldStyle(
       color: AppColors.secondary,
     ),
@@ -134,6 +137,9 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     text: AppTextStyle(
       color: AppColors.white,
     ),
+    textSecondary: AppTextStyle(
+      color: AppColors.secondary2,
+    ),
     smallBold: AppSmallBoldStyle(
       color: AppColors.secondary2,
     ),
@@ -155,6 +161,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
   final TextStyle? title;
   final TextStyle? subtitle;
   final TextStyle? text;
+  final TextStyle? textSecondary;
   final TextStyle? smallBold;
   final TextStyle? small;
   final TextStyle? smallSecondary;
@@ -166,6 +173,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     this.title,
     this.subtitle,
     this.text,
+    this.textSecondary,
     this.smallBold,
     this.small,
     this.smallSecondary,
@@ -179,6 +187,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     TextStyle? title,
     TextStyle? subtitle,
     TextStyle? text,
+    TextStyle? textSecondary,
     TextStyle? smallBold,
     TextStyle? small,
     TextStyle? smallSecondary,
@@ -190,6 +199,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       text: text ?? this.text,
+      textSecondary: textSecondary ?? this.textSecondary,
       smallBold: smallBold ?? this.smallBold,
       small: small ?? this.small,
       smallSecondary: smallSecondary ?? this.smallSecondary,
@@ -209,6 +219,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       title: TextStyle.lerp(title, other.title, t),
       subtitle: TextStyle.lerp(subtitle, other.subtitle, t),
       text: TextStyle.lerp(text, other.text, t),
+      textSecondary: TextStyle.lerp(textSecondary, other.textSecondary, t),
       smallBold: TextStyle.lerp(smallBold, other.smallBold, t),
       small: TextStyle.lerp(small, other.small, t),
       smallSecondary: TextStyle.lerp(smallSecondary, other.smallSecondary, t),
@@ -223,6 +234,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       'title: $title, '
       'subtitle: $subtitle, '
       'text: $text, '
+      'textSecondary: $textSecondary, '
       'smallBold: $smallBold, '
       'small: $small, '
       'smallSecondary: $smallSecondary, '

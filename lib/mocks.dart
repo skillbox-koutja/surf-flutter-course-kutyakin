@@ -1,4 +1,5 @@
 import 'package:places/domain/map/map_coordinates.dart';
+import 'package:places/domain/sight/category/value.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/domain/sight/sight_type.dart';
 
@@ -9,14 +10,14 @@ const List<Sight> sights = [
     imageUrl: 'https://www.guideoftheworld.com/wp-content/uploads/map/st_basil_red_square_moscow.jpg',
     details:
         'Кремль – средневековый укрепленный комплекс. В 1990 году Московский Кремль и Красная площадь вошли в список Всемирного наследия ЮНЕСКО',
-    type: SightType.square,
+    type: SightType.other,
   ),
   Sight(
     name: 'Храм Василия Блаженного',
     coordinates: MapCoordinates(lat: 55.75264986188569, long: 37.62378420325405),
     imageUrl: 'https://sevizm.mos.ru/presscenter/Храм%20Василия%20Блаженного%20с%20сайта%20liveinternet.ru.jpg',
     details: 'Храм Василия Блаженного – самая знаменитая достопримечательность на Красной площади',
-    type: SightType.temple,
+    type: SightType.other,
   ),
   Sight(
     name: 'Зарядье',
@@ -49,5 +50,29 @@ const List<Sight> sights = [
     details:
         'Пряный вкус радостной жизни вместе с\u{00A0}шеф-поваром Изо Дзандзава, благодаря которой у\u{00A0}гостей ресторана есть возможность выбирать из\u{00A0}двух направлений: европейского и\u{00A0}восточного',
     type: SightType.restaurant,
+  ),
+];
+
+final List<CategoryFilterValue> sightFilterCategories = [
+  CategoryFilterValue(
+    type: SightType.hotel,
+  ),
+  CategoryFilterValue(
+    type: SightType.restaurant,
+    selected: true,
+  ),
+  CategoryFilterValue(
+    type: SightType.park,
+  ),
+  CategoryFilterValue(
+    type: SightType.museum,
+  ),
+  CategoryFilterValue(
+    type: SightType.cafe,
+    selected: true,
+  ),
+  CategoryFilterValue(
+    type: SightType.other,
+    selected: true,
   ),
 ];

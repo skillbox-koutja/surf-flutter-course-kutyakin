@@ -48,7 +48,7 @@ class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
-              AppMessages.favoriteSights.pageTitle,
+              AppMessages.favoriteSights.screenTitle,
               style: textTheme?.subtitle,
             ),
           ),

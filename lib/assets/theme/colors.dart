@@ -98,6 +98,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       'green: $green, '
       'yellow: $yellow, '
       'red: $red, '
-      'iconBackground'
+      'icon: $icon, '
+      'iconBackground: $iconBackground, '
       ')';
 }

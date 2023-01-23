@@ -1,9 +1,10 @@
 enum SightType {
+  hotel('отель'),
   restaurant('ресторан'),
   park('парк'),
-  temple('храм'),
-  square('площадь'),
-  other('другое');
+  museum('музей'),
+  cafe('кафе'),
+  other('особое место');
 
   final String title;
   const SightType(this.title);

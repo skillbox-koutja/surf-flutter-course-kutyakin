@@ -33,6 +33,17 @@ ButtonStyle buildTextButtonStyle({
   );
 }
 
+SliderThemeData buildSliderTheme() {
+  return const SliderThemeData(
+    overlayShape: RoundSliderOverlayShape(
+      overlayRadius: 10.0,
+    ),
+    trackHeight: 2.0,
+    trackShape: RectangularSliderTrackShape(),
+    rangeTrackShape: RectangularRangeSliderTrackShape(),
+  );
+}
+
 final lightTheme = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: AppColors.secondary,
@@ -74,6 +85,12 @@ final lightTheme = ThemeData(
       disabledBackgroundColor: AppColors.background,
       disabledForegroundColor: AppColors.inactive,
     ),
+  ),
+  sliderTheme: buildSliderTheme().copyWith(
+    activeTrackColor: AppColors.whiteGreen,
+    inactiveTrackColor: AppColors.inactive,
+    thumbColor: AppColors.white,
+    overlayColor: AppColors.background,
   ),
 ).copyWith(
   extensions: [
@@ -117,6 +134,12 @@ final darkTheme = ThemeData(
       disabledBackgroundColor: AppColors.dark,
       disabledForegroundColor: AppColors.inactive,
     ),
+  ),
+  sliderTheme: buildSliderTheme().copyWith(
+    activeTrackColor: AppColors.blackGreen,
+    inactiveTrackColor: AppColors.inactive,
+    thumbColor: AppColors.white,
+    overlayColor: AppColors.background,
   ),
 ).copyWith(
   extensions: [

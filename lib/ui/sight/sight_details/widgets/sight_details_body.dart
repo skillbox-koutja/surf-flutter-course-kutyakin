@@ -15,7 +15,6 @@ class SightDetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final colorsTheme = theme.extension<CustomColors>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
