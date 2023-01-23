@@ -17,12 +17,18 @@ class CategoryFilterItem extends StatelessWidget {
     final theme = Theme.of(context);
     final colorsTheme = theme.extension<CustomColors>();
 
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: CircleAvatar(
-        backgroundColor: colorsTheme?.green?.withOpacity(0.16),
-        radius: 32,
-        child: _Icon(type: type),
+    return Material(
+      shape: const CircleBorder(),
+      clipBehavior: Clip.hardEdge,
+      child: InkWell(
+        onTap: () {
+          print('_CategoryFilterItem.onTap: ${type.title}'); // ignore: avoid_print
+        },
+        child: CircleAvatar(
+          backgroundColor: colorsTheme?.green?.withOpacity(0.16),
+          radius: 32,
+          child: _Icon(type: type),
+        ),
       ),
     );
   }

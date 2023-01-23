@@ -18,19 +18,16 @@ class SightImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       child: ImageOverlay(
-        image: Image.network(
-          sight.imageUrl,
-          fit: fit,
-          colorBlendMode: BlendMode.multiply,
-          loadingBuilder: (context, child, loadingProgress) {
-            return loadingProgress == null
-                ? child
-                : Center(
-                    child: CircularProgressIndicator(
-                      value: LoadingProgressValue.fromImageChunkEvent(loadingProgress).value,
-                    ),
-                  );
-          },
+        image: Ink(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            image: DecorationImage(
+              fit: fit,
+              image: NetworkImage(
+                sight.imageUrl,
+              ), // Background image
+            ),
+          ),
         ),
       ),
     );

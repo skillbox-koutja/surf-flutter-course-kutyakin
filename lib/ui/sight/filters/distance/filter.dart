@@ -18,7 +18,6 @@ class _DistanceFilterState extends State<DistanceFilter> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final colorsTheme = theme.extension<CustomColors>();
 
     return Column(
       children: [

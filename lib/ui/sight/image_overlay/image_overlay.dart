@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 
 class ImageOverlay extends StatelessWidget {
-  final Image image;
+  final Widget image;
 
   const ImageOverlay({required this.image, Key? key}) : super(key: key);
 

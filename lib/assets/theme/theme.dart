@@ -52,6 +52,7 @@ final lightTheme = ThemeData(
   cardColor: AppColors.background,
   dividerColor: AppColors.inactive,
   disabledColor: AppColors.inactive,
+  splashColor: AppColors.splash,
   tabBarTheme: const TabBarTheme(
     indicator: BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(40)),
