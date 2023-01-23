@@ -57,17 +57,19 @@ Future<void> save(List<String> lines, File outputFile) async {
 typedef IconConstructorBuilder = String Function(IconFile file);
 
 String iconConstructorBuild(IconFile file) => '''
+static const iconPath = '${file.dirname}/${file.filename}.svg';
 const ${file.className}({
   super.key,
   super.color,
-}) : super(path: '${file.dirname}/${file.filename}.svg');
+}) : super(path: iconPath);
 ''';
 
 String filledIconConstructorBuild(IconFile file) => '''
+static const filledIconPath = '${file.dirname}/${file.filename}_filled.svg';
 const ${file.className}.filled({
   super.key,
   super.color,
-}) : super(path: '${file.dirname}/${file.filename}_filled.svg');
+}) : super(path: filledIconPath);
 ''';
 
 class IconFile {
