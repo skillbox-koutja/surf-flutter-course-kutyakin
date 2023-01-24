@@ -10,7 +10,9 @@ import 'package:places/ui/sight/filters/category/filter.dart';
 import 'package:places/ui/sight/filters/distance/filter.dart';
 
 class SightFiltersScreen extends StatefulWidget {
-  const SightFiltersScreen({Key? key}) : super(key: key);
+  final void Function() onClose;
+
+  const SightFiltersScreen({required this.onClose, Key? key}) : super(key: key);
 
   @override
   State<SightFiltersScreen> createState() => _SightFiltersScreenState();
@@ -44,6 +46,7 @@ class _SightFiltersScreenState extends State<SightFiltersScreen> {
             SizedBox(height: 56 + MediaQuery.of(context).padding.top),
             _Header(
               clearFilters: clearFilters,
+              onClose: widget.onClose,
             ),
             SizedBox(
               width: double.infinity,
@@ -143,9 +146,11 @@ class _SightFiltersScreenState extends State<SightFiltersScreen> {
 }
 
 class _Header extends StatelessWidget {
+  final void Function() onClose;
   final void Function() clearFilters;
 
   const _Header({
+    required this.onClose,
     required this.clearFilters,
     Key? key,
   }) : super(key: key);
@@ -161,8 +166,11 @@ class _Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ChevronLeftSvgIcon(
-            color: colorsTheme?.icon,
+          GestureDetector(
+            onTap: onClose,
+            child: ChevronLeftSvgIcon(
+              color: colorsTheme?.icon,
+            ),
           ),
           GestureDetector(
             onTap: clearFilters,

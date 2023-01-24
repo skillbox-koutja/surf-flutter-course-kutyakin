@@ -124,7 +124,11 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
               context: context,
               isScrollControlled: true,
               builder: (context) {
-                return const SightFiltersScreen();
+                return SightFiltersScreen(
+                  onClose: () {
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             );
           },
