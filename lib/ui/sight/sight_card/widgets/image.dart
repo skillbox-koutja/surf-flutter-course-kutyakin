@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
-import 'package:places/ui/images/loading_progress_value.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightImage extends StatelessWidget {
