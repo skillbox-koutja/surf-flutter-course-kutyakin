@@ -1,4 +1,5 @@
 import 'package:places/domain/map/map_coordinates.dart';
+import 'package:places/domain/map/map_distance.dart';
 import 'package:places/domain/sight/sight_type.dart';
 
 class Sight {
@@ -15,4 +16,11 @@ class Sight {
     required this.details,
     required this.type,
   });
+
+  MapDistance getDistance(MapCoordinates centerPoint) {
+    return MapDistance(
+      centerPoint: centerPoint,
+      checkPoint: coordinates,
+    );
+  }
 }

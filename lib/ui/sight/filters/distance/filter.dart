@@ -3,16 +3,17 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 
-class DistanceFilter extends StatefulWidget {
-  const DistanceFilter({Key? key}) : super(key: key);
+class DistanceFilter extends StatelessWidget {
+  static const min = 100.0;
+  static const max = 10000.0;
+  final double distance;
+  final ValueChanged<double>? onChanged;
 
-  @override
-  State<DistanceFilter> createState() => _DistanceFilterState();
-}
-
-class _DistanceFilterState extends State<DistanceFilter> {
-  double _startValue = 100.0;
-  double _endValue = 10000.0;
+  const DistanceFilter({
+    required this.distance,
+    required this.onChanged,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +31,24 @@ class _DistanceFilterState extends State<DistanceFilter> {
             ),
             Text(
               AppMessages.sightFilters.distanceRangeSliderTitle(
-                start: _startValue,
-                end: _endValue,
+                start: min,
+                end: max,
               ),
               style: textTheme?.textSecondary,
             ),
           ],
         ),
         const SizedBox(height: 24),
-        RangeSlider(
+        Slider(
           min: 100.0,
           max: 10000.0,
-          values: RangeValues(_startValue, _endValue),
-          onChanged: (values) {
-            setState(() {
-              _startValue = values.start;
-              _endValue = values.end;
-            });
-          },
+          value: distance,
+          onChanged: onChanged,
+        ),
+        const SizedBox(height: 24),
+        Text(
+          AppMessages.sightFilters.distanceSliderTitle(distance),
+          style: textTheme?.text,
         ),
       ],
     );

@@ -3,6 +3,8 @@ import 'package:places/domain/sight/category/value.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/domain/sight/sight_type.dart';
 
+const centerPoint = MapCoordinates(lat: 55.75435144407907, long: 37.620671454713715);
+
 const List<Sight> sights = [
   Sight(
     name: 'Московский Кремль и Красная площадь',
@@ -53,26 +55,23 @@ const List<Sight> sights = [
   ),
 ];
 
-final List<CategoryFilterValue> sightFilterCategories = [
-  CategoryFilterValue(
-    type: SightType.hotel,
-  ),
-  CategoryFilterValue(
-    type: SightType.restaurant,
-    selected: true,
-  ),
-  CategoryFilterValue(
-    type: SightType.park,
-  ),
-  CategoryFilterValue(
-    type: SightType.museum,
-  ),
-  CategoryFilterValue(
-    type: SightType.cafe,
-    selected: true,
-  ),
-  CategoryFilterValue(
-    type: SightType.other,
-    selected: true,
-  ),
-];
+List<CategoryFilterValue> getCategoryFilterValues() => [
+      CategoryFilterValue(
+        type: SightType.hotel,
+      ),
+      CategoryFilterValue(
+        type: SightType.restaurant,
+      ),
+      CategoryFilterValue(
+        type: SightType.park,
+      ),
+      CategoryFilterValue(
+        type: SightType.museum,
+      ),
+      CategoryFilterValue(
+        type: SightType.cafe,
+      ),
+      CategoryFilterValue(
+        type: SightType.other,
+      ),
+    ];

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
+import 'package:places/domain/sight/category/value.dart';
 import 'package:places/domain/sight/sight_type.dart';
 import 'package:places/ui/icons/category/svg_icons.dart';
 import 'package:places/ui/icons/svg_icon.dart';
 
 class CategoryFilterItem extends StatelessWidget {
-  final SightType type;
+  final CategoryFilterValue category;
+  final void Function()? onChanged;
 
   const CategoryFilterItem({
-    required this.type,
+    required this.category,
+    required this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -21,13 +24,11 @@ class CategoryFilterItem extends StatelessWidget {
       shape: const CircleBorder(),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () {
-          print('_CategoryFilterItem.onTap: ${type.title}'); // ignore: avoid_print
-        },
+        onTap: onChanged,
         child: CircleAvatar(
           backgroundColor: colorsTheme?.green?.withOpacity(0.16),
           radius: 32,
-          child: _Icon(type: type),
+          child: _Icon(type: category.type),
         ),
       ),
     );

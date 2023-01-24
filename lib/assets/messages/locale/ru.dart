@@ -100,6 +100,14 @@ class _SightFilters {
 
     return 'от ${_KilometersFormatter(start)} до ${_KilometersFormatter(end)} км';
   }
+
+  String distanceSliderTitle(double distance) {
+    if (distance < 1000) {
+      return '${_MetersFormatter(distance)} м';
+    }
+
+    return '${_KilometersFormatter(distance)} км';
+  }
 }
 
 class _MetersFormatter {
