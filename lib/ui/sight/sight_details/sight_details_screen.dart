@@ -3,16 +3,16 @@ import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_body.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_header.dart';
 
-class SightDetailsPage extends StatefulWidget {
+class SightDetailsScreen extends StatefulWidget {
   final Sight sight;
 
-  const SightDetailsPage({required this.sight, Key? key}) : super(key: key);
+  const SightDetailsScreen({required this.sight, Key? key}) : super(key: key);
 
   @override
-  State<SightDetailsPage> createState() => _SightDetailsPageState();
+  State<SightDetailsScreen> createState() => _SightDetailsScreenState();
 }
 
-class _SightDetailsPageState extends State<SightDetailsPage> {
+class _SightDetailsScreenState extends State<SightDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
