@@ -5,8 +5,8 @@ import 'package:places/assets/theme/typography.dart';
 class DistanceFilter extends StatelessWidget {
   static const min = 100.0;
   static const max = 10000.0;
-  final double distance;
-  final ValueChanged<double>? onChanged;
+  final RangeValues distance;
+  final ValueChanged<RangeValues>? onChanged;
 
   const DistanceFilter({
     required this.distance,
@@ -30,24 +30,19 @@ class DistanceFilter extends StatelessWidget {
             ),
             Text(
               AppMessages.sightFilters.distanceRangeSliderTitle(
-                start: min,
-                end: max,
+                start: distance.start,
+                end: distance.end,
               ),
               style: textTheme?.textSecondary,
             ),
           ],
         ),
         const SizedBox(height: 24),
-        Slider(
-          min: 100.0,
-          max: 10000.0,
-          value: distance,
+        RangeSlider(
+          min: min,
+          max: max,
+          values: distance,
           onChanged: onChanged,
-        ),
-        const SizedBox(height: 24),
-        Text(
-          AppMessages.sightFilters.distanceSliderTitle(distance),
-          style: textTheme?.text,
         ),
       ],
     );

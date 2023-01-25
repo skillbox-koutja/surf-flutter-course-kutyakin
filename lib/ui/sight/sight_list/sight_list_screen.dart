@@ -87,7 +87,7 @@ class _SightCard extends StatelessWidget {
 
 class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => const Size.fromHeight(72 + 64 + 16);
+  Size get preferredSize => const Size.fromHeight(72 + 64 + 16 + 38);
 
   @override
   Widget build(BuildContext context) {

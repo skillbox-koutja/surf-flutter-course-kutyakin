@@ -18,10 +18,10 @@ class SightFiltersScreen extends StatefulWidget {
   State<SightFiltersScreen> createState() => _SightFiltersScreenState();
 }
 
-const double _initDistance = 100;
+const RangeValues _initDistance = RangeValues(DistanceFilter.min, DistanceFilter.max);
 
 class _SightFiltersScreenState extends State<SightFiltersScreen> {
-  double _distance = _initDistance;
+  RangeValues _distance = _initDistance;
   late List<CategoryFilterValue> _sightFilterCategories = getCategoryFilterValues();
   late int _sightsCount;
 
@@ -93,7 +93,7 @@ class _SightFiltersScreenState extends State<SightFiltersScreen> {
     });
   }
 
-  void onDistanceChanged(double value) {
+  void onDistanceChanged(RangeValues value) {
     final sightsCount = calcSightsCount(
       sightFilterCategories: _sightFilterCategories,
       distance: value,
@@ -121,12 +121,16 @@ class _SightFiltersScreenState extends State<SightFiltersScreen> {
 
   int calcSightsCount({
     required List<CategoryFilterValue> sightFilterCategories,
-    required double distance,
+    required RangeValues distance,
   }) {
     final types = sightFilterCategories.where((element) => element.selected).map((element) => element.type).toList();
 
     final filters = <bool Function(Sight sight)>[
-      (sight) => sight.getDistance(centerPoint).toMeters <= distance,
+      (sight) {
+        final value = sight.getDistance(centerPoint).toMeters;
+
+        return distance.start <= value && value <= distance.end;
+      },
     ];
 
     if (types.isNotEmpty) {
