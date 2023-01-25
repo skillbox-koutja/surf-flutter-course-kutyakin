@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/mocks.dart';
@@ -48,7 +47,7 @@ class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
-              AppMessages.favoriteSights.pageTitle,
+              AppMessages.favoriteSights.screenTitle,
               style: textTheme?.subtitle,
             ),
           ),

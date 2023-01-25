@@ -15,7 +15,6 @@ class SightDetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final colorsTheme = theme.extension<CustomColors>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,9 +26,7 @@ class SightDetailsBody extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           sight.type.title,
-          style: textTheme?.smallBold?.copyWith(
-            color: AppColors.secondary2,
-          ),
+          style: textTheme?.smallBold,
         ),
         const SizedBox(height: 24),
         Text(
@@ -38,69 +35,52 @@ class SightDetailsBody extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: colorsTheme?.green,
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const GoSvgIcon(
-                    color: AppColors.white,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    AppMessages.sightDetails.makeRouteButtonTitle,
-                    style: textTheme?.button?.copyWith(
-                      color: AppColors.white,
-                    ),
-                  ),
-                ],
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              icon: const GoSvgIcon(
+                color: AppColors.white,
+              ),
+              onPressed: () {
+                print('AppMessages.sightDetails.makeRouteButtonTitle'); // ignore: avoid_print
+              },
+              label: Text(
+                AppMessages.sightDetails.makeRouteButtonTitle,
               ),
             ),
           ),
         ),
         const Padding(
           padding: EdgeInsets.only(bottom: 8),
-          child: Divider(),
+          child: Divider(
+            height: 2,
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CalendarSvgIcon(
-                    color: AppColors.inactive,
-                  ),
-                  const SizedBox(width: 9),
-                  Text(
-                    AppMessages.sightDetails.planButtonTitle,
-                    style: textTheme?.small?.copyWith(
-                      color: AppColors.inactive,
-                    ),
-                  ),
-                ],
+              child: TextButton.icon(
+                onPressed: null,
+                icon: const CalendarSvgIcon(
+                  color: AppColors.inactive,
+                ),
+                label: Text(
+                  AppMessages.sightDetails.planButtonTitle,
+                ),
               ),
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  HeartSvgIcon.filled(
-                    color: theme.primaryColor,
-                  ),
-                  const SizedBox(width: 9),
-                  Text(
-                    AppMessages.sightDetails.favoriteButtonTitle,
-                    style: textTheme?.small,
-                  ),
-                ],
+              child: TextButton.icon(
+                onPressed: () {
+                  print('AppMessages.sightDetails.favoriteButtonTitle'); // ignore: avoid_print
+                },
+                icon: HeartSvgIcon.filled(
+                  color: theme.primaryColor,
+                ),
+                label: Text(
+                  AppMessages.sightDetails.favoriteButtonTitle,
+                ),
               ),
             ),
           ],

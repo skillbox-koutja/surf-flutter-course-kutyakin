@@ -72,13 +72,23 @@ class PlannedFavoriteActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SightActions(
+    return SightActions(
       children: [
-        CalendarSvgIcon(
-          color: AppColors.white,
+        GestureDetector(
+          onTap: () {
+            print('CalendarSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
+          },
+          child: const CalendarSvgIcon(
+            color: AppColors.white,
+          ),
         ),
-        CloseSvgIcon(
-          color: AppColors.white,
+        GestureDetector(
+          onTap: () {
+            print('CloseSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
+          },
+          child: const CloseSvgIcon(
+            color: AppColors.white,
+          ),
         ),
       ],
     );
@@ -92,13 +102,23 @@ class DoneFavoriteActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SightActions(
+    return SightActions(
       children: [
-        ShareSvgIcon(
-          color: AppColors.white,
+        GestureDetector(
+          onTap: () {
+            print('ShareSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
+          },
+          child: const ShareSvgIcon(
+            color: AppColors.white,
+          ),
         ),
-        CloseSvgIcon(
-          color: AppColors.white,
+        GestureDetector(
+          onTap: () {
+            print('CloseSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
+          },
+          child: const CloseSvgIcon(
+            color: AppColors.white,
+          ),
         ),
       ],
     );

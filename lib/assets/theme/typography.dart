@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:places/assets/theme/colors.dart';
 
 class AppLargeTitleStyle extends TextStyle {
@@ -97,7 +96,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       color: AppColors.whiteMain,
     ),
     title: AppTitleStyle(
-      color: AppColors.whiteMain,
+      color: AppColors.secondary,
     ),
     subtitle: AppSubtitleStyle(
       color: AppColors.whiteMain,
@@ -105,11 +104,17 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     text: AppTextStyle(
       color: AppColors.whiteMain,
     ),
+    textSecondary: AppTextStyle(
+      color: AppColors.secondary2,
+    ),
     smallBold: AppSmallBoldStyle(
-      color: AppColors.whiteMain,
+      color: AppColors.secondary,
     ),
     small: AppSmallStyle(
-      color: AppColors.whiteMain,
+      color: AppColors.secondary,
+    ),
+    smallSecondary: AppSmallStyle(
+      color: AppColors.secondary2,
     ),
     superSmall: AppSuperSmallStyle(
       color: AppColors.whiteMain,
@@ -132,11 +137,17 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     text: AppTextStyle(
       color: AppColors.white,
     ),
+    textSecondary: AppTextStyle(
+      color: AppColors.secondary2,
+    ),
     smallBold: AppSmallBoldStyle(
-      color: AppColors.white,
+      color: AppColors.secondary2,
     ),
     small: AppSmallStyle(
       color: AppColors.white,
+    ),
+    smallSecondary: AppSmallStyle(
+      color: AppColors.inactive,
     ),
     superSmall: AppSuperSmallStyle(
       color: AppColors.white,
@@ -150,8 +161,10 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
   final TextStyle? title;
   final TextStyle? subtitle;
   final TextStyle? text;
+  final TextStyle? textSecondary;
   final TextStyle? smallBold;
   final TextStyle? small;
+  final TextStyle? smallSecondary;
   final TextStyle? superSmall;
   final TextStyle? button;
 
@@ -160,8 +173,10 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     this.title,
     this.subtitle,
     this.text,
+    this.textSecondary,
     this.smallBold,
     this.small,
+    this.smallSecondary,
     this.superSmall,
     this.button,
   });
@@ -172,8 +187,10 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     TextStyle? title,
     TextStyle? subtitle,
     TextStyle? text,
+    TextStyle? textSecondary,
     TextStyle? smallBold,
     TextStyle? small,
+    TextStyle? smallSecondary,
     TextStyle? superSmall,
     TextStyle? button,
   }) {
@@ -182,8 +199,10 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       text: text ?? this.text,
+      textSecondary: textSecondary ?? this.textSecondary,
       smallBold: smallBold ?? this.smallBold,
       small: small ?? this.small,
+      smallSecondary: smallSecondary ?? this.smallSecondary,
       superSmall: superSmall ?? this.superSmall,
       button: button ?? this.button,
     );
@@ -200,8 +219,10 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       title: TextStyle.lerp(title, other.title, t),
       subtitle: TextStyle.lerp(subtitle, other.subtitle, t),
       text: TextStyle.lerp(text, other.text, t),
+      textSecondary: TextStyle.lerp(textSecondary, other.textSecondary, t),
       smallBold: TextStyle.lerp(smallBold, other.smallBold, t),
       small: TextStyle.lerp(small, other.small, t),
+      smallSecondary: TextStyle.lerp(smallSecondary, other.smallSecondary, t),
       superSmall: TextStyle.lerp(superSmall, other.superSmall, t),
       button: TextStyle.lerp(button, other.button, t),
     );
@@ -213,8 +234,10 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       'title: $title, '
       'subtitle: $subtitle, '
       'text: $text, '
+      'textSecondary: $textSecondary, '
       'smallBold: $smallBold, '
       'small: $small, '
+      'smallSecondary: $smallSecondary, '
       'superSmall: $superSmall, '
       'button: $button, '
       ')';

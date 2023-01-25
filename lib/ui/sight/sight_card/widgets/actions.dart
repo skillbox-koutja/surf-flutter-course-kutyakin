@@ -10,7 +10,7 @@ class SightActions extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 3, right: 2),
       child: Wrap(
-        spacing: 16, // set spacing here
+        spacing: 16,
         children: children,
       ),
     );

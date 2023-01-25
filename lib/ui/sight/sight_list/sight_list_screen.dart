@@ -5,6 +5,8 @@ import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
+import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/sight/filters/filters_screen.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
@@ -59,10 +61,15 @@ class _SightCard extends StatelessWidget {
       header: SightCardHeader(
         image: SightImage(sight: sight, fit: BoxFit.fitWidth),
         typeText: SightTypeText(sight: sight),
-        actions: const SightActions(
+        actions: SightActions(
           children: [
-            HeartSvgIcon(
-              color: AppColors.white,
+            GestureDetector(
+              onTap: () {
+                print('HeartSvgIcon: ${sight.name}'); // ignore: avoid_print
+              },
+              child: const HeartSvgIcon(
+                color: AppColors.white,
+              ),
             ),
           ],
         ),
@@ -80,31 +87,53 @@ class _SightCard extends StatelessWidget {
 
 class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => const Size.fromHeight(72 + 64 + 16);
+  Size get preferredSize => const Size.fromHeight(72 + 64 + 16 + 38);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
+    final colorsTheme = theme.extension<CustomColors>();
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: theme.scaffoldBackgroundColor,
-      ),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
-          child: SizedBox(
-            height: 72,
-            child: Text(
-              AppMessages.sightsList.pageTitle,
-              style: textTheme?.largeTitle,
-              maxLines: 2,
+    return Column(
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.scaffoldBackgroundColor,
+          ),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
+              child: SizedBox(
+                height: 72,
+                child: Text(
+                  AppMessages.sightsList.screenTitle,
+                  style: textTheme?.largeTitle,
+                  maxLines: 2,
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        TextButton.icon(
+          icon: FilterSvgIcon(color: colorsTheme?.green),
+          label: const SizedBox(),
+          onPressed: () {
+            showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) {
+                return SightFiltersScreen(
+                  onClose: () {
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+            );
+          },
+        ),
+      ],
     );
   }
 }

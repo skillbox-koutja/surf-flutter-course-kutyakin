@@ -3,6 +3,8 @@ class AppMessages {
   static const sightDetails = _SightDetailsMessages();
   static const sightStatus = _SightStatusMessages();
   static const favoriteSights = _FavoriteSightsMessages();
+  static const sightFilters = _SightFilters();
+  static const settings = _SettingsMessages();
 }
 
 const _shortMonths = {
@@ -32,13 +34,13 @@ class _AppDateFormat {
 }
 
 class _SightsListMessages {
-  String get pageTitle => 'Список\nинтересных мест';
+  String get screenTitle => 'Список\nинтересных мест';
 
   const _SightsListMessages();
 }
 
 class _FavoriteSightsMessages {
-  String get pageTitle => 'Избранное';
+  String get screenTitle => 'Избранное';
   String get wishListTabTitle => 'Хочу посетить';
   String get visitedTabTitle => 'Посетил';
   String get emptyListTitle => 'Пусто';
@@ -65,5 +67,67 @@ class _SightStatusMessages {
 
   String certainDone(DateTime date) {
     return 'Цель достигнута ${_AppDateFormat(date)}';
+  }
+}
+
+class _SettingsMessages {
+  String get screenTitle => 'Настройки';
+  String get darkModeSwitcherLabel => 'Темная тема';
+  String get watchTutorialLabel => 'Смотреть туториал';
+
+  const _SettingsMessages();
+}
+
+class _SightFilters {
+  String get categoriesTitle => 'КАТЕГОРИИ';
+  String get clearTitle => 'Очистить';
+  String get distanceTitle => 'Расстояние';
+
+  const _SightFilters();
+
+  String showSightsCountText(int value) {
+    return 'ПОКАЗАТЬ ($value)';
+  }
+
+  String distanceRangeSliderTitle({required double start, required double end}) {
+    if (start < 1000 && end < 1000) {
+      return 'от ${_MetersFormatter(start)} до ${end.toStringAsFixed(0)} м';
+    }
+
+    if (start < 1000 && end >= 1000) {
+      return 'от ${_MetersFormatter(start)} м до ${_KilometersFormatter(end)} км';
+    }
+
+    return 'от ${_KilometersFormatter(start)} до ${_KilometersFormatter(end)} км';
+  }
+
+  String distanceSliderTitle(double distance) {
+    if (distance < 1000) {
+      return '${_MetersFormatter(distance)} м';
+    }
+
+    return '${_KilometersFormatter(distance)} км';
+  }
+}
+
+class _MetersFormatter {
+  final double meters;
+
+  const _MetersFormatter(this.meters);
+
+  @override
+  String toString() {
+    return meters.toStringAsFixed(0);
+  }
+}
+
+class _KilometersFormatter {
+  final double meters;
+
+  const _KilometersFormatter(this.meters);
+
+  @override
+  String toString() {
+    return (meters / 1000).toStringAsFixed(1);
   }
 }

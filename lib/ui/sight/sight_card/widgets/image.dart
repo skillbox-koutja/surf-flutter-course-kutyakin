@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
-import 'package:places/ui/images/loading_progress_value.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightImage extends StatelessWidget {
@@ -18,19 +17,16 @@ class SightImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       child: ImageOverlay(
-        image: Image.network(
-          sight.imageUrl,
-          fit: fit,
-          colorBlendMode: BlendMode.multiply,
-          loadingBuilder: (context, child, loadingProgress) {
-            return loadingProgress == null
-                ? child
-                : Center(
-                    child: CircularProgressIndicator(
-                      value: LoadingProgressValue.fromImageChunkEvent(loadingProgress).value,
-                    ),
-                  );
-          },
+        image: Ink(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            image: DecorationImage(
+              fit: fit,
+              image: NetworkImage(
+                sight.imageUrl,
+              ), // Background image
+            ),
+          ),
         ),
       ),
     );

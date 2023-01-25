@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 
@@ -15,9 +14,7 @@ class SightDetailsText extends StatelessWidget {
 
     return Text(
       sight.details,
-      style: textTheme?.small?.copyWith(
-        color: AppColors.secondary2,
-      ),
+      style: textTheme?.small,
       overflow: TextOverflow.ellipsis,
     );
   }
