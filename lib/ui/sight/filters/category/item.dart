@@ -66,6 +66,9 @@ class _Icon extends StatelessWidget {
       case SightType.other:
         icon = OtherSvgIcon(color: color);
         break;
+      case SightType.none:
+        icon = OtherSvgIcon(color: color);
+        break;
     }
 
     return icon;

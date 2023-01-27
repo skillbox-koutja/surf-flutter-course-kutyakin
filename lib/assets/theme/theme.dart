@@ -44,6 +44,26 @@ SliderThemeData buildSliderTheme() {
   );
 }
 
+InputDecorationTheme buildInputDecorationTheme({
+  required Color color,
+  required Color errorColor,
+}) {
+  const border = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    borderSide: BorderSide(width: 0.8, color: AppColors.inactive),
+  );
+
+  return InputDecorationTheme(
+    enabledBorder: border,
+    focusedBorder: border.copyWith(borderSide: BorderSide(color: color)),
+    errorBorder: border.copyWith(borderSide: border.borderSide.copyWith(color: errorColor)),
+    focusedErrorBorder: border.copyWith(borderSide: BorderSide(color: errorColor)),
+    hintStyle: const AppTextStyle(color: AppColors.inactive).copyWith(
+      overflow: TextOverflow.ellipsis,
+    ),
+  );
+}
+
 final lightTheme = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: AppColors.secondary,
@@ -93,6 +113,16 @@ final lightTheme = ThemeData(
     thumbColor: AppColors.white,
     overlayColor: AppColors.background,
   ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    foregroundColor: AppColors.white,
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: AppColors.whiteMain,
+  ),
+  inputDecorationTheme: buildInputDecorationTheme(
+    color: AppColors.whiteGreen.withOpacity(0.4),
+    errorColor: AppColors.whiteRed.withOpacity(0.4),
+  ),
 ).copyWith(
   extensions: [
     CustomColors.light,
@@ -141,6 +171,16 @@ final darkTheme = ThemeData(
     inactiveTrackColor: AppColors.inactive,
     thumbColor: AppColors.white,
     overlayColor: AppColors.background,
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    foregroundColor: AppColors.white,
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: AppColors.white,
+  ),
+  inputDecorationTheme: buildInputDecorationTheme(
+    color: AppColors.blackGreen.withOpacity(0.4),
+    errorColor: AppColors.blackRed.withOpacity(0.4),
   ),
 ).copyWith(
   extensions: [

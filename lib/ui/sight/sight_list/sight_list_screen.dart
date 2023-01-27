@@ -4,8 +4,10 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/components/main_gradient_overlay.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/sight/editing_sight/add_sight_screen.dart';
 import 'package:places/ui/sight/filters/filters_screen.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
@@ -24,6 +26,13 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  late List<Sight> _sights;
+  @override
+  void initState() {
+    super.initState();
+    _sights = [...sights];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +43,7 @@ class _SightListScreenState extends State<SightListScreen> {
           child: SizedBox(
             width: double.infinity,
             child: Column(
-              children: sights
+              children: _sights
                   .map(
                     (sight) => Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
@@ -43,6 +52,72 @@ class _SightListScreenState extends State<SightListScreen> {
                   )
                   .toList(),
             ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 0,
+        extendedPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        focusElevation: 0,
+        hoverElevation: 0,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        enableFeedback: false,
+        highlightElevation: 0,
+        icon: const _FloatingButtonText(),
+        label: const SizedBox(),
+        onPressed: openAddSightScreen,
+      ),
+    );
+  }
+
+  void openAddSightScreen() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return AddSightScreen(
+          onSave: (sight) {
+            sights.add(sight);
+            setState(() {
+              _sights = [..._sights, sight];
+            });
+            Navigator.of(context).pop();
+          },
+          onClose: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
+}
+
+class _FloatingButtonText extends StatelessWidget {
+  const _FloatingButtonText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 9),
+      child: MainGradientOverlay(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 22),
+          child: Row(
+            children: [
+              PlusSvgIcon(
+                color: theme.floatingActionButtonTheme.foregroundColor,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                AppMessages.sightsList.newButtonLabel,
+              ),
+            ],
           ),
         ),
       ),

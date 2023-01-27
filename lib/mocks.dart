@@ -5,8 +5,8 @@ import 'package:places/domain/sight/sight_type.dart';
 
 const centerPoint = MapCoordinates(lat: 55.75435144407907, long: 37.620671454713715);
 
-const List<Sight> sights = [
-  Sight(
+final List<Sight> sights = [
+  const Sight(
     name: 'Московский Кремль и Красная площадь',
     coordinates: MapCoordinates(lat: 55.75435144407907, long: 37.620671454713715),
     imageUrl: 'https://www.guideoftheworld.com/wp-content/uploads/map/st_basil_red_square_moscow.jpg',
@@ -14,21 +14,21 @@ const List<Sight> sights = [
         'Кремль – средневековый укрепленный комплекс. В 1990 году Московский Кремль и Красная площадь вошли в список Всемирного наследия ЮНЕСКО',
     type: SightType.other,
   ),
-  Sight(
+  const Sight(
     name: 'Храм Василия Блаженного',
     coordinates: MapCoordinates(lat: 55.75264986188569, long: 37.62378420325405),
     imageUrl: 'https://sevizm.mos.ru/presscenter/Храм%20Василия%20Блаженного%20с%20сайта%20liveinternet.ru.jpg',
     details: 'Храм Василия Блаженного – самая знаменитая достопримечательность на Красной площади',
     type: SightType.other,
   ),
-  Sight(
+  const Sight(
     name: 'Зарядье',
     coordinates: MapCoordinates(lat: 55.75142615694952, long: 37.62910162500578),
     imageUrl: 'https://24warez.ru/uploads/posts/050318/221314/2.jpg',
     details: 'Зарядье – один из новых парков Москвы',
     type: SightType.park,
   ),
-  Sight(
+  const Sight(
     name: 'Парк Горького',
     coordinates: MapCoordinates(lat: 55.73187544630208, long: 37.603593522008374),
     imageUrl: 'https://www.mos.ru/upload/newsfeed/newsfeed/Katok_otkritie-0206_1.jpg',
@@ -36,7 +36,7 @@ const List<Sight> sights = [
         'Центральный парк столицы, чьи территории посещает более 40 000 человек в будние и 250 000 в выходные и праздничные дни. С 2011 года парк задает новые стандарты, став первым парком мирового уровня в России, пространством для отдыха, спорта, танцев и игр на свежем воздухе.',
     type: SightType.park,
   ),
-  Sight(
+  const Sight(
     name: 'Корчма',
     coordinates: MapCoordinates(lat: 55.741400987822885, long: 37.58595205328104),
     imageUrl:
@@ -44,7 +44,7 @@ const List<Sight> sights = [
     details: 'Уникальный стиль подачи. Традиционные рецепты. Незабываемый вкус',
     type: SightType.restaurant,
   ),
-  Sight(
+  const Sight(
     name: 'Пряности и радости',
     coordinates: MapCoordinates(lat: 55.74001855028845, long: 37.59595459157536),
     imageUrl:
