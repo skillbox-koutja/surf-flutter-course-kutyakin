@@ -7,7 +7,7 @@ import 'package:places/mocks.dart';
 import 'package:places/ui/components/main_gradient_overlay.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
-import 'package:places/ui/sight/editing_sight/add_sight_screen.dart';
+import 'package:places/ui/sight/edit_sight/add_sight_screen.dart';
 import 'package:places/ui/sight/filters/filters_screen.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';

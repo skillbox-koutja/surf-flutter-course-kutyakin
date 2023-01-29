@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/editable_sight.dart';
 import 'package:places/domain/sight/sight.dart';
-import 'package:places/ui/sight/editing_sight/widgets/add_sight_form.dart';
+import 'package:places/ui/sight/edit_sight/widgets/add_sight_form.dart';
 
 class AddSightScreen extends StatefulWidget {
   final void Function() onClose;
@@ -20,8 +19,6 @@ class AddSightScreen extends StatefulWidget {
 }
 
 class _AddSightScreenState extends State<AddSightScreen> {
-  EditableSight sight = EditableSight();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,20 +39,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
                       ),
                       const SizedBox(height: 24),
                       AddSightForm(
-                        sight: sight,
-                        onChanged: onSightChanged,
+                        onSave: widget.onSave,
                       ),
-                      const Spacer(),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: (isValidForm()) ? createSight : null,
-                          child: Text(
-                            AppMessages.editingSight.createButtonLabel,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).padding.bottom),
                     ],
                   ),
                 ),
@@ -65,31 +50,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
         },
       ),
     );
-  }
-
-  void onSightChanged(EditableSight value) {
-    setState(() {
-      sight = value;
-    });
-  }
-
-  void createSight() {
-    print(AppMessages.editingSight.createButtonLabel); // ignore: avoid_print
-
-    if (sight.isValid) {
-      widget.onSave(Sight.create(sight));
-    }
-  }
-
-  bool isValidForm() {
-    // final state = _formKey.currentState;
-    // final isValid = state != null && state.validate();
-    // print('form.isValid ? ${isValid ? 'true' : 'false'}'); // ignore: avoid_print
-    // print('_sight.isValid ? ${_sight.isValid ? 'true' : 'false'}'); // ignore: avoid_print
-
-    print(sight.toString()); // ignore: avoid_print
-
-    return sight.isValid;
   }
 }
 

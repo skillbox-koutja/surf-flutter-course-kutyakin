@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TouchDetector extends StatefulWidget {
+  final FocusNode focusNode;
   final void Function(FocusNode focusNode) onFocusChange;
   final Widget Function({
     required FocusNode focusNode,
@@ -8,6 +9,7 @@ class TouchDetector extends StatefulWidget {
   }) builder;
 
   const TouchDetector({
+    required this.focusNode,
     required this.onFocusChange,
     required this.builder,
     Key? key,
@@ -18,31 +20,29 @@ class TouchDetector extends StatefulWidget {
 }
 
 class _TouchDetectorState extends State<TouchDetector> {
-  final focusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
-    focusNode.addListener(onFocusChange);
+
+    widget.focusNode.addListener(onFocusChange);
   }
 
   @override
   void dispose() {
     super.dispose();
-    focusNode
-      ..removeListener(onFocusChange)
-      ..dispose();
+
+    widget.focusNode.removeListener(onFocusChange);
   }
 
   @override
   Widget build(BuildContext context) {
     return widget.builder(
-      focusNode: focusNode,
+      focusNode: widget.focusNode,
       onFocusChange: onFocusChange,
     );
   }
 
   void onFocusChange() {
-    widget.onFocusChange(focusNode);
+    widget.onFocusChange(widget.focusNode);
   }
 }

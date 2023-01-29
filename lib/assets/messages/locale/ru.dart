@@ -147,7 +147,7 @@ class _EditingSightMessages {
   String get detailsFieldLabel => 'ОПИСАНИЕ';
   String get createButtonLabel => 'СОЗДАТЬ';
   String get saveButtonLabel => 'СОХРАНИТЬ';
-  String get pointOnTheMapTitle => 'Указать на карте';
+  String get pointOnMapTitle => 'Указать на карте';
 
   const _EditingSightMessages();
 }

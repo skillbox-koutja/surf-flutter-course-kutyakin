@@ -28,6 +28,11 @@ class _AppState extends State<App> {
         return MaterialApp(
           title: 'Places',
           theme: settings.isDark ? darkTheme : lightTheme,
+          builder: (context, child) {
+            return _Unfocus(
+              child: child!,
+            );
+          },
           home: Scaffold(
             body: PageView(
               controller: pageController,
@@ -133,6 +138,26 @@ class _BottomNavigationBar extends StatelessWidget {
           onTap: onTap,
         ),
       ),
+    );
+  }
+}
+
+class _Unfocus extends StatelessWidget {
+  final Widget child;
+
+  const _Unfocus({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: child,
     );
   }
 }

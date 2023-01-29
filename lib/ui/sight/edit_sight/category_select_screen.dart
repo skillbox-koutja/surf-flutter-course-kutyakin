@@ -63,7 +63,7 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).padding.bottom),
+                      SizedBox(height: 8 + MediaQuery.of(context).padding.bottom),
                     ],
                   ),
                 ),

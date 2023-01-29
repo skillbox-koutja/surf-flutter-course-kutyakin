@@ -10,7 +10,7 @@ ButtonStyle buildElevatedButtonStyle({
 }) {
   return ElevatedButton.styleFrom(
     elevation: 0,
-    padding: const EdgeInsets.all(12),
+    padding: const EdgeInsets.all(15),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),
@@ -65,10 +65,11 @@ InputDecorationTheme buildInputDecorationTheme({
 }
 
 final lightTheme = ThemeData(
-  colorScheme: const ColorScheme.light(),
+  colorScheme: const ColorScheme.light(
+    error: AppColors.whiteRed,
+  ),
   primaryColor: AppColors.secondary,
   scaffoldBackgroundColor: AppColors.white,
-  errorColor: AppColors.whiteRed,
   cardColor: AppColors.background,
   dividerColor: AppColors.inactive,
   disabledColor: AppColors.inactive,
@@ -131,10 +132,11 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
-  colorScheme: const ColorScheme.dark(),
+  colorScheme: const ColorScheme.dark(
+    error: AppColors.blackRed,
+  ),
   primaryColor: AppColors.white,
   scaffoldBackgroundColor: AppColors.blackMain,
-  errorColor: AppColors.whiteRed,
   cardColor: AppColors.dark,
   dividerColor: AppColors.inactive,
   disabledColor: AppColors.inactive,
