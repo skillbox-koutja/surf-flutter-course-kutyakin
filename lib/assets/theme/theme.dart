@@ -58,6 +58,7 @@ InputDecorationTheme buildInputDecorationTheme({
     focusedBorder: border.copyWith(borderSide: BorderSide(color: color)),
     errorBorder: border.copyWith(borderSide: border.borderSide.copyWith(color: errorColor)),
     focusedErrorBorder: border.copyWith(borderSide: BorderSide(color: errorColor)),
+    fillColor: AppColors.background,
     hintStyle: const AppTextStyle(color: AppColors.inactive).copyWith(
       overflow: TextOverflow.ellipsis,
     ),

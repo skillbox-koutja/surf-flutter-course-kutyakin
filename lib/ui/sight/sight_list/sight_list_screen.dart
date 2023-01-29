@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
+import 'package:places/assets/theme/form_field_decorations.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
@@ -9,6 +10,7 @@ import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/add_sight_screen.dart';
 import 'package:places/ui/sight/filters/filters_screen.dart';
+import 'package:places/ui/sight/search/sight_search_screen.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
@@ -170,45 +172,79 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
 
-    return Column(
-      children: [
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.scaffoldBackgroundColor,
-          ),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
-              child: SizedBox(
-                height: 72,
-                child: Text(
-                  AppMessages.sightsList.screenTitle,
-                  style: textTheme?.largeTitle,
-                  maxLines: 2,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: theme.scaffoldBackgroundColor,
+            ),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 64, bottom: 16),
+                child: SizedBox(
+                  height: 72,
+                  child: Text(
+                    AppMessages.sightsList.screenTitle,
+                    style: textTheme?.largeTitle,
+                    maxLines: 2,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        TextButton.icon(
-          icon: FilterSvgIcon(color: colorsTheme?.green),
-          label: const SizedBox(),
-          onPressed: () {
-            showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) {
-                return SightFiltersScreen(
-                  onClose: () {
-                    Navigator.of(context).pop();
-                  },
-                );
-              },
-            );
-          },
-        ),
-      ],
+          TextField(
+            readOnly: true,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(style: BorderStyle.none),
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(style: BorderStyle.none),
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+              ),
+              hintText: AppMessages.searchSights.searchFieldLabel,
+              filled: true,
+              // prefixIcon: SearchSvgIcon(color: theme.disabledColor),
+              prefixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: SearchSvgIcon(color: theme.disabledColor),
+              ),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return SightFiltersScreen(
+                        onClose: () {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                  );
+                },
+                child: Align(
+                  widthFactor: 1.0,
+                  heightFactor: 1.0,
+                  child: FilterSvgIcon(color: colorsTheme?.green),
+                ),
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<SightSearchScreen>(builder: (context) => const SightSearchScreen()),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

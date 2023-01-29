@@ -72,7 +72,7 @@ class _SightFiltersScreenState extends State<SightFiltersScreen> {
                 ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).padding.bottom),
+            SizedBox(height: 8 + MediaQuery.of(context).padding.bottom),
           ],
         ),
       ),
