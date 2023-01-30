@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:places/assets/theme/form_field_decorations.dart';
 import 'package:places/domain/sight/use_case/edit_sight/error.dart';
 import 'package:places/ui/components/touch_detector.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_model.dart';
+import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/field_label.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +25,9 @@ class LatLongField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onFocusChange = context.select<EditSightModel, FocusChangeHandler>((m) => m.onFocusChange);
-    final isTouched = context.select<EditSightModel, TouchedChecker>((m) => m.isTouched);
-    final nextField = context.select<EditSightModel, NextFieldHandler>((m) => m.nextField);
+    final onFocusChange = context.select<EditSightState, FocusChangeHandler>((s) => s.onFocusChange);
+    final isTouched = context.select<EditSightState, TouchedChecker>((s) => s.isTouched);
+    final nextField = context.select<EditSightState, NextFieldHandler>((s) => s.nextField);
 
     return Flexible(
       child: Column(

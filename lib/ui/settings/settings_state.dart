@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-class SettingsModel extends ChangeNotifier {
+class SettingsState extends ChangeNotifier {
   bool get isDark => _isDark;
 
   bool _isDark = false;
 
-  SettingsModel({
+  SettingsState({
     bool initDark = false,
   }) {
     _isDark = initDark;

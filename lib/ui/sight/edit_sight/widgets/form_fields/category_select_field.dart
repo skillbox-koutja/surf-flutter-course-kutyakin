@@ -4,7 +4,7 @@ import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight_type.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/category_select_screen.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_model.dart';
+import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
@@ -19,8 +19,8 @@ class CategorySelectField extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
-    final type = context.select<EditSightModel, SightType>((m) => m.model.type);
-    final onChanged = context.select<EditSightModel, ValueChanged<SightType>>((m) => m.switchType);
+    final type = context.select<EditSightState, SightType>((s) => s.model.type);
+    final onChanged = context.select<EditSightState, ValueChanged<SightType>>((s) => s.switchType);
 
     return Column(
       children: [

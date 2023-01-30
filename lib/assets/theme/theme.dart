@@ -125,6 +125,9 @@ final lightTheme = ThemeData(
     color: AppColors.whiteGreen.withOpacity(0.4),
     errorColor: AppColors.whiteRed.withOpacity(0.4),
   ),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: AppColors.inactive,
+  ),
 ).copyWith(
   extensions: [
     CustomColors.light,
@@ -184,6 +187,9 @@ final darkTheme = ThemeData(
   inputDecorationTheme: buildInputDecorationTheme(
     color: AppColors.blackGreen.withOpacity(0.4),
     errorColor: AppColors.blackRed.withOpacity(0.4),
+  ),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: AppColors.inactive,
   ),
 ).copyWith(
   extensions: [

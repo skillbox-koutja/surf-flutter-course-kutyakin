@@ -155,7 +155,7 @@ class _EditingSightMessages {
 class _SearchSightsMessages {
   String get screenTitle => 'Список интересных мест';
   String get searchFieldLabel => 'Поиск';
-  String get historyTitle => 'Вы искали';
+  String get historyTitle => 'ВЫ ИСКАЛИ';
   String get clearHistoryTitle => 'Очистить историю';
   String get emptyListTitle => 'Ничего не найдено.';
   String get emptyListDescription => 'Попробуйте изменить параметры поиска';

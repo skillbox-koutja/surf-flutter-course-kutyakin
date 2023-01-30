@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/domain/sight/use_case/edit_sight/model.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_model.dart';
+import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/field_label.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/category_select_field.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/details_field.dart';
@@ -23,13 +23,13 @@ class AddSightForm extends StatefulWidget {
 }
 
 class _AddSightFormState extends State<AddSightForm> {
-  late EditSightModel sightModelNotifier;
+  late EditSightState sightModelNotifier;
 
   @override
   void initState() {
     super.initState();
 
-    sightModelNotifier = EditSightModel(SightModel.initial());
+    sightModelNotifier = EditSightState(SightModel.initial());
     // sightModelNotifier = EditSightModel(SightModel.initialFilled());
   }
 
@@ -98,7 +98,7 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isValid = context.select<EditSightModel, bool>((m) => m.model.isValid);
+    final isValid = context.select<EditSightState, bool>((s) => s.model.isValid);
 
     return ElevatedButton(
       onPressed: isValid ? onSubmit : null,

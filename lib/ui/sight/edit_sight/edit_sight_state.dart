@@ -17,7 +17,7 @@ typedef PointOnMap = void Function({
   required double long,
 });
 
-class EditSightModel extends ChangeNotifier {
+class EditSightState extends ChangeNotifier {
   final FocusNode nameFocusNode = FocusNode();
   final FocusNode detailsFocusNode = FocusNode();
   final FocusNode latFocusNode = FocusNode();
@@ -27,7 +27,7 @@ class EditSightModel extends ChangeNotifier {
 
   SightModel model;
 
-  EditSightModel(this.model);
+  EditSightState(this.model);
 
   @override
   void dispose() {

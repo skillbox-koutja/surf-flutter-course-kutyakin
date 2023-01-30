@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/assets/theme/form_field_decorations.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
@@ -9,8 +8,10 @@ import 'package:places/ui/components/main_gradient_overlay.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/add_sight_screen.dart';
-import 'package:places/ui/sight/filters/filters_screen.dart';
+import 'package:places/ui/sight/filters/filters_state.dart';
 import 'package:places/ui/sight/search/sight_search_screen.dart';
+import 'package:places/ui/sight/search/widgets/filter_icon.dart';
+import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
@@ -19,6 +20,7 @@ import 'package:places/ui/sight/sight_card/widgets/header.dart';
 import 'package:places/ui/sight/sight_card/widgets/image.dart';
 import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
+import 'package:provider/provider.dart';
 
 class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
@@ -28,15 +30,10 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
-  late List<Sight> _sights;
-  @override
-  void initState() {
-    super.initState();
-    _sights = [...sights];
-  }
-
   @override
   Widget build(BuildContext context) {
+    final filteredSights = context.select<SightFiltersState, List<Sight>>((s) => s.filteredSights);
+
     return Scaffold(
       appBar: _AppBar(),
       body: SingleChildScrollView(
@@ -45,7 +42,7 @@ class _SightListScreenState extends State<SightListScreen> {
           child: SizedBox(
             width: double.infinity,
             child: Column(
-              children: _sights
+              children: filteredSights
                   .map(
                     (sight) => Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
@@ -81,12 +78,12 @@ class _SightListScreenState extends State<SightListScreen> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
+        final filtersState = context.read<SightFiltersState>();
+
         return AddSightScreen(
           onSave: (sight) {
             sights.add(sight);
-            setState(() {
-              _sights = [..._sights, sight];
-            });
+            filtersState.clear();
             Navigator.of(context).pop();
           },
           onClose: () {
@@ -170,7 +167,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final colorsTheme = theme.extension<CustomColors>();
+    final filtersState = context.read<SightFiltersState>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -195,47 +192,15 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          TextField(
-            readOnly: true,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(style: BorderStyle.none),
-                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(style: BorderStyle.none),
-                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-              ),
-              hintText: AppMessages.searchSights.searchFieldLabel,
-              filled: true,
-              // prefixIcon: SearchSvgIcon(color: theme.disabledColor),
-              prefixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: SearchSvgIcon(color: theme.disabledColor),
-              ),
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return SightFiltersScreen(
-                        onClose: () {
-                          Navigator.of(context).pop();
-                        },
-                      );
-                    },
-                  );
+          SearchBar(
+            suffixIcons: [
+              SearchFilterIcon(
+                onClose: () {
+                  filtersState.applyFilters();
+                  Navigator.of(context).pop();
                 },
-                child: Align(
-                  widthFactor: 1.0,
-                  heightFactor: 1.0,
-                  child: FilterSvgIcon(color: colorsTheme?.green),
-                ),
               ),
-            ),
+            ],
             onTap: () {
               Navigator.push(
                 context,

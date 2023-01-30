@@ -9,19 +9,15 @@ class CategoryFilterValue {
     this.selected = false,
   });
 
-  void select() {
-    selected = true;
+  CategoryFilterValue select() {
+    return CategoryFilterValue(type: type, selected: true);
   }
 
-  void unselect() {
-    selected = false;
+  CategoryFilterValue unselect() {
+    return CategoryFilterValue(type: type);
   }
 
-  void toggle() {
-    if (selected) {
-      unselect();
-    } else {
-      select();
-    }
+  CategoryFilterValue toggle() {
+    return selected ? unselect() : select();
   }
 }

@@ -3,7 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/use_case/edit_sight/error.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_model.dart';
+import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/latlong_field.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +46,7 @@ class _LatLongFieldGroupState extends State<LatLongFieldGroup> {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
-    final onPointOnMap = context.select<EditSightModel, PointOnMap>((m) => m.pointOnMap);
+    final onPointOnMap = context.select<EditSightState, PointOnMap>((s) => s.pointOnMap);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,9 +103,9 @@ class _Lat extends StatelessWidget {
   Widget build(BuildContext context) {
     print('_Lat.build'); // ignore: avoid_print
 
-    final error = context.select<EditSightModel, EditSightModelError?>((m) => m.model.latError);
-    final focusNode = context.select<EditSightModel, FocusNode>((m) => m.latFocusNode);
-    final onChanged = context.select<EditSightModel, ValueChanged<double?>>((m) => m.editLat);
+    final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.latError);
+    final focusNode = context.select<EditSightState, FocusNode>((s) => s.latFocusNode);
+    final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLat);
 
     return LatLongField(
       focusNode: focusNode,
@@ -128,9 +128,9 @@ class _Long extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('_Long.build'); // ignore: avoid_print
-    final error = context.select<EditSightModel, EditSightModelError?>((m) => m.model.longError);
-    final focusNode = context.select<EditSightModel, FocusNode>((m) => m.longFocusNode);
-    final onChanged = context.select<EditSightModel, ValueChanged<double?>>((m) => m.editLong);
+    final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.longError);
+    final focusNode = context.select<EditSightState, FocusNode>((s) => s.longFocusNode);
+    final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLong);
 
     return LatLongField(
       focusNode: focusNode,
