@@ -6,7 +6,7 @@ import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/search/search_state.dart';
 import 'package:provider/provider.dart';
 
-const historyItemsLimit = 4;
+const _historyItemsLimit = 4;
 
 class SearchHistory extends StatelessWidget {
   final ValueChanged<String> onSelectItem;
@@ -39,7 +39,7 @@ class SearchHistory extends StatelessWidget {
         const SizedBox(height: 4),
         Expanded(
           child: _HistoryList(
-            items: history.take(historyItemsLimit).toList(),
+            items: history.take(_historyItemsLimit).toList(),
             onSelectItem: onSelectItem,
           ),
         ),

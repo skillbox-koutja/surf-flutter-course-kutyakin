@@ -15,11 +15,13 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SettingsState()),
-        ChangeNotifierProvider(create: (_) => SightFiltersState(
-          distance: distanceLimit,
-          distanceLimit: distanceLimit,
-          sightFilterCategories: getCategoryFilterValues(),
-        )),
+        ChangeNotifierProvider(
+          create: (_) => SightFiltersState(
+            distance: distanceLimit,
+            distanceLimit: distanceLimit,
+            sightFilterCategories: getCategoryFilterValues(),
+          ),
+        ),
       ],
       child: const App(),
     ),

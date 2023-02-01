@@ -46,7 +46,7 @@ class _DoneResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final query = context.select<SearchState, String>((s) => s.query);
-    final result = context.select<SearchState, Result>((s) => s.result);
+    final result = context.select<SearchState, SearchResponse>((s) => s.response);
 
     if (result.isEmpty) {
       return const _EmptyState();

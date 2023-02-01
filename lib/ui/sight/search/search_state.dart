@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
 
-typedef Result = List<Sight>;
+typedef SearchResponse = List<Sight>;
 typedef Search = void Function(String query, List<Sight> sights);
 typedef ClearHistory = void Function();
 typedef RemoveHistoryItem = void Function(String item);
@@ -19,7 +19,7 @@ final List<String> _historyArchive = [];
 
 class SearchState extends ChangeNotifier {
   SearchingStatus status = SearchingStatus.none;
-  Result result = [];
+  SearchResponse response = [];
   Timer? request;
   String query = '';
   List<String> history;
@@ -52,7 +52,7 @@ class SearchState extends ChangeNotifier {
     abortRequest();
 
     request = Timer(const Duration(seconds: 1), () {
-      result = sights.where((element) => element.name.contains(query)).toList();
+      response = sights.where((element) => element.name.contains(query)).toList();
       status = SearchingStatus.done;
       request = null;
 
