@@ -39,7 +39,7 @@ class _AddSightFormState extends State<AddSightForm> {
       child: Padding(
         padding: EdgeInsets.only(bottom: 8 + MediaQuery.of(context).padding.bottom),
         child: ChangeNotifierProvider(
-          create: (context) => sightModelNotifier,
+          create: (_) => sightModelNotifier,
           child: Form(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

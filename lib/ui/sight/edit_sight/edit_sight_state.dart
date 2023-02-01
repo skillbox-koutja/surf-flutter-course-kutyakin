@@ -56,8 +56,6 @@ class EditSightState extends ChangeNotifier {
       ));
 
   void dispatch(EditSightModelEvent event) {
-    print('EditSightModelChangeNotifier.dispatch'); // ignore: avoid_print
-    print(event.toString()); // ignore: avoid_print
     final newModal = event.when(
       setName: (value) => model.copyWith(name: value),
       setDetails: (value) => model.copyWith(details: value),
@@ -82,7 +80,6 @@ class EditSightState extends ChangeNotifier {
   }
 
   void nextField(FocusNode currentFocusNode) {
-    print('model.nextField'); // ignore: avoid_print
     if (nameFocusNode == currentFocusNode) {
       FocusManager.instance.rootScope.requestFocus(latFocusNode);
 
@@ -107,7 +104,7 @@ class EditSightState extends ChangeNotifier {
       return;
     }
 
-    print('model.nextField else??'); // ignore: avoid_print
+    throw UnimplementedError('Unknown FocusNode');
   }
 
   bool isTouched(FocusNode focusNode) {

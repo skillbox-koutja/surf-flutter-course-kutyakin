@@ -67,7 +67,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ChangeNotifierProvider(
-          create: (context) => searchState,
+          create: (_) => searchState,
           builder: (_, __) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

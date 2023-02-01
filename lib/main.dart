@@ -14,8 +14,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SettingsState()),
-        ChangeNotifierProvider(create: (context) => SightFiltersState(
+        ChangeNotifierProvider(create: (_) => SettingsState()),
+        ChangeNotifierProvider(create: (_) => SightFiltersState(
           distance: distanceLimit,
           distanceLimit: distanceLimit,
           sightFilterCategories: getCategoryFilterValues(),
