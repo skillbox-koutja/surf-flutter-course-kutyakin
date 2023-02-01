@@ -101,8 +101,6 @@ class _Lat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('_Lat.build'); // ignore: avoid_print
-
     final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.latError);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.latFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLat);
@@ -127,7 +125,6 @@ class _Long extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('_Long.build'); // ignore: avoid_print
     final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.longError);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.longFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLong);

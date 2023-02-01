@@ -12,7 +12,6 @@ class NameField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('NameField.build'); // ignore: avoid_print
     final initialValue = context.select<EditSightState, String?>((s) => s.model.name);
     final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.nameError);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.nameFocusNode);

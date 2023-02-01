@@ -15,7 +15,6 @@ class CategorySelectField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('CategorySelectField.build'); // ignore: avoid_print
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
