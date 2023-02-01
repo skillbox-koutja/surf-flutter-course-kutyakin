@@ -10,7 +10,7 @@ import 'package:places/ui/sight/filters/filters_state.dart';
 import 'package:provider/provider.dart';
 
 class SightFiltersScreen extends StatelessWidget {
-  final void Function() onClose;
+  final VoidCallback onClose;
 
   const SightFiltersScreen({required this.onClose, Key? key}) : super(key: key);
 
@@ -45,7 +45,7 @@ class SightFiltersScreen extends StatelessWidget {
 }
 
 class _Header extends StatelessWidget {
-  final void Function() onClose;
+  final VoidCallback onClose;
 
   const _Header({
     required this.onClose,
@@ -57,7 +57,7 @@ class _Header extends StatelessWidget {
     final theme = Theme.of(context);
     final colorsTheme = theme.extension<CustomColors>();
     final textTheme = theme.extension<CustomTextStyles>();
-    final clearFilters = context.select<SightFiltersState, void Function()>((s) => s.clear);
+    final clearFilters = context.select<SightFiltersState, VoidCallback>((s) => s.clear);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -86,7 +86,7 @@ class _Header extends StatelessWidget {
 }
 
 class _ApplyFiltersButton extends StatelessWidget {
-  final void Function() onClose;
+  final VoidCallback onClose;
 
   const _ApplyFiltersButton({required this.onClose, Key? key}) : super(key: key);
 

@@ -5,6 +5,7 @@ import 'package:places/mocks.dart';
 
 typedef ApplyFilters = List<Sight> Function(List<Sight> sights);
 typedef CategoryFilters = List<CategoryFilterValue>;
+typedef Filter = bool Function(Sight sight);
 
 class SightFiltersState extends ChangeNotifier {
   late final List<CategoryFilterValue> _initSightFilterCategories;
@@ -47,7 +48,7 @@ class SightFiltersState extends ChangeNotifier {
   void applyFilters() {
     final types = sightFilterCategories.where((element) => element.selected).map((element) => element.type).toList();
 
-    final filters = <bool Function(Sight sight)>[
+    final filters = <Filter>[
       (sight) {
         final value = sight.getDistance(centerPoint).toMeters;
 

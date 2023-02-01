@@ -10,7 +10,9 @@ typedef NextFieldHandler = void Function(FocusNode currentFocusNode);
 
 typedef FocusChangeHandler = void Function(FocusNode focusNode);
 
-typedef TouchedChecker = bool Function(FocusNode focusNode);
+typedef TouchedFieldChecker = bool Function(FocusNode focusNode);
+
+typedef TouchedFormChecker = bool Function();
 
 typedef PointOnMap = void Function({
   required double lat,
@@ -26,6 +28,8 @@ class EditSightState extends ChangeNotifier {
   final Set<FocusNode> touchedFields = {};
 
   SightModel model;
+
+  bool get isTouchedForm => touchedFields.isNotEmpty;
 
   EditSightState(this.model);
 
@@ -107,7 +111,7 @@ class EditSightState extends ChangeNotifier {
     throw UnimplementedError('Unknown FocusNode');
   }
 
-  bool isTouched(FocusNode focusNode) {
+  bool isTouchedField(FocusNode focusNode) {
     final result = focusNode.hasFocus || touchedFields.contains(focusNode);
 
     return result;

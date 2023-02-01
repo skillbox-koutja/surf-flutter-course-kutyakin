@@ -30,7 +30,6 @@ class _AddSightFormState extends State<AddSightForm> {
     super.initState();
 
     sightModelNotifier = EditSightState(SightModel.initial());
-    // sightModelNotifier = EditSightModel(SightModel.initialFilled());
   }
 
   @override
@@ -79,8 +78,6 @@ class _AddSightFormState extends State<AddSightForm> {
   }
 
   void onSubmit() {
-    print(AppMessages.editingSight.createButtonLabel); // ignore: avoid_print
-
     final sightModel = sightModelNotifier.model;
     if (sightModel.isValid) {
       final sight = sightModelNotifier.model.toSight();
@@ -90,7 +87,7 @@ class _AddSightFormState extends State<AddSightForm> {
 }
 
 class _SubmitButton extends StatelessWidget {
-  final void Function() onSubmit;
+  final VoidCallback onSubmit;
   const _SubmitButton({
     required this.onSubmit,
     Key? key,
@@ -98,10 +95,11 @@ class _SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTouchedForm = context.select<EditSightState, bool>((s) => s.isTouchedForm);
     final isValid = context.select<EditSightState, bool>((s) => s.model.isValid);
 
     return ElevatedButton(
-      onPressed: isValid ? onSubmit : null,
+      onPressed: isTouchedForm && isValid ? onSubmit : null,
       child: Text(
         AppMessages.editingSight.createButtonLabel,
       ),

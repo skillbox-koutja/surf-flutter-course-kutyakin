@@ -4,7 +4,7 @@ import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/filters/filters_screen.dart';
 
 class SearchFilterIcon extends StatelessWidget {
-  final void Function() onClose;
+  final VoidCallback onClose;
   const SearchFilterIcon({
     Key? key,
     required this.onClose,

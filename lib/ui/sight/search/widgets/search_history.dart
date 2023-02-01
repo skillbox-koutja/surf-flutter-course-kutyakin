@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 const historyItemsLimit = 4;
 
 class SearchHistory extends StatelessWidget {
-  final void Function(String text) onSelectItem;
+  final ValueChanged<String> onSelectItem;
 
   const SearchHistory({
     required this.onSelectItem,
@@ -50,7 +50,7 @@ class SearchHistory extends StatelessWidget {
 
 class _HistoryList extends StatelessWidget {
   final List<String> items;
-  final void Function(String text) onSelectItem;
+  final ValueChanged<String> onSelectItem;
 
   const _HistoryList({
     required this.items,
@@ -102,7 +102,7 @@ class _HistoryList extends StatelessWidget {
 class _Row extends StatelessWidget {
   final String query;
   final RemoveHistoryItem removeHistoryItem;
-  final void Function(String text) onSelectItem;
+  final ValueChanged<String> onSelectItem;
 
   const _Row({
     required this.query,

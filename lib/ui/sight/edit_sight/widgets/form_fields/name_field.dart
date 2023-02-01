@@ -18,7 +18,7 @@ class NameField extends StatelessWidget {
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.nameFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<String>>((s) => s.rename);
     final onFocusChange = context.select<EditSightState, FocusChangeHandler>((s) => s.onFocusChange);
-    final isTouched = context.select<EditSightState, TouchedChecker>((s) => s.isTouched);
+    final isTouched = context.select<EditSightState, TouchedFieldChecker>((s) => s.isTouchedField);
     final nextField = context.select<EditSightState, NextFieldHandler>((s) => s.nextField);
 
     return TouchDetector(
@@ -26,7 +26,7 @@ class NameField extends StatelessWidget {
       onFocusChange: onFocusChange,
       builder: ({
         required focusNode,
-        required void Function() onFocusChange,
+        required onFocusChange,
       }) {
         return TextFormField(
           initialValue: initialValue,

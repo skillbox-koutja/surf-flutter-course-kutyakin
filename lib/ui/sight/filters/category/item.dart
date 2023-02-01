@@ -7,7 +7,7 @@ import 'package:places/ui/icons/svg_icon.dart';
 
 class CategoryFilterItem extends StatelessWidget {
   final CategoryFilterValue category;
-  final void Function()? onChanged;
+  final VoidCallback? onChanged;
 
   const CategoryFilterItem({
     required this.category,

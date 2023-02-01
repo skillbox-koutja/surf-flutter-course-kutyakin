@@ -5,8 +5,8 @@ import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/sight/edit_sight/widgets/add_sight_form.dart';
 
 class AddSightScreen extends StatefulWidget {
-  final void Function() onClose;
-  final void Function(Sight sight) onSave;
+  final VoidCallback onClose;
+  final ValueSetter<Sight> onSave;
 
   const AddSightScreen({
     required this.onClose,
@@ -54,7 +54,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
 }
 
 class _Header extends StatelessWidget {
-  final void Function() onClose;
+  final VoidCallback onClose;
 
   const _Header({
     required this.onClose,

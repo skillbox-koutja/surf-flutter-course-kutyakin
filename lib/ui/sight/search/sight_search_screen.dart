@@ -133,7 +133,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 }
 
 class _Body extends StatelessWidget {
-  final void Function(String text) onSelectHistoryItem;
+  final ValueChanged<String> onSelectHistoryItem;
 
   const _Body({
     required this.onSelectHistoryItem,

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class TouchDetector extends StatefulWidget {
   final FocusNode focusNode;
-  final void Function(FocusNode focusNode) onFocusChange;
+  final ValueChanged<FocusNode> onFocusChange;
   final Widget Function({
     required FocusNode focusNode,
-    required void Function() onFocusChange,
+    required VoidCallback onFocusChange,
   }) builder;
 
   const TouchDetector({

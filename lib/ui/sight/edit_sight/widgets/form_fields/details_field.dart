@@ -12,13 +12,12 @@ class DetailsField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Details.build'); // ignore: avoid_print
     final initialValue = context.select<EditSightState, String?>((s) => s.model.details);
     final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.detailsError);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.detailsFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<String>>((s) => s.editDetails);
     final onFocusChange = context.select<EditSightState, FocusChangeHandler>((s) => s.onFocusChange);
-    final isTouched = context.select<EditSightState, TouchedChecker>((s) => s.isTouched);
+    final isTouched = context.select<EditSightState, TouchedFieldChecker>((s) => s.isTouchedField);
     final nextField = context.select<EditSightState, NextFieldHandler>((s) => s.nextField);
 
     return TouchDetector(
@@ -26,7 +25,7 @@ class DetailsField extends StatelessWidget {
       onFocusChange: onFocusChange,
       builder: ({
         required focusNode,
-        required void Function() onFocusChange,
+        required onFocusChange,
       }) {
         return TextFormField(
           initialValue: initialValue,

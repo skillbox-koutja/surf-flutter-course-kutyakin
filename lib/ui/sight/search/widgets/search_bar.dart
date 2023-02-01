@@ -3,7 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 
 class SearchBar extends StatelessWidget {
-  final void Function()? onTap;
+  final VoidCallback? onTap;
   final TextEditingController? controller;
   final List<Widget>? suffixIcons;
 

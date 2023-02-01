@@ -8,8 +8,8 @@ import 'package:recase/recase.dart';
 
 class CategorySelectScreen extends StatefulWidget {
   final SightType selected;
-  final void Function() onClose;
-  final void Function(SightType sightType) onSave;
+  final VoidCallback onClose;
+  final ValueChanged<SightType> onSave;
 
   const CategorySelectScreen({
     required this.selected,
@@ -23,13 +23,13 @@ class CategorySelectScreen extends StatefulWidget {
 }
 
 class _CategorySelectScreenState extends State<CategorySelectScreen> {
-  late SightType selected;
+  late ValueNotifier<SightType> selectedNotifier;
 
   @override
   void initState() {
     super.initState();
 
-    selected = widget.selected;
+    selectedNotifier = ValueNotifier(widget.selected);
   }
 
   @override
@@ -43,28 +43,33 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 56 + MediaQuery.of(context).padding.top),
-                      _Header(
-                        onClose: widget.onClose,
-                      ),
-                      const SizedBox(height: 24),
-                      for (final sightType in SightType.availableForSelection())
-                        _Option(sightType: sightType, select: onSelect, selected: selected),
-                      const Spacer(),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: selected.isNone() ? null : onSave,
-                          child: Text(
-                            AppMessages.editingSight.saveButtonLabel,
+                  child: ValueListenableBuilder(
+                    valueListenable: selectedNotifier,
+                    builder: (_, selected, __) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 56 + MediaQuery.of(context).padding.top),
+                          _Header(
+                            onClose: widget.onClose,
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 8 + MediaQuery.of(context).padding.bottom),
-                    ],
+                          const SizedBox(height: 24),
+                          for (final sightType in SightType.availableForSelection())
+                            _Option(sightType: sightType, select: onSelect, selected: selected),
+                          const Spacer(),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: selected.isNone() ? null : onSave,
+                              child: Text(
+                                AppMessages.editingSight.saveButtonLabel,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8 + MediaQuery.of(context).padding.bottom),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
@@ -75,19 +80,16 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
     );
   }
 
-  void onSelect(SightType value) {
-    setState(() {
-      selected = value;
-    });
-  }
+  // ignore: use_setters_to_change_properties
+  void onSelect(SightType value) => selectedNotifier.value = value;
 
   void onSave() {
-    widget.onSave(selected);
+    widget.onSave(selectedNotifier.value);
   }
 }
 
 class _Header extends StatelessWidget {
-  final void Function() onClose;
+  final VoidCallback onClose;
 
   const _Header({
     required this.onClose,

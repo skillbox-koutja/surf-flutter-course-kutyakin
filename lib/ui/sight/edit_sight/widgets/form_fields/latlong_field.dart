@@ -26,7 +26,7 @@ class LatLongField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final onFocusChange = context.select<EditSightState, FocusChangeHandler>((s) => s.onFocusChange);
-    final isTouched = context.select<EditSightState, TouchedChecker>((s) => s.isTouched);
+    final isTouched = context.select<EditSightState, TouchedFieldChecker>((s) => s.isTouchedField);
     final nextField = context.select<EditSightState, NextFieldHandler>((s) => s.nextField);
 
     return Flexible(
@@ -41,7 +41,7 @@ class LatLongField extends StatelessWidget {
             onFocusChange: onFocusChange,
             builder: ({
               required focusNode,
-              required void Function() onFocusChange,
+              required onFocusChange,
             }) {
               return TextFormField(
                 controller: controller,
