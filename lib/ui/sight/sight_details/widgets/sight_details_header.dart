@@ -44,7 +44,7 @@ class SightDetailsHeader extends StatelessWidget {
               left: 16,
               child: GestureDetector(
                 onTap: () {
-                  print('ChevronLeftSvgIcon: back'); // ignore: avoid_print
+                  Navigator.of(context).pop();
                 },
                 child: SizedBox(
                   height: 32,

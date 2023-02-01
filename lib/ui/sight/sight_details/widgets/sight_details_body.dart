@@ -42,10 +42,10 @@ class SightDetailsBody extends StatelessWidget {
                 color: AppColors.white,
               ),
               onPressed: () {
-                print('AppMessages.sightDetails.makeRouteButtonTitle'); // ignore: avoid_print
+                print('AppMessages.sightDetails.makeRouteButtonLabel'); // ignore: avoid_print
               },
               label: Text(
-                AppMessages.sightDetails.makeRouteButtonTitle,
+                AppMessages.sightDetails.makeRouteButtonLabel,
               ),
             ),
           ),
@@ -66,20 +66,20 @@ class SightDetailsBody extends StatelessWidget {
                   color: AppColors.inactive,
                 ),
                 label: Text(
-                  AppMessages.sightDetails.planButtonTitle,
+                  AppMessages.sightDetails.planButtonLabel,
                 ),
               ),
             ),
             Expanded(
               child: TextButton.icon(
                 onPressed: () {
-                  print('AppMessages.sightDetails.favoriteButtonTitle'); // ignore: avoid_print
+                  print('AppMessages.sightDetails.favoriteButtonLabel'); // ignore: avoid_print
                 },
                 icon: HeartSvgIcon.filled(
                   color: theme.primaryColor,
                 ),
                 label: Text(
-                  AppMessages.sightDetails.favoriteButtonTitle,
+                  AppMessages.sightDetails.favoriteButtonLabel,
                 ),
               ),
             ),

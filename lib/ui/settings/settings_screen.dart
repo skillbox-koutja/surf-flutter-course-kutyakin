@@ -3,7 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/ui/icons/svg_icons.dart';
-import 'package:places/ui/settings/settings_model.dart';
+import 'package:places/ui/settings/settings_state.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
 
-    return Consumer<SettingsModel>(
+    return Consumer<SettingsState>(
       builder: (context, settings, child) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

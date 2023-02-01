@@ -5,6 +5,9 @@ class AppMessages {
   static const favoriteSights = _FavoriteSightsMessages();
   static const sightFilters = _SightFilters();
   static const settings = _SettingsMessages();
+  static const editingSight = _EditingSightMessages();
+  static const searchSights = _SearchSightsMessages();
+  static const placeholder = _PlaceholderMessages();
 }
 
 const _shortMonths = {
@@ -35,6 +38,7 @@ class _AppDateFormat {
 
 class _SightsListMessages {
   String get screenTitle => 'Список\nинтересных мест';
+  String get newButtonLabel => 'НОВОЕ МЕСТО';
 
   const _SightsListMessages();
 }
@@ -51,9 +55,9 @@ class _FavoriteSightsMessages {
 }
 
 class _SightDetailsMessages {
-  String get makeRouteButtonTitle => 'ПОСТРОИТЬ МАРШРУТ';
-  String get planButtonTitle => 'Запланировать';
-  String get favoriteButtonTitle => 'В Избранное';
+  String get makeRouteButtonLabel => 'ПОСТРОИТЬ МАРШРУТ';
+  String get planButtonLabel => 'Запланировать';
+  String get favoriteButtonLabel => 'В Избранное';
 
   const _SightDetailsMessages();
 }
@@ -130,4 +134,38 @@ class _KilometersFormatter {
   String toString() {
     return (meters / 1000).toStringAsFixed(1);
   }
+}
+
+class _EditingSightMessages {
+  String get newScreenTitle => 'Новое место';
+  String get cancelTitle => 'Отмена';
+  String get categorySelectScreenTitle => 'Категория';
+  String get selectCategoryFieldLabel => 'КАТЕГОРИЯ';
+  String get nameFieldLabel => 'НАЗВАНИЕ';
+  String get longitudeFieldLabel => 'ДОЛГОТА';
+  String get latitudeFieldLabel => 'ШИРОТА';
+  String get detailsFieldLabel => 'ОПИСАНИЕ';
+  String get createButtonLabel => 'СОЗДАТЬ';
+  String get saveButtonLabel => 'СОХРАНИТЬ';
+  String get pointOnMapTitle => 'Указать на карте';
+
+  const _EditingSightMessages();
+}
+
+class _SearchSightsMessages {
+  String get screenTitle => 'Список интересных мест';
+  String get searchFieldLabel => 'Поиск';
+  String get historyTitle => 'ВЫ ИСКАЛИ';
+  String get clearHistoryTitle => 'Очистить историю';
+  String get emptyListTitle => 'Ничего не найдено.';
+  String get emptyListDescription => 'Попробуйте изменить параметры поиска';
+
+  const _SearchSightsMessages();
+}
+
+class _PlaceholderMessages {
+  String get enterText => 'введите текст';
+  String get enterValue => 'введите значение';
+
+  const _PlaceholderMessages();
 }

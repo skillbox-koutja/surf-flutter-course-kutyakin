@@ -51,6 +51,29 @@ class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
               style: textTheme?.subtitle,
             ),
           ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(52),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(40)),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: TabBar(
+                      tabs: [
+                        Tab(text: AppMessages.favoriteSights.wishListTabTitle),
+                        Tab(text: AppMessages.favoriteSights.visitedTabTitle),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
         ),
         body: TabBarView(
           children: [

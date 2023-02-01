@@ -1,4 +1,5 @@
 enum SightType {
+  none('не выбрано'),
   hotel('отель'),
   restaurant('ресторан'),
   park('парк'),
@@ -11,4 +12,10 @@ enum SightType {
 
   @override
   String toString() => 'SightType($title)';
+
+  bool isNone() => this == SightType.none;
+
+  static List<SightType> availableForSelection() {
+    return SightType.values.where((element) => !element.isNone()).toList();
+  }
 }

@@ -4,9 +4,14 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/components/main_gradient_overlay.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
-import 'package:places/ui/sight/filters/filters_screen.dart';
+import 'package:places/ui/sight/edit_sight/add_sight_screen.dart';
+import 'package:places/ui/sight/filters/filters_state.dart';
+import 'package:places/ui/sight/search/sight_search_screen.dart';
+import 'package:places/ui/sight/search/widgets/filter_icon.dart';
+import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
@@ -15,6 +20,7 @@ import 'package:places/ui/sight/sight_card/widgets/header.dart';
 import 'package:places/ui/sight/sight_card/widgets/image.dart';
 import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
+import 'package:provider/provider.dart';
 
 class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
@@ -26,6 +32,8 @@ class SightListScreen extends StatefulWidget {
 class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
+    final filteredSights = context.select<SightFiltersState, List<Sight>>((s) => s.filteredSights);
+
     return Scaffold(
       appBar: _AppBar(),
       body: SingleChildScrollView(
@@ -34,7 +42,7 @@ class _SightListScreenState extends State<SightListScreen> {
           child: SizedBox(
             width: double.infinity,
             child: Column(
-              children: sights
+              children: filteredSights
                   .map(
                     (sight) => Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
@@ -43,6 +51,72 @@ class _SightListScreenState extends State<SightListScreen> {
                   )
                   .toList(),
             ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 0,
+        extendedPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        focusElevation: 0,
+        hoverElevation: 0,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        enableFeedback: false,
+        highlightElevation: 0,
+        icon: const _FloatingButtonText(),
+        label: const SizedBox(),
+        onPressed: openAddSightScreen,
+      ),
+    );
+  }
+
+  void openAddSightScreen() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        final filtersState = context.read<SightFiltersState>();
+
+        return AddSightScreen(
+          onSave: (sight) {
+            sights.add(sight);
+            filtersState.clear();
+            Navigator.of(context).pop();
+          },
+          onClose: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
+}
+
+class _FloatingButtonText extends StatelessWidget {
+  const _FloatingButtonText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 9),
+      child: MainGradientOverlay(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 22),
+          child: Row(
+            children: [
+              PlusSvgIcon(
+                color: theme.floatingActionButtonTheme.foregroundColor,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                AppMessages.sightsList.newButtonLabel,
+              ),
+            ],
           ),
         ),
       ),
@@ -93,47 +167,49 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final colorsTheme = theme.extension<CustomColors>();
+    final filtersState = context.read<SightFiltersState>();
 
-    return Column(
-      children: [
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: theme.scaffoldBackgroundColor,
-          ),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
-              child: SizedBox(
-                height: 72,
-                child: Text(
-                  AppMessages.sightsList.screenTitle,
-                  style: textTheme?.largeTitle,
-                  maxLines: 2,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: theme.scaffoldBackgroundColor,
+            ),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 64, bottom: 16),
+                child: SizedBox(
+                  height: 72,
+                  child: Text(
+                    AppMessages.sightsList.screenTitle,
+                    style: textTheme?.largeTitle,
+                    maxLines: 2,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        TextButton.icon(
-          icon: FilterSvgIcon(color: colorsTheme?.green),
-          label: const SizedBox(),
-          onPressed: () {
-            showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) {
-                return SightFiltersScreen(
-                  onClose: () {
-                    Navigator.of(context).pop();
-                  },
-                );
-              },
-            );
-          },
-        ),
-      ],
+          SearchBar(
+            suffixIcons: [
+              SearchFilterIcon(
+                onClose: () {
+                  filtersState.applyFilters();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<SightSearchScreen>(builder: (context) => const SightSearchScreen()),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

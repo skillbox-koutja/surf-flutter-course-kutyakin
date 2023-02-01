@@ -10,7 +10,7 @@ ButtonStyle buildElevatedButtonStyle({
 }) {
   return ElevatedButton.styleFrom(
     elevation: 0,
-    padding: const EdgeInsets.all(12),
+    padding: const EdgeInsets.all(15),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     ),
@@ -44,11 +44,33 @@ SliderThemeData buildSliderTheme() {
   );
 }
 
+InputDecorationTheme buildInputDecorationTheme({
+  required Color color,
+  required Color errorColor,
+}) {
+  const border = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    borderSide: BorderSide(width: 0.8, color: AppColors.inactive),
+  );
+
+  return InputDecorationTheme(
+    enabledBorder: border,
+    focusedBorder: border.copyWith(borderSide: BorderSide(color: color)),
+    errorBorder: border.copyWith(borderSide: border.borderSide.copyWith(color: errorColor)),
+    focusedErrorBorder: border.copyWith(borderSide: BorderSide(color: errorColor)),
+    fillColor: AppColors.background,
+    hintStyle: const AppTextStyle(color: AppColors.inactive).copyWith(
+      overflow: TextOverflow.ellipsis,
+    ),
+  );
+}
+
 final lightTheme = ThemeData(
-  colorScheme: const ColorScheme.light(),
+  colorScheme: const ColorScheme.light(
+    error: AppColors.whiteRed,
+  ),
   primaryColor: AppColors.secondary,
   scaffoldBackgroundColor: AppColors.white,
-  errorColor: AppColors.whiteRed,
   cardColor: AppColors.background,
   dividerColor: AppColors.inactive,
   disabledColor: AppColors.inactive,
@@ -93,6 +115,19 @@ final lightTheme = ThemeData(
     thumbColor: AppColors.white,
     overlayColor: AppColors.background,
   ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    foregroundColor: AppColors.white,
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: AppColors.whiteMain,
+  ),
+  inputDecorationTheme: buildInputDecorationTheme(
+    color: AppColors.whiteGreen.withOpacity(0.4),
+    errorColor: AppColors.whiteRed.withOpacity(0.4),
+  ),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: AppColors.inactive,
+  ),
 ).copyWith(
   extensions: [
     CustomColors.light,
@@ -101,10 +136,11 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
-  colorScheme: const ColorScheme.dark(),
+  colorScheme: const ColorScheme.dark(
+    error: AppColors.blackRed,
+  ),
   primaryColor: AppColors.white,
   scaffoldBackgroundColor: AppColors.blackMain,
-  errorColor: AppColors.whiteRed,
   cardColor: AppColors.dark,
   dividerColor: AppColors.inactive,
   disabledColor: AppColors.inactive,
@@ -141,6 +177,19 @@ final darkTheme = ThemeData(
     inactiveTrackColor: AppColors.inactive,
     thumbColor: AppColors.white,
     overlayColor: AppColors.background,
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    foregroundColor: AppColors.white,
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: AppColors.white,
+  ),
+  inputDecorationTheme: buildInputDecorationTheme(
+    color: AppColors.blackGreen.withOpacity(0.4),
+    errorColor: AppColors.blackRed.withOpacity(0.4),
+  ),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: AppColors.inactive,
   ),
 ).copyWith(
   extensions: [

@@ -4,15 +4,12 @@ import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/category/value.dart';
 import 'package:places/ui/sight/filters/category/item.dart';
 import 'package:places/ui/sight/filters/category/selectable_item.dart';
+import 'package:places/ui/sight/filters/filters_state.dart';
+import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
 class CategoryFilter extends StatelessWidget {
-  final List<CategoryFilterValue> sightFilterCategories;
-  final ValueChanged<CategoryFilterValue> onChanged;
-
   const CategoryFilter({
-    required this.onChanged,
-    required this.sightFilterCategories,
     Key? key,
   }) : super(key: key);
 
@@ -20,6 +17,8 @@ class CategoryFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
+    final sightFilterCategories = context.select<SightFiltersState, CategoryFilters>((s) => s.sightFilterCategories);
+    final onChanged = context.select<SightFiltersState, ValueChanged<CategoryFilterValue>>((s) => s.toggleCategoryFilter);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
