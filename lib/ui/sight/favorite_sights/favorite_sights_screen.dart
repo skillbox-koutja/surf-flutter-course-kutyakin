@@ -3,8 +3,10 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/mocks.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sight_card.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sight_list.dart';
+import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
+import 'package:places/ui/sight/favorite_sights/widgets/visited_sights.dart';
+import 'package:places/ui/sight/favorite_sights/widgets/wished_sights.dart';
+import 'package:provider/provider.dart';
 
 final certainPlannedSights = sights
     .map(
@@ -32,6 +34,18 @@ class FavoriteSightsScreen extends StatefulWidget {
 }
 
 class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
+  late final FavoriteSightsState favoriteSightsState;
+
+  @override
+  void initState() {
+    super.initState();
+
+    favoriteSightsState = FavoriteSightsState(
+      wished: certainPlannedSights,
+      visited: certainDoneSights,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -75,31 +89,19 @@ class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
             ),
           ),
         ),
-        body: TabBarView(
-          children: [
-            FavoriteSightList(
-              children: certainPlannedSights
-                  .map(
-                    (favoriteSight) => FavoriteSightCard(
-                      favoriteSight: favoriteSight,
-                      actions: PlannedFavoriteActions(favoriteSight: favoriteSight),
-                    ),
-                  )
-                  .toList(),
-            ),
-            FavoriteSightList(
-              children: certainDoneSights
-                  .map(
-                    (favoriteSight) => FavoriteSightCard(
-                      favoriteSight: favoriteSight,
-                      actions: DoneFavoriteActions(favoriteSight: favoriteSight),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
+        body: ChangeNotifierProvider(
+          create: (_) => favoriteSightsState,
+          builder: (_, __) {
+            return const TabBarView(
+              children: [
+                WishedSightsWidget(),
+                VisitedSightsWidget(),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 }
+

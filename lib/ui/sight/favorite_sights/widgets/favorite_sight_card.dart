@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/domain/sight/sight_status.dart';
-import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
-import 'package:places/ui/sight/sight_card/widgets/action.dart';
-import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/header.dart';
@@ -64,64 +61,4 @@ class _SightStatusColors {
   Color get color => _sightStatusColorsMap[favoriteSight.status.type] ?? AppColors.secondary2;
 
   const _SightStatusColors(this.favoriteSight);
-}
-
-class PlannedFavoriteActions extends StatelessWidget {
-  final FavoriteSight favoriteSight;
-
-  const PlannedFavoriteActions({required this.favoriteSight, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SightActions(
-      children: [
-        SightAction(
-          onTap: () {
-            print('CalendarSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
-          },
-          child: const CalendarSvgIcon(
-            color: AppColors.white,
-          ),
-        ),
-        SightAction(
-          onTap: () {
-            print('CloseSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
-          },
-          child: const CloseSvgIcon(
-            color: AppColors.white,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class DoneFavoriteActions extends StatelessWidget {
-  final FavoriteSight favoriteSight;
-
-  const DoneFavoriteActions({required this.favoriteSight, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SightActions(
-      children: [
-        GestureDetector(
-          onTap: () {
-            print('ShareSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
-          },
-          child: const ShareSvgIcon(
-            color: AppColors.white,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            print('CloseSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
-          },
-          child: const CloseSvgIcon(
-            color: AppColors.white,
-          ),
-        ),
-      ],
-    );
-  }
 }
