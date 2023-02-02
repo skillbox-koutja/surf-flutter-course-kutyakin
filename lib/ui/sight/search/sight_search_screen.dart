@@ -5,9 +5,9 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/app/bottom_navigation_bar.dart';
+import 'package:places/ui/components/field_icons/clear_icon.dart';
 import 'package:places/ui/sight/filters/filters_state.dart';
 import 'package:places/ui/sight/search/search_state.dart';
-import 'package:places/ui/sight/search/widgets/clear_icon.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/search/widgets/search_history.dart';
@@ -77,18 +77,18 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   controller: textEditingController,
                   suffixIcons: [
                     if (textEditingController.text.isNotEmpty)
-                      SearchClearIcon(
+                      FieldClearIcon(
                         controller: textEditingController,
                       ),
-                    if (textEditingController.text.isNotEmpty) const SizedBox(width: 8),
-                    SearchFilterIcon(
-                      onClose: () {
-                        Navigator.of(context).pop();
-                        _updateFilters(context);
-                        _onSearchChanged();
-                      },
-                    ),
-                    const SizedBox(width: 12),
+                    if (textEditingController.text.isEmpty)
+                      SearchFilterIcon(
+                        onClose: () {
+                          Navigator.of(context).pop();
+                          _updateFilters(context);
+                          _onSearchChanged();
+                        },
+                      ),
+                    // const SizedBox(width: 12),
                   ],
                 ),
                 _Body(

@@ -22,6 +22,10 @@ import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
 import 'package:provider/provider.dart';
 
+final successAddedSightSnackBar = SnackBar(
+  content: Text(AppMessages.sightsList.successAddedSight),
+);
+
 class SightListScreen extends StatefulWidget {
   const SightListScreen({Key? key}) : super(key: key);
 
@@ -85,6 +89,7 @@ class _SightListScreenState extends State<SightListScreen> {
             sights.add(sight);
             filtersState.clear();
             Navigator.of(context).pop();
+            ScaffoldMessenger.of(context).showSnackBar(successAddedSightSnackBar);
           },
           onClose: () {
             Navigator.of(context).pop();

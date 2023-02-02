@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 
-class SearchClearIcon extends StatelessWidget {
+class FieldClearIcon extends StatelessWidget {
   final TextEditingController controller;
-  const SearchClearIcon({required this.controller, Key? key, }) : super(key: key);
+  const FieldClearIcon({required this.controller, Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
