@@ -4,6 +4,7 @@ import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/domain/sight/sight_status.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
+import 'package:places/ui/sight/sight_card/widgets/action.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
@@ -74,7 +75,7 @@ class PlannedFavoriteActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SightActions(
       children: [
-        GestureDetector(
+        SightAction(
           onTap: () {
             print('CalendarSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
           },
@@ -82,7 +83,7 @@ class PlannedFavoriteActions extends StatelessWidget {
             color: AppColors.white,
           ),
         ),
-        GestureDetector(
+        SightAction(
           onTap: () {
             print('CloseSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
           },
