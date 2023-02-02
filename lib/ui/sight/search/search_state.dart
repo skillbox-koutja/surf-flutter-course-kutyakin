@@ -3,7 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
 
-typedef SearchResponse = List<Sight>;
+class SearchResponse {
+  final String query;
+  final List<Sight> data;
+
+  SearchResponse({required this.query, required this.data });
+}
+
 typedef Search = void Function(String query, List<Sight> sights);
 typedef ClearHistory = void Function();
 typedef RemoveHistoryItem = void Function(String item);
@@ -19,17 +25,26 @@ final List<String> _historyArchive = [];
 
 class SearchState extends ChangeNotifier {
   SearchingStatus status = SearchingStatus.none;
-  SearchResponse response = [];
+  SearchResponse response = SearchResponse(query: '', data: []);
   Timer? request;
   String query = '';
   List<String> history;
 
-  SearchState(): history = [..._historyArchive];
+  SearchState() : history = [..._historyArchive];
 
   @override
   void dispose() {
     request?.cancel();
     super.dispose();
+  }
+
+  void editQuery(String query) {
+    this.query = query;
+    notifyListeners();
+  }
+
+  bool isSameQuery(String q) {
+    return query == q;
   }
 
   void wait() {
@@ -42,18 +57,29 @@ class SearchState extends ChangeNotifier {
     request?.cancel();
   }
 
-  void search(String query, List<Sight> sights) {
-    this.query = query;
+  void search(String q, List<Sight> sights) {
+    query = q;
     status = SearchingStatus.searching;
-
-    _historyArchive.insert(0, query);
-    history = [..._historyArchive];
 
     abortRequest();
 
     request = Timer(const Duration(seconds: 1), () {
-      response = sights.where((element) => element.name.contains(query)).toList();
+      final q = RegExp(
+        query,
+        caseSensitive: false,
+        unicode: true,
+      );
+      response = SearchResponse(
+        query: query,
+        data: sights.where((element) => element.name.contains(q)).toList(),
+      );
       status = SearchingStatus.done;
+
+      _historyArchive
+        ..removeWhere((element) => element == query)
+        ..insert(0, query);
+      history = [..._historyArchive];
+
       request = null;
 
       notifyListeners();

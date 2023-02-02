@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:places/assets/highlight_text.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
@@ -45,23 +46,22 @@ class _DoneResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final query = context.select<SearchState, String>((s) => s.query);
     final result = context.select<SearchState, SearchResponse>((s) => s.response);
 
-    if (result.isEmpty) {
+    if (result.data.isEmpty) {
       return const _EmptyState();
     }
 
     return ListView.separated(
       padding: const EdgeInsets.all(8),
-      itemCount: result.length,
+      itemCount: result.data.length,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
-        final sight = result[index];
+        final sight = result.data[index];
 
         return _Row(
           sight: sight,
-          query: query,
+          query: result.query,
         );
       },
     );
@@ -145,6 +145,11 @@ class _NameSight extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
+    final highlightRegex = RegExp(
+      query,
+      caseSensitive: false,
+      unicode: true,
+    );
 
     return Markdown(
       padding: EdgeInsets.zero,
@@ -152,7 +157,7 @@ class _NameSight extends StatelessWidget {
         strong: textTheme?.text?.copyWith(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
         p: textTheme?.text?.copyWith(overflow: TextOverflow.ellipsis),
       ),
-      data: name.replaceAll(query, '**$query**'),
+      data: HighlightText(text: name, highlightRegex: highlightRegex).value,
     );
   }
 }

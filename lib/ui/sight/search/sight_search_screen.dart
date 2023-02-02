@@ -5,9 +5,9 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/app/bottom_navigation_bar.dart';
+import 'package:places/ui/components/field_icons/clear_icon.dart';
 import 'package:places/ui/sight/filters/filters_state.dart';
 import 'package:places/ui/sight/search/search_state.dart';
-import 'package:places/ui/sight/search/widgets/clear_icon.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/search/widgets/search_history.dart';
@@ -73,23 +73,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SearchBar(
+                _SearchBar(
                   controller: textEditingController,
-                  suffixIcons: [
-                    if (textEditingController.text.isNotEmpty)
-                      SearchClearIcon(
-                        controller: textEditingController,
-                      ),
-                    if (textEditingController.text.isNotEmpty) const SizedBox(width: 8),
-                    SearchFilterIcon(
-                      onClose: () {
-                        Navigator.of(context).pop();
-                        _updateFilters(context);
-                        _onSearchChanged();
-                      },
-                    ),
-                    const SizedBox(width: 12),
-                  ],
+                  onClose: () {
+                    Navigator.of(context).pop();
+                    _updateFilters(context);
+                    _onSearchChanged();
+                  },
                 ),
                 _Body(
                   onSelectHistoryItem: (item) {
@@ -116,18 +106,27 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void _onSearchChanged() {
-    final query = textEditingController.text;
-
-    if (query.length < queryMinLength) {
+    final query = textEditingController.text.trim();
+    if (query.isEmpty) {
       return;
     }
-
-    searchState.wait();
 
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      searchState.search(query, _filteredSights);
+      if (searchState.isSameQuery(query)) {
+        return;
+      }
+
+      searchState.editQuery(query);
+
+      if (query.length < queryMinLength) {
+        return;
+      }
+
+      searchState
+        ..wait()
+        ..search(query, _filteredSights);
     });
   }
 }
@@ -150,6 +149,37 @@ class _Body extends StatelessWidget {
               onSelectItem: onSelectHistoryItem,
             )
           : const SearchResult(),
+    );
+  }
+}
+
+class _SearchBar extends StatelessWidget {
+  final TextEditingController controller;
+  final VoidCallback onClose;
+
+  const _SearchBar({
+    required this.controller,
+    required this.onClose,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final query = context.select<SearchState, String>((s) => s.query);
+
+    return SearchBar(
+      controller: controller,
+      suffixIcons: [
+        if (query.isNotEmpty)
+          FieldClearIcon(
+            controller: controller,
+          ),
+        if (query.isEmpty)
+          SearchFilterIcon(
+            onClose: onClose,
+          ),
+        // const SizedBox(width: 12),
+      ],
     );
   }
 }

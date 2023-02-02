@@ -1,10 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:places/domain/sight/sight_type.dart';
-import 'package:places/domain/sight/use_case/edit_sight/error.dart';
 import 'package:places/domain/sight/use_case/edit_sight/event.dart';
 import 'package:places/domain/sight/use_case/edit_sight/model.dart';
-import 'package:places/domain/sight/use_case/edit_sight/validator.dart';
-import 'package:verify/verify.dart';
 
 typedef NextFieldHandler = void Function(FocusNode currentFocusNode);
 
@@ -25,7 +22,8 @@ class EditSightState extends ChangeNotifier {
   final FocusNode latFocusNode = FocusNode();
   final FocusNode longFocusNode = FocusNode();
 
-  final Set<FocusNode> touchedFields = {};
+  final Map<FocusNode, bool> touchedFields = {};
+  FocusNode? currentFocusNode;
 
   SightModel model;
 
@@ -72,37 +70,44 @@ class EditSightState extends ChangeNotifier {
       ),
     );
 
-    final errors = sightModelValidator.verify<EditSightModelError>(newModal).errorsGroupedBy((error) => error.field);
-
-    model = newModal.copyWith(errors: errors);
+    model = newModal.validate();
 
     notifyListeners();
   }
 
   void onFocusChange(FocusNode focusNode) {
-    touchedFields.add(focusNode);
+    touchedFields[focusNode] = focusNode.hasFocus;
+    currentFocusNode = !focusNode.hasFocus && currentFocusNode == focusNode ? null : focusNode;
+
+    notifyListeners();
   }
 
-  void nextField(FocusNode currentFocusNode) {
-    if (nameFocusNode == currentFocusNode) {
+  void nextField(FocusNode focusNode) {
+    focusNode.unfocus();
+
+    if (nameFocusNode == focusNode) {
+      currentFocusNode = latFocusNode;
       FocusManager.instance.rootScope.requestFocus(latFocusNode);
 
       return;
     }
 
-    if (latFocusNode == currentFocusNode) {
+    if (latFocusNode == focusNode) {
+      currentFocusNode = latFocusNode;
       FocusManager.instance.rootScope.requestFocus(longFocusNode);
 
       return;
     }
 
-    if (longFocusNode == currentFocusNode) {
+    if (longFocusNode == focusNode) {
+      currentFocusNode = latFocusNode;
       FocusManager.instance.rootScope.requestFocus(detailsFocusNode);
 
       return;
     }
 
-    if (detailsFocusNode == currentFocusNode) {
+    if (detailsFocusNode == focusNode) {
+      currentFocusNode = null;
       FocusManager.instance.primaryFocus?.unfocus();
 
       return;
@@ -112,7 +117,7 @@ class EditSightState extends ChangeNotifier {
   }
 
   bool isTouchedField(FocusNode focusNode) {
-    final result = focusNode.hasFocus || touchedFields.contains(focusNode);
+    final result = focusNode.hasFocus || touchedFields.containsKey(focusNode);
 
     return result;
   }

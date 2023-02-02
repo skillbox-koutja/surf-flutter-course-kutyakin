@@ -3,6 +3,8 @@ import 'package:places/domain/map/map_coordinates.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/domain/sight/sight_type.dart';
 import 'package:places/domain/sight/use_case/edit_sight/error.dart';
+import 'package:places/domain/sight/use_case/edit_sight/validator.dart';
+import 'package:verify/verify.dart';
 
 part 'model.freezed.dart';
 
@@ -14,6 +16,8 @@ enum SightModelField {
   lat,
   long,
 }
+
+typedef SightModelErrors = Map<SightModelField, List<EditSightModelError>>;
 
 @freezed
 class SightModel with _$SightModel {
@@ -37,16 +41,17 @@ class SightModel with _$SightModel {
   const SightModel._();
 
   factory SightModel.initial() {
-    return const SightModel(
+    const model = SightModel(
       errors: {},
     );
+
+    return model.validate();
   }
 
   factory SightModel.initialFilled() {
     const lat = 55.73495792679506;
     const long = 37.58815325199811;
-
-    return const SightModel(
+    const model = SightModel(
       name: 'test',
       details: 'test',
       lat: lat,
@@ -54,12 +59,20 @@ class SightModel with _$SightModel {
       type: SightType.hotel,
       errors: {},
     );
+
+    return model.validate();
   }
 
   EditSightModelError? fieldError(SightModelField field) {
     final fieldErrors = errors[field] ?? [];
 
     return fieldErrors.isEmpty ? null : fieldErrors.first;
+  }
+
+  SightModel validate() {
+    final errors = sightModelValidator.verify<EditSightModelError>(this).errorsGroupedBy((error) => error.field);
+
+    return copyWith(errors:errors);
   }
 
   Sight toSight() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 
@@ -23,6 +24,9 @@ class SearchBar extends StatelessWidget {
       controller: controller,
       autofocus: controller != null,
       readOnly: onTap != null,
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(RegExp(r'[\s/\\]')),
+      ],
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 12),
         enabledBorder: const OutlineInputBorder(
@@ -35,7 +39,6 @@ class SearchBar extends StatelessWidget {
         ),
         hintText: AppMessages.searchSights.searchFieldLabel,
         filled: true,
-        // prefixIcon: SearchSvgIcon(color: theme.disabledColor),
         prefixIcon: Align(
           widthFactor: 1.0,
           heightFactor: 1.0,

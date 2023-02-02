@@ -39,37 +39,44 @@ class _AddSightFormState extends State<AddSightForm> {
         padding: EdgeInsets.only(bottom: 8 + MediaQuery.of(context).padding.bottom),
         child: ChangeNotifierProvider(
           create: (_) => sightModelNotifier,
-          child: Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FieldLabel(
-                  label: AppMessages.editingSight.selectCategoryFieldLabel,
-                ),
-                const CategorySelectField(),
-                const SizedBox(height: 24),
-                FieldLabel(
-                  label: AppMessages.editingSight.nameFieldLabel,
-                ),
-                const NameField(),
-                const SizedBox(height: 24),
-                LatLongFieldGroup(
-                  lat: sightModelNotifier.model.lat,
-                  long: sightModelNotifier.model.long,
-                ),
-                const SizedBox(height: 37),
-                FieldLabel(
-                  label: AppMessages.editingSight.detailsFieldLabel,
-                ),
-                const DetailsField(),
-                const Spacer(),
-                SizedBox(
-                  width: double.infinity,
-                  child: _SubmitButton(
-                    onSubmit: onSubmit,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FieldLabel(
+                    label: AppMessages.editingSight.selectCategoryFieldLabel,
                   ),
-                ),
-              ],
+                  const CategorySelectField(),
+                  const SizedBox(height: 24),
+                  FieldLabel(
+                    label: AppMessages.editingSight.nameFieldLabel,
+                  ),
+                  const NameField(),
+                  const SizedBox(height: 24),
+                  LatLongFieldGroup(
+                    lat: sightModelNotifier.model.lat,
+                    long: sightModelNotifier.model.long,
+                  ),
+                  const SizedBox(height: 37),
+                  FieldLabel(
+                    label: AppMessages.editingSight.detailsFieldLabel,
+                  ),
+                  const DetailsField(),
+                  const Spacer(),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: _SubmitButton(
+                      onSubmit: onSubmit,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

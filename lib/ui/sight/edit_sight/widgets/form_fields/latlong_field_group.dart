@@ -101,11 +101,13 @@ class _Lat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lat = context.select<EditSightState, double?>((s) => s.model.lat);
     final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.latError);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.latFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLat);
 
     return LatLongField(
+      value: lat,
       focusNode: focusNode,
       controller: controller,
       label: AppMessages.editingSight.latitudeFieldLabel,
@@ -125,11 +127,13 @@ class _Long extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final long = context.select<EditSightState, double?>((s) => s.model.long);
     final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.longError);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.longFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLong);
 
     return LatLongField(
+      value: long,
       focusNode: focusNode,
       controller: controller,
       label: AppMessages.editingSight.latitudeFieldLabel,
