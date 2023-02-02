@@ -24,12 +24,17 @@ class SearchState extends ChangeNotifier {
   String query = '';
   List<String> history;
 
-  SearchState(): history = [..._historyArchive];
+  SearchState() : history = [..._historyArchive];
 
   @override
   void dispose() {
     request?.cancel();
     super.dispose();
+  }
+
+  void editQuery(String query) {
+    this.query = query;
+    notifyListeners();
   }
 
   void wait() {
@@ -52,7 +57,12 @@ class SearchState extends ChangeNotifier {
     abortRequest();
 
     request = Timer(const Duration(seconds: 1), () {
-      response = sights.where((element) => element.name.contains(query)).toList();
+      final q = RegExp(
+        query,
+        caseSensitive: false,
+        unicode: true,
+      );
+      response = sights.where((element) => element.name.contains(q)).toList();
       status = SearchingStatus.done;
       request = null;
 

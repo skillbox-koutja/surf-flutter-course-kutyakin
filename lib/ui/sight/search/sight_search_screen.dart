@@ -73,23 +73,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SearchBar(
+                _SearchBar(
                   controller: textEditingController,
-                  suffixIcons: [
-                    if (textEditingController.text.isNotEmpty)
-                      FieldClearIcon(
-                        controller: textEditingController,
-                      ),
-                    if (textEditingController.text.isEmpty)
-                      SearchFilterIcon(
-                        onClose: () {
-                          Navigator.of(context).pop();
-                          _updateFilters(context);
-                          _onSearchChanged();
-                        },
-                      ),
-                    // const SizedBox(width: 12),
-                  ],
+                  onClose: () {
+                    Navigator.of(context).pop();
+                    _updateFilters(context);
+                    _onSearchChanged();
+                  },
                 ),
                 _Body(
                   onSelectHistoryItem: (item) {
@@ -117,6 +107,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void _onSearchChanged() {
     final query = textEditingController.text;
+    searchState.editQuery(query);
 
     if (query.length < queryMinLength) {
       return;
@@ -152,4 +143,36 @@ class _Body extends StatelessWidget {
           : const SearchResult(),
     );
   }
+}
+
+class _SearchBar extends StatelessWidget {
+  final TextEditingController controller;
+  final VoidCallback onClose;
+
+  const _SearchBar({
+    required this.controller,
+    required this.onClose,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final query = context.select<SearchState, String>((s) => s.query);
+
+    return SearchBar(
+      controller: controller,
+      suffixIcons: [
+        if (query.isNotEmpty)
+          FieldClearIcon(
+            controller: controller,
+          ),
+        if (query.isEmpty)
+          SearchFilterIcon(
+            onClose: onClose,
+          ),
+        // const SizedBox(width: 12),
+      ],
+    );
+  }
+
 }
