@@ -106,7 +106,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   void _onSearchChanged() {
-    final query = textEditingController.text;
+    final query = textEditingController.text.trim();
+    if (searchState.isSameQuery(query)) {
+      return;
+    }
+
     searchState.editQuery(query);
 
     if (query.length < queryMinLength) {

@@ -37,6 +37,10 @@ class SearchState extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isSameQuery(String q) {
+    return query == q;
+  }
+
   void wait() {
     status = SearchingStatus.waiting;
     abortRequest();
@@ -47,12 +51,9 @@ class SearchState extends ChangeNotifier {
     request?.cancel();
   }
 
-  void search(String query, List<Sight> sights) {
-    this.query = query;
+  void search(String q, List<Sight> sights) {
+    query = q;
     status = SearchingStatus.searching;
-
-    _historyArchive.insert(0, query);
-    history = [..._historyArchive];
 
     abortRequest();
 
@@ -64,6 +65,12 @@ class SearchState extends ChangeNotifier {
       );
       response = sights.where((element) => element.name.contains(q)).toList();
       status = SearchingStatus.done;
+
+      _historyArchive
+        ..removeWhere((element) => element == query)
+        ..insert(0, query);
+      history = [..._historyArchive];
+
       request = null;
 
       notifyListeners();

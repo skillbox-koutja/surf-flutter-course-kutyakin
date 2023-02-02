@@ -145,6 +145,11 @@ class _NameSight extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
+    final q = RegExp(
+      query,
+      caseSensitive: false,
+      unicode: true,
+    );
 
     return Markdown(
       padding: EdgeInsets.zero,
@@ -152,7 +157,7 @@ class _NameSight extends StatelessWidget {
         strong: textTheme?.text?.copyWith(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
         p: textTheme?.text?.copyWith(overflow: TextOverflow.ellipsis),
       ),
-      data: name.replaceAll(query, '**$query**'),
+      data: name.replaceAll(q, '**$query**'),
     );
   }
 }
