@@ -11,8 +11,3 @@
 ```bash
 flutter pub run build_runner build
 ```
-
-
-Кремль
-кремль
-вас

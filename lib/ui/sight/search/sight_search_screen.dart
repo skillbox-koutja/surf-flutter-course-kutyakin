@@ -107,22 +107,26 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void _onSearchChanged() {
     final query = textEditingController.text.trim();
-    if (searchState.isSameQuery(query)) {
+    if (query.isEmpty) {
       return;
     }
-
-    searchState.editQuery(query);
-
-    if (query.length < queryMinLength) {
-      return;
-    }
-
-    searchState.wait();
 
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      searchState.search(query, _filteredSights);
+      if (searchState.isSameQuery(query)) {
+        return;
+      }
+
+      searchState.editQuery(query);
+
+      if (query.length < queryMinLength) {
+        return;
+      }
+
+      searchState
+        ..wait()
+        ..search(query, _filteredSights);
     });
   }
 }
@@ -178,5 +182,4 @@ class _SearchBar extends StatelessWidget {
       ],
     );
   }
-
 }
