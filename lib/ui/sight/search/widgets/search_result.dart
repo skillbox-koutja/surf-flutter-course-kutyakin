@@ -4,6 +4,7 @@ import 'package:places/assets/highlight_text.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/icons/empty/svg_icons.dart';
 import 'package:places/ui/sight/search/search_state.dart';
 import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
@@ -168,29 +169,13 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SearchSvgIcon(
-          color: theme.disabledColor,
-        ),
-        const SizedBox(height: 24),
-        Text(
-          AppMessages.searchSights.emptyListTitle,
-          style: textTheme?.subtitle?.copyWith(
-            color: theme.disabledColor,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          AppMessages.searchSights.emptyListDescription,
-          style: textTheme?.small?.copyWith(
-            color: theme.disabledColor,
-          ),
-        ),
-      ],
+    return EmptyState(
+      icon: SearchSvgIcon(
+        color: theme.disabledColor,
+      ),
+      title: AppMessages.searchSights.emptyListTitle,
+      description: AppMessages.searchSights.emptyListDescription,
     );
   }
 }
