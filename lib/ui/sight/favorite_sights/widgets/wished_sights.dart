@@ -4,13 +4,13 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/components/empty_state.dart';
+import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/icons/empty/svg_icons.dart' as empty_icons;
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/empty_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart';
-import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:provider/provider.dart';
 

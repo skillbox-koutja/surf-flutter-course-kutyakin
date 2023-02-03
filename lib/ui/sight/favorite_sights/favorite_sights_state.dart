@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
-import 'package:places/domain/sight/sight.dart';
 
 typedef FavoriteSights = UnmodifiableListView<FavoriteSight>;
 

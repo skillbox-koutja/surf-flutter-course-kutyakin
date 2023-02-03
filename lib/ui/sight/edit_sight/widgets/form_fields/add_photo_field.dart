@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/sight_photo.dart';
@@ -6,7 +8,6 @@ import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 
 class AddPhotoField extends StatelessWidget {
   const AddPhotoField({
@@ -17,20 +18,21 @@ class AddPhotoField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final photos = context.select<EditSightState, List<SightPhoto>>((s) => s.model.photos);
-    final width = MediaQuery.of(context).size.width - 72 - 2 * 16;
+    final isLockedPhotoRemoving = context.select<EditSightState, bool>((s) => s.model.isLockedPhotoRemoving);
+    final itemBuilder = isLockedPhotoRemoving ? normalItemBuilder : removableItemBuilder;
 
     return Row(
       children: [
-        const ColoredBox(
-          color: Colors.white,
-          child: Padding(
+        ColoredBox(
+          color: theme.scaffoldBackgroundColor,
+          child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: _AddPhotoButton(),
           ),
         ),
         SizedBox(
           height: 72,
-          width: width,
+          width: MediaQuery.of(context).size.width - 72 - 2 * 16,
           child: ListView.separated(
             separatorBuilder: (_, __) {
               return const SizedBox(width: 16);
@@ -38,12 +40,22 @@ class AddPhotoField extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8),
             scrollDirection: Axis.horizontal,
             itemCount: photos.length,
-            itemBuilder: (_, index) => _ListItem(
-              sightPhoto: photos[index],
-            ),
+            itemBuilder: (_, index) => itemBuilder(photos[index]),
           ),
         ),
       ],
+    );
+  }
+
+  Widget normalItemBuilder(SightPhoto sightPhoto) {
+    return _ListItem(
+      sightPhoto: sightPhoto,
+    );
+  }
+
+  Widget removableItemBuilder(SightPhoto sightPhoto) {
+    return _RemovableListItem(
+      sightPhoto: sightPhoto,
     );
   }
 }
@@ -91,29 +103,46 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorsTheme = theme.extension<CustomColors>();
+    return _Image(sightPhoto: sightPhoto);
+  }
+}
+
+class _RemovableListItem extends StatelessWidget {
+  final SightPhoto sightPhoto;
+
+  const _RemovableListItem({required this.sightPhoto, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final state = context.read<EditSightState>();
 
-    return Stack(
-      children: [
-        _Image(sightPhoto: sightPhoto),
-        Positioned(
-          top: 6,
-          right: 6,
-          child: IconActionWidget(
-            onPressed: () {
-              state.removePhoto(sightPhoto);
-            },
-            icon: ClearSvgIcon(
-              color: colorsTheme?.iconBackground,
+    return Dismissible(
+      key: ObjectKey(sightPhoto),
+      direction: DismissDirection.up,
+      onDismissed: (_) {
+        state.removePhoto(sightPhoto);
+      },
+      child: Stack(
+        children: [
+          Material(child: _ListItem(sightPhoto: sightPhoto)),
+          Positioned(
+            top: 6,
+            right: 6,
+            child: IconActionWidget(
+              onPressed: () {
+                state.removePhoto(sightPhoto);
+              },
+              icon: const ClearSvgIcon(
+                color: AppColors.white,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
+
 
 class _Image extends StatelessWidget {
   final SightPhoto sightPhoto;
