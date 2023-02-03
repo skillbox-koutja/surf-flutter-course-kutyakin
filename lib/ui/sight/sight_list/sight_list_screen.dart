@@ -4,6 +4,7 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/mocks.dart';
+import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/main_gradient_overlay.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
@@ -13,7 +14,6 @@ import 'package:places/ui/sight/search/sight_search_screen.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
-import 'package:places/ui/sight/sight_card/widgets/action.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
@@ -143,11 +143,11 @@ class _SightCard extends StatelessWidget {
         typeText: SightTypeText(sight: sight),
         actions: SightActions(
           children: [
-            SightAction(
-              onTap: () {
+            IconActionWidget(
+              onPressed: () {
                 print('HeartSvgIcon: ${sight.name}'); // ignore: avoid_print
               },
-              child: const HeartSvgIcon(
+              icon: const HeartSvgIcon(
                 color: AppColors.white,
               ),
             ),

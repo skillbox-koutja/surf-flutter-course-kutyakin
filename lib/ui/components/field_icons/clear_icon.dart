@@ -11,9 +11,9 @@ class FieldClearIcon extends StatelessWidget {
     final theme = Theme.of(context);
     final colorsTheme = theme.extension<CustomColors>();
 
-    return GestureDetector(
-      onTap: controller.clear,
-      child: ClearSvgIcon(color: colorsTheme?.icon),
+    return IconButton(
+      onPressed: controller.clear,
+      icon: ClearSvgIcon(color: colorsTheme?.icon),
     );
   }
 }

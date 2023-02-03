@@ -10,7 +10,7 @@ import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/empty_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart';
-import 'package:places/ui/sight/sight_card/widgets/action.dart';
+import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:provider/provider.dart';
 
@@ -86,17 +86,17 @@ class _PlannedFavoriteActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SightActions(
       children: [
-        SightAction(
-          onTap: () {
+        IconActionWidget(
+          onPressed: () {
             print('CalendarSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
           },
-          child: const CalendarSvgIcon(
+          icon: const CalendarSvgIcon(
             color: AppColors.white,
           ),
         ),
-        SightAction(
-          onTap: onRemove,
-          child: const CloseSvgIcon(
+        IconActionWidget(
+          onPressed: onRemove,
+          icon: const CloseSvgIcon(
             color: AppColors.white,
           ),
         ),

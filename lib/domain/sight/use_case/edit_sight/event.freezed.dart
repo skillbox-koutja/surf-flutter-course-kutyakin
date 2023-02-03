@@ -24,6 +24,8 @@ mixin _$EditSightModelEvent {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +36,8 @@ mixin _$EditSightModelEvent {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,37 +48,45 @@ mixin _$EditSightModelEvent {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -99,20 +111,18 @@ class _$EditSightModelEventCopyWithImpl<$Res, $Val extends EditSightModelEvent>
 }
 
 /// @nodoc
-abstract class _$$EditSightModelSetNameCopyWith<$Res> {
-  factory _$$EditSightModelSetNameCopyWith(_$EditSightModelSetName value,
-          $Res Function(_$EditSightModelSetName) then) =
-      __$$EditSightModelSetNameCopyWithImpl<$Res>;
+abstract class _$$SetNameCopyWith<$Res> {
+  factory _$$SetNameCopyWith(_$SetName value, $Res Function(_$SetName) then) =
+      __$$SetNameCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$EditSightModelSetNameCopyWithImpl<$Res>
-    extends _$EditSightModelEventCopyWithImpl<$Res, _$EditSightModelSetName>
-    implements _$$EditSightModelSetNameCopyWith<$Res> {
-  __$$EditSightModelSetNameCopyWithImpl(_$EditSightModelSetName _value,
-      $Res Function(_$EditSightModelSetName) _then)
+class __$$SetNameCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$SetName>
+    implements _$$SetNameCopyWith<$Res> {
+  __$$SetNameCopyWithImpl(_$SetName _value, $Res Function(_$SetName) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -120,7 +130,7 @@ class __$$EditSightModelSetNameCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$EditSightModelSetName(
+    return _then(_$SetName(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -131,8 +141,8 @@ class __$$EditSightModelSetNameCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditSightModelSetName implements EditSightModelSetName {
-  const _$EditSightModelSetName(this.name);
+class _$SetName implements SetName {
+  const _$SetName(this.name);
 
   @override
   final String name;
@@ -146,7 +156,7 @@ class _$EditSightModelSetName implements EditSightModelSetName {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditSightModelSetName &&
+            other is _$SetName &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -156,9 +166,8 @@ class _$EditSightModelSetName implements EditSightModelSetName {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditSightModelSetNameCopyWith<_$EditSightModelSetName> get copyWith =>
-      __$$EditSightModelSetNameCopyWithImpl<_$EditSightModelSetName>(
-          this, _$identity);
+  _$$SetNameCopyWith<_$SetName> get copyWith =>
+      __$$SetNameCopyWithImpl<_$SetName>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -169,6 +178,8 @@ class _$EditSightModelSetName implements EditSightModelSetName {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) {
     return setName(name);
   }
@@ -182,6 +193,8 @@ class _$EditSightModelSetName implements EditSightModelSetName {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) {
     return setName?.call(name);
   }
@@ -195,6 +208,8 @@ class _$EditSightModelSetName implements EditSightModelSetName {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) {
     if (setName != null) {
@@ -206,12 +221,14 @@ class _$EditSightModelSetName implements EditSightModelSetName {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) {
     return setName(this);
   }
@@ -219,12 +236,14 @@ class _$EditSightModelSetName implements EditSightModelSetName {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) {
     return setName?.call(this);
   }
@@ -232,12 +251,14 @@ class _$EditSightModelSetName implements EditSightModelSetName {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) {
     if (setName != null) {
@@ -247,31 +268,30 @@ class _$EditSightModelSetName implements EditSightModelSetName {
   }
 }
 
-abstract class EditSightModelSetName implements EditSightModelEvent {
-  const factory EditSightModelSetName(final String name) =
-      _$EditSightModelSetName;
+abstract class SetName implements EditSightModelEvent {
+  const factory SetName(final String name) = _$SetName;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$EditSightModelSetNameCopyWith<_$EditSightModelSetName> get copyWith =>
+  _$$SetNameCopyWith<_$SetName> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EditSightModelSetDetailsCopyWith<$Res> {
-  factory _$$EditSightModelSetDetailsCopyWith(_$EditSightModelSetDetails value,
-          $Res Function(_$EditSightModelSetDetails) then) =
-      __$$EditSightModelSetDetailsCopyWithImpl<$Res>;
+abstract class _$$SetDetailsCopyWith<$Res> {
+  factory _$$SetDetailsCopyWith(
+          _$SetDetails value, $Res Function(_$SetDetails) then) =
+      __$$SetDetailsCopyWithImpl<$Res>;
   @useResult
   $Res call({String details});
 }
 
 /// @nodoc
-class __$$EditSightModelSetDetailsCopyWithImpl<$Res>
-    extends _$EditSightModelEventCopyWithImpl<$Res, _$EditSightModelSetDetails>
-    implements _$$EditSightModelSetDetailsCopyWith<$Res> {
-  __$$EditSightModelSetDetailsCopyWithImpl(_$EditSightModelSetDetails _value,
-      $Res Function(_$EditSightModelSetDetails) _then)
+class __$$SetDetailsCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$SetDetails>
+    implements _$$SetDetailsCopyWith<$Res> {
+  __$$SetDetailsCopyWithImpl(
+      _$SetDetails _value, $Res Function(_$SetDetails) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -279,7 +299,7 @@ class __$$EditSightModelSetDetailsCopyWithImpl<$Res>
   $Res call({
     Object? details = null,
   }) {
-    return _then(_$EditSightModelSetDetails(
+    return _then(_$SetDetails(
       null == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
@@ -290,8 +310,8 @@ class __$$EditSightModelSetDetailsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditSightModelSetDetails implements EditSightModelSetDetails {
-  const _$EditSightModelSetDetails(this.details);
+class _$SetDetails implements SetDetails {
+  const _$SetDetails(this.details);
 
   @override
   final String details;
@@ -305,7 +325,7 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditSightModelSetDetails &&
+            other is _$SetDetails &&
             (identical(other.details, details) || other.details == details));
   }
 
@@ -315,10 +335,8 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditSightModelSetDetailsCopyWith<_$EditSightModelSetDetails>
-      get copyWith =>
-          __$$EditSightModelSetDetailsCopyWithImpl<_$EditSightModelSetDetails>(
-              this, _$identity);
+  _$$SetDetailsCopyWith<_$SetDetails> get copyWith =>
+      __$$SetDetailsCopyWithImpl<_$SetDetails>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -329,6 +347,8 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) {
     return setDetails(details);
   }
@@ -342,6 +362,8 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) {
     return setDetails?.call(details);
   }
@@ -355,6 +377,8 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) {
     if (setDetails != null) {
@@ -366,12 +390,14 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) {
     return setDetails(this);
   }
@@ -379,12 +405,14 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) {
     return setDetails?.call(this);
   }
@@ -392,12 +420,14 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) {
     if (setDetails != null) {
@@ -407,31 +437,28 @@ class _$EditSightModelSetDetails implements EditSightModelSetDetails {
   }
 }
 
-abstract class EditSightModelSetDetails implements EditSightModelEvent {
-  const factory EditSightModelSetDetails(final String details) =
-      _$EditSightModelSetDetails;
+abstract class SetDetails implements EditSightModelEvent {
+  const factory SetDetails(final String details) = _$SetDetails;
 
   String get details;
   @JsonKey(ignore: true)
-  _$$EditSightModelSetDetailsCopyWith<_$EditSightModelSetDetails>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$SetDetailsCopyWith<_$SetDetails> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EditSightModelSetTypeCopyWith<$Res> {
-  factory _$$EditSightModelSetTypeCopyWith(_$EditSightModelSetType value,
-          $Res Function(_$EditSightModelSetType) then) =
-      __$$EditSightModelSetTypeCopyWithImpl<$Res>;
+abstract class _$$SetTypeCopyWith<$Res> {
+  factory _$$SetTypeCopyWith(_$SetType value, $Res Function(_$SetType) then) =
+      __$$SetTypeCopyWithImpl<$Res>;
   @useResult
   $Res call({SightType type});
 }
 
 /// @nodoc
-class __$$EditSightModelSetTypeCopyWithImpl<$Res>
-    extends _$EditSightModelEventCopyWithImpl<$Res, _$EditSightModelSetType>
-    implements _$$EditSightModelSetTypeCopyWith<$Res> {
-  __$$EditSightModelSetTypeCopyWithImpl(_$EditSightModelSetType _value,
-      $Res Function(_$EditSightModelSetType) _then)
+class __$$SetTypeCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$SetType>
+    implements _$$SetTypeCopyWith<$Res> {
+  __$$SetTypeCopyWithImpl(_$SetType _value, $Res Function(_$SetType) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -439,7 +466,7 @@ class __$$EditSightModelSetTypeCopyWithImpl<$Res>
   $Res call({
     Object? type = null,
   }) {
-    return _then(_$EditSightModelSetType(
+    return _then(_$SetType(
       null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -450,8 +477,8 @@ class __$$EditSightModelSetTypeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditSightModelSetType implements EditSightModelSetType {
-  const _$EditSightModelSetType(this.type);
+class _$SetType implements SetType {
+  const _$SetType(this.type);
 
   @override
   final SightType type;
@@ -465,7 +492,7 @@ class _$EditSightModelSetType implements EditSightModelSetType {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditSightModelSetType &&
+            other is _$SetType &&
             (identical(other.type, type) || other.type == type));
   }
 
@@ -475,9 +502,8 @@ class _$EditSightModelSetType implements EditSightModelSetType {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditSightModelSetTypeCopyWith<_$EditSightModelSetType> get copyWith =>
-      __$$EditSightModelSetTypeCopyWithImpl<_$EditSightModelSetType>(
-          this, _$identity);
+  _$$SetTypeCopyWith<_$SetType> get copyWith =>
+      __$$SetTypeCopyWithImpl<_$SetType>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -488,6 +514,8 @@ class _$EditSightModelSetType implements EditSightModelSetType {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) {
     return setType(type);
   }
@@ -501,6 +529,8 @@ class _$EditSightModelSetType implements EditSightModelSetType {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) {
     return setType?.call(type);
   }
@@ -514,6 +544,8 @@ class _$EditSightModelSetType implements EditSightModelSetType {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) {
     if (setType != null) {
@@ -525,12 +557,14 @@ class _$EditSightModelSetType implements EditSightModelSetType {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) {
     return setType(this);
   }
@@ -538,12 +572,14 @@ class _$EditSightModelSetType implements EditSightModelSetType {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) {
     return setType?.call(this);
   }
@@ -551,12 +587,14 @@ class _$EditSightModelSetType implements EditSightModelSetType {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) {
     if (setType != null) {
@@ -566,31 +604,28 @@ class _$EditSightModelSetType implements EditSightModelSetType {
   }
 }
 
-abstract class EditSightModelSetType implements EditSightModelEvent {
-  const factory EditSightModelSetType(final SightType type) =
-      _$EditSightModelSetType;
+abstract class SetType implements EditSightModelEvent {
+  const factory SetType(final SightType type) = _$SetType;
 
   SightType get type;
   @JsonKey(ignore: true)
-  _$$EditSightModelSetTypeCopyWith<_$EditSightModelSetType> get copyWith =>
+  _$$SetTypeCopyWith<_$SetType> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EditSightModelSetLatCopyWith<$Res> {
-  factory _$$EditSightModelSetLatCopyWith(_$EditSightModelSetLat value,
-          $Res Function(_$EditSightModelSetLat) then) =
-      __$$EditSightModelSetLatCopyWithImpl<$Res>;
+abstract class _$$SetLatCopyWith<$Res> {
+  factory _$$SetLatCopyWith(_$SetLat value, $Res Function(_$SetLat) then) =
+      __$$SetLatCopyWithImpl<$Res>;
   @useResult
   $Res call({double? lat});
 }
 
 /// @nodoc
-class __$$EditSightModelSetLatCopyWithImpl<$Res>
-    extends _$EditSightModelEventCopyWithImpl<$Res, _$EditSightModelSetLat>
-    implements _$$EditSightModelSetLatCopyWith<$Res> {
-  __$$EditSightModelSetLatCopyWithImpl(_$EditSightModelSetLat _value,
-      $Res Function(_$EditSightModelSetLat) _then)
+class __$$SetLatCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$SetLat>
+    implements _$$SetLatCopyWith<$Res> {
+  __$$SetLatCopyWithImpl(_$SetLat _value, $Res Function(_$SetLat) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -598,7 +633,7 @@ class __$$EditSightModelSetLatCopyWithImpl<$Res>
   $Res call({
     Object? lat = freezed,
   }) {
-    return _then(_$EditSightModelSetLat(
+    return _then(_$SetLat(
       freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
@@ -609,8 +644,8 @@ class __$$EditSightModelSetLatCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditSightModelSetLat implements EditSightModelSetLat {
-  const _$EditSightModelSetLat(this.lat);
+class _$SetLat implements SetLat {
+  const _$SetLat(this.lat);
 
   @override
   final double? lat;
@@ -624,7 +659,7 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditSightModelSetLat &&
+            other is _$SetLat &&
             (identical(other.lat, lat) || other.lat == lat));
   }
 
@@ -634,9 +669,8 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditSightModelSetLatCopyWith<_$EditSightModelSetLat> get copyWith =>
-      __$$EditSightModelSetLatCopyWithImpl<_$EditSightModelSetLat>(
-          this, _$identity);
+  _$$SetLatCopyWith<_$SetLat> get copyWith =>
+      __$$SetLatCopyWithImpl<_$SetLat>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -647,6 +681,8 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) {
     return setLat(lat);
   }
@@ -660,6 +696,8 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) {
     return setLat?.call(lat);
   }
@@ -673,6 +711,8 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) {
     if (setLat != null) {
@@ -684,12 +724,14 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) {
     return setLat(this);
   }
@@ -697,12 +739,14 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) {
     return setLat?.call(this);
   }
@@ -710,12 +754,14 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) {
     if (setLat != null) {
@@ -725,31 +771,28 @@ class _$EditSightModelSetLat implements EditSightModelSetLat {
   }
 }
 
-abstract class EditSightModelSetLat implements EditSightModelEvent {
-  const factory EditSightModelSetLat(final double? lat) =
-      _$EditSightModelSetLat;
+abstract class SetLat implements EditSightModelEvent {
+  const factory SetLat(final double? lat) = _$SetLat;
 
   double? get lat;
   @JsonKey(ignore: true)
-  _$$EditSightModelSetLatCopyWith<_$EditSightModelSetLat> get copyWith =>
+  _$$SetLatCopyWith<_$SetLat> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EditSightModelSetLongCopyWith<$Res> {
-  factory _$$EditSightModelSetLongCopyWith(_$EditSightModelSetLong value,
-          $Res Function(_$EditSightModelSetLong) then) =
-      __$$EditSightModelSetLongCopyWithImpl<$Res>;
+abstract class _$$SetLongCopyWith<$Res> {
+  factory _$$SetLongCopyWith(_$SetLong value, $Res Function(_$SetLong) then) =
+      __$$SetLongCopyWithImpl<$Res>;
   @useResult
   $Res call({double? long});
 }
 
 /// @nodoc
-class __$$EditSightModelSetLongCopyWithImpl<$Res>
-    extends _$EditSightModelEventCopyWithImpl<$Res, _$EditSightModelSetLong>
-    implements _$$EditSightModelSetLongCopyWith<$Res> {
-  __$$EditSightModelSetLongCopyWithImpl(_$EditSightModelSetLong _value,
-      $Res Function(_$EditSightModelSetLong) _then)
+class __$$SetLongCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$SetLong>
+    implements _$$SetLongCopyWith<$Res> {
+  __$$SetLongCopyWithImpl(_$SetLong _value, $Res Function(_$SetLong) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -757,7 +800,7 @@ class __$$EditSightModelSetLongCopyWithImpl<$Res>
   $Res call({
     Object? long = freezed,
   }) {
-    return _then(_$EditSightModelSetLong(
+    return _then(_$SetLong(
       freezed == long
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
@@ -768,8 +811,8 @@ class __$$EditSightModelSetLongCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditSightModelSetLong implements EditSightModelSetLong {
-  const _$EditSightModelSetLong(this.long);
+class _$SetLong implements SetLong {
+  const _$SetLong(this.long);
 
   @override
   final double? long;
@@ -783,7 +826,7 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditSightModelSetLong &&
+            other is _$SetLong &&
             (identical(other.long, long) || other.long == long));
   }
 
@@ -793,9 +836,8 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditSightModelSetLongCopyWith<_$EditSightModelSetLong> get copyWith =>
-      __$$EditSightModelSetLongCopyWithImpl<_$EditSightModelSetLong>(
-          this, _$identity);
+  _$$SetLongCopyWith<_$SetLong> get copyWith =>
+      __$$SetLongCopyWithImpl<_$SetLong>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -806,6 +848,8 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) {
     return setLong(long);
   }
@@ -819,6 +863,8 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) {
     return setLong?.call(long);
   }
@@ -832,6 +878,8 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) {
     if (setLong != null) {
@@ -843,12 +891,14 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) {
     return setLong(this);
   }
@@ -856,12 +906,14 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) {
     return setLong?.call(this);
   }
@@ -869,12 +921,14 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) {
     if (setLong != null) {
@@ -884,31 +938,30 @@ class _$EditSightModelSetLong implements EditSightModelSetLong {
   }
 }
 
-abstract class EditSightModelSetLong implements EditSightModelEvent {
-  const factory EditSightModelSetLong(final double? long) =
-      _$EditSightModelSetLong;
+abstract class SetLong implements EditSightModelEvent {
+  const factory SetLong(final double? long) = _$SetLong;
 
   double? get long;
   @JsonKey(ignore: true)
-  _$$EditSightModelSetLongCopyWith<_$EditSightModelSetLong> get copyWith =>
+  _$$SetLongCopyWith<_$SetLong> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EditSightModelPointOnMapCopyWith<$Res> {
-  factory _$$EditSightModelPointOnMapCopyWith(_$EditSightModelPointOnMap value,
-          $Res Function(_$EditSightModelPointOnMap) then) =
-      __$$EditSightModelPointOnMapCopyWithImpl<$Res>;
+abstract class _$$PointOnMapCopyWith<$Res> {
+  factory _$$PointOnMapCopyWith(
+          _$PointOnMap value, $Res Function(_$PointOnMap) then) =
+      __$$PointOnMapCopyWithImpl<$Res>;
   @useResult
   $Res call({double lat, double long});
 }
 
 /// @nodoc
-class __$$EditSightModelPointOnMapCopyWithImpl<$Res>
-    extends _$EditSightModelEventCopyWithImpl<$Res, _$EditSightModelPointOnMap>
-    implements _$$EditSightModelPointOnMapCopyWith<$Res> {
-  __$$EditSightModelPointOnMapCopyWithImpl(_$EditSightModelPointOnMap _value,
-      $Res Function(_$EditSightModelPointOnMap) _then)
+class __$$PointOnMapCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$PointOnMap>
+    implements _$$PointOnMapCopyWith<$Res> {
+  __$$PointOnMapCopyWithImpl(
+      _$PointOnMap _value, $Res Function(_$PointOnMap) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -917,7 +970,7 @@ class __$$EditSightModelPointOnMapCopyWithImpl<$Res>
     Object? lat = null,
     Object? long = null,
   }) {
-    return _then(_$EditSightModelPointOnMap(
+    return _then(_$PointOnMap(
       lat: null == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
@@ -932,8 +985,8 @@ class __$$EditSightModelPointOnMapCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
-  const _$EditSightModelPointOnMap({required this.lat, required this.long});
+class _$PointOnMap implements PointOnMap {
+  const _$PointOnMap({required this.lat, required this.long});
 
   @override
   final double lat;
@@ -949,7 +1002,7 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditSightModelPointOnMap &&
+            other is _$PointOnMap &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.long, long) || other.long == long));
   }
@@ -960,10 +1013,8 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditSightModelPointOnMapCopyWith<_$EditSightModelPointOnMap>
-      get copyWith =>
-          __$$EditSightModelPointOnMapCopyWithImpl<_$EditSightModelPointOnMap>(
-              this, _$identity);
+  _$$PointOnMapCopyWith<_$PointOnMap> get copyWith =>
+      __$$PointOnMapCopyWithImpl<_$PointOnMap>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -974,6 +1025,8 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
     required TResult Function(double? lat) setLat,
     required TResult Function(double? long) setLong,
     required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
   }) {
     return pointOnMap(lat, long);
   }
@@ -987,6 +1040,8 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
     TResult? Function(double? lat)? setLat,
     TResult? Function(double? long)? setLong,
     TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
   }) {
     return pointOnMap?.call(lat, long);
   }
@@ -1000,6 +1055,8 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
     TResult Function(double? lat)? setLat,
     TResult Function(double? long)? setLong,
     TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
     required TResult orElse(),
   }) {
     if (pointOnMap != null) {
@@ -1011,12 +1068,14 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditSightModelSetName value) setName,
-    required TResult Function(EditSightModelSetDetails value) setDetails,
-    required TResult Function(EditSightModelSetType value) setType,
-    required TResult Function(EditSightModelSetLat value) setLat,
-    required TResult Function(EditSightModelSetLong value) setLong,
-    required TResult Function(EditSightModelPointOnMap value) pointOnMap,
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
   }) {
     return pointOnMap(this);
   }
@@ -1024,12 +1083,14 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditSightModelSetName value)? setName,
-    TResult? Function(EditSightModelSetDetails value)? setDetails,
-    TResult? Function(EditSightModelSetType value)? setType,
-    TResult? Function(EditSightModelSetLat value)? setLat,
-    TResult? Function(EditSightModelSetLong value)? setLong,
-    TResult? Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
   }) {
     return pointOnMap?.call(this);
   }
@@ -1037,12 +1098,14 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditSightModelSetName value)? setName,
-    TResult Function(EditSightModelSetDetails value)? setDetails,
-    TResult Function(EditSightModelSetType value)? setType,
-    TResult Function(EditSightModelSetLat value)? setLat,
-    TResult Function(EditSightModelSetLong value)? setLong,
-    TResult Function(EditSightModelPointOnMap value)? pointOnMap,
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
     required TResult orElse(),
   }) {
     if (pointOnMap != null) {
@@ -1052,14 +1115,350 @@ class _$EditSightModelPointOnMap implements EditSightModelPointOnMap {
   }
 }
 
-abstract class EditSightModelPointOnMap implements EditSightModelEvent {
-  const factory EditSightModelPointOnMap(
-      {required final double lat,
-      required final double long}) = _$EditSightModelPointOnMap;
+abstract class PointOnMap implements EditSightModelEvent {
+  const factory PointOnMap(
+      {required final double lat, required final double long}) = _$PointOnMap;
 
   double get lat;
   double get long;
   @JsonKey(ignore: true)
-  _$$EditSightModelPointOnMapCopyWith<_$EditSightModelPointOnMap>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$PointOnMapCopyWith<_$PointOnMap> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddPhotoCopyWith<$Res> {
+  factory _$$AddPhotoCopyWith(
+          _$AddPhoto value, $Res Function(_$AddPhoto) then) =
+      __$$AddPhotoCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SightPhoto photo});
+}
+
+/// @nodoc
+class __$$AddPhotoCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$AddPhoto>
+    implements _$$AddPhotoCopyWith<$Res> {
+  __$$AddPhotoCopyWithImpl(_$AddPhoto _value, $Res Function(_$AddPhoto) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? photo = null,
+  }) {
+    return _then(_$AddPhoto(
+      null == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as SightPhoto,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddPhoto implements AddPhoto {
+  const _$AddPhoto(this.photo);
+
+  @override
+  final SightPhoto photo;
+
+  @override
+  String toString() {
+    return 'EditSightModelEvent.addPhoto(photo: $photo)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddPhoto &&
+            (identical(other.photo, photo) || other.photo == photo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, photo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddPhotoCopyWith<_$AddPhoto> get copyWith =>
+      __$$AddPhotoCopyWithImpl<_$AddPhoto>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) setName,
+    required TResult Function(String details) setDetails,
+    required TResult Function(SightType type) setType,
+    required TResult Function(double? lat) setLat,
+    required TResult Function(double? long) setLong,
+    required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
+  }) {
+    return addPhoto(photo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? setName,
+    TResult? Function(String details)? setDetails,
+    TResult? Function(SightType type)? setType,
+    TResult? Function(double? lat)? setLat,
+    TResult? Function(double? long)? setLong,
+    TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
+  }) {
+    return addPhoto?.call(photo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? setName,
+    TResult Function(String details)? setDetails,
+    TResult Function(SightType type)? setType,
+    TResult Function(double? lat)? setLat,
+    TResult Function(double? long)? setLong,
+    TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
+    required TResult orElse(),
+  }) {
+    if (addPhoto != null) {
+      return addPhoto(photo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
+  }) {
+    return addPhoto(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
+  }) {
+    return addPhoto?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
+    required TResult orElse(),
+  }) {
+    if (addPhoto != null) {
+      return addPhoto(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddPhoto implements EditSightModelEvent {
+  const factory AddPhoto(final SightPhoto photo) = _$AddPhoto;
+
+  SightPhoto get photo;
+  @JsonKey(ignore: true)
+  _$$AddPhotoCopyWith<_$AddPhoto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemovePhotoCopyWith<$Res> {
+  factory _$$RemovePhotoCopyWith(
+          _$RemovePhoto value, $Res Function(_$RemovePhoto) then) =
+      __$$RemovePhotoCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SightPhoto photo});
+}
+
+/// @nodoc
+class __$$RemovePhotoCopyWithImpl<$Res>
+    extends _$EditSightModelEventCopyWithImpl<$Res, _$RemovePhoto>
+    implements _$$RemovePhotoCopyWith<$Res> {
+  __$$RemovePhotoCopyWithImpl(
+      _$RemovePhoto _value, $Res Function(_$RemovePhoto) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? photo = null,
+  }) {
+    return _then(_$RemovePhoto(
+      null == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as SightPhoto,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemovePhoto implements RemovePhoto {
+  const _$RemovePhoto(this.photo);
+
+  @override
+  final SightPhoto photo;
+
+  @override
+  String toString() {
+    return 'EditSightModelEvent.removePhoto(photo: $photo)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemovePhoto &&
+            (identical(other.photo, photo) || other.photo == photo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, photo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemovePhotoCopyWith<_$RemovePhoto> get copyWith =>
+      __$$RemovePhotoCopyWithImpl<_$RemovePhoto>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) setName,
+    required TResult Function(String details) setDetails,
+    required TResult Function(SightType type) setType,
+    required TResult Function(double? lat) setLat,
+    required TResult Function(double? long) setLong,
+    required TResult Function(double lat, double long) pointOnMap,
+    required TResult Function(SightPhoto photo) addPhoto,
+    required TResult Function(SightPhoto photo) removePhoto,
+  }) {
+    return removePhoto(photo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? setName,
+    TResult? Function(String details)? setDetails,
+    TResult? Function(SightType type)? setType,
+    TResult? Function(double? lat)? setLat,
+    TResult? Function(double? long)? setLong,
+    TResult? Function(double lat, double long)? pointOnMap,
+    TResult? Function(SightPhoto photo)? addPhoto,
+    TResult? Function(SightPhoto photo)? removePhoto,
+  }) {
+    return removePhoto?.call(photo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? setName,
+    TResult Function(String details)? setDetails,
+    TResult Function(SightType type)? setType,
+    TResult Function(double? lat)? setLat,
+    TResult Function(double? long)? setLong,
+    TResult Function(double lat, double long)? pointOnMap,
+    TResult Function(SightPhoto photo)? addPhoto,
+    TResult Function(SightPhoto photo)? removePhoto,
+    required TResult orElse(),
+  }) {
+    if (removePhoto != null) {
+      return removePhoto(photo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SetName value) setName,
+    required TResult Function(SetDetails value) setDetails,
+    required TResult Function(SetType value) setType,
+    required TResult Function(SetLat value) setLat,
+    required TResult Function(SetLong value) setLong,
+    required TResult Function(PointOnMap value) pointOnMap,
+    required TResult Function(AddPhoto value) addPhoto,
+    required TResult Function(RemovePhoto value) removePhoto,
+  }) {
+    return removePhoto(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SetName value)? setName,
+    TResult? Function(SetDetails value)? setDetails,
+    TResult? Function(SetType value)? setType,
+    TResult? Function(SetLat value)? setLat,
+    TResult? Function(SetLong value)? setLong,
+    TResult? Function(PointOnMap value)? pointOnMap,
+    TResult? Function(AddPhoto value)? addPhoto,
+    TResult? Function(RemovePhoto value)? removePhoto,
+  }) {
+    return removePhoto?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SetName value)? setName,
+    TResult Function(SetDetails value)? setDetails,
+    TResult Function(SetType value)? setType,
+    TResult Function(SetLat value)? setLat,
+    TResult Function(SetLong value)? setLong,
+    TResult Function(PointOnMap value)? pointOnMap,
+    TResult Function(AddPhoto value)? addPhoto,
+    TResult Function(RemovePhoto value)? removePhoto,
+    required TResult orElse(),
+  }) {
+    if (removePhoto != null) {
+      return removePhoto(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemovePhoto implements EditSightModelEvent {
+  const factory RemovePhoto(final SightPhoto photo) = _$RemovePhoto;
+
+  SightPhoto get photo;
+  @JsonKey(ignore: true)
+  _$$RemovePhotoCopyWith<_$RemovePhoto> get copyWith =>
+      throw _privateConstructorUsedError;
 }

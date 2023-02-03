@@ -27,6 +27,7 @@ class SightCardHeader extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 typeText,
                 actions,

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/domain/sight/sight_type.dart';
 import 'package:places/domain/sight/use_case/edit_sight/event.dart';
 import 'package:places/domain/sight/use_case/edit_sight/model.dart';
@@ -27,8 +28,6 @@ class EditSightState extends ChangeNotifier {
 
   SightModel model;
 
-  bool get isTouchedForm => touchedFields.isNotEmpty;
-
   EditSightState(this.model);
 
   @override
@@ -47,6 +46,10 @@ class EditSightState extends ChangeNotifier {
   void editLat(double? value) => dispatch(EditSightModelEvent.setLat(value));
 
   void editLong(double? value) => dispatch(EditSightModelEvent.setLong(value));
+
+  void addPhoto(SightPhoto photo) => dispatch(EditSightModelEvent.addPhoto(photo));
+
+  void removePhoto(SightPhoto photo) => dispatch(EditSightModelEvent.removePhoto(photo));
 
   void pointOnMap({
     required double lat,
@@ -68,6 +71,8 @@ class EditSightState extends ChangeNotifier {
         lat: lat,
         long: long,
       ),
+      addPhoto: (photo) => model.addPhoto(photo),
+      removePhoto: (photo) => model.removePhoto(photo),
     );
 
     model = newModal.validate();

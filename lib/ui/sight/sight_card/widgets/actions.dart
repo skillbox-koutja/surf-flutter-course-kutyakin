@@ -7,12 +7,9 @@ class SightActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 3, right: 2),
-      child: Wrap(
-        spacing: 16,
-        children: children,
-      ),
+    return Wrap(
+      spacing: 16,
+      children: children,
     );
   }
 }
