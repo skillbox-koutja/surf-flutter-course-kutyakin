@@ -46,6 +46,7 @@ SliderThemeData buildSliderTheme() {
 
 InputDecorationTheme buildInputDecorationTheme({
   required Color color,
+  required Color fillColor,
   required Color errorColor,
 }) {
   const border = OutlineInputBorder(
@@ -58,7 +59,7 @@ InputDecorationTheme buildInputDecorationTheme({
     focusedBorder: border.copyWith(borderSide: BorderSide(color: color)),
     errorBorder: border.copyWith(borderSide: border.borderSide.copyWith(color: errorColor)),
     focusedErrorBorder: border.copyWith(borderSide: BorderSide(color: errorColor)),
-    fillColor: AppColors.background,
+    fillColor: fillColor,
     hintStyle: const AppTextStyle(color: AppColors.inactive).copyWith(
       overflow: TextOverflow.ellipsis,
     ),
@@ -123,6 +124,7 @@ final lightTheme = ThemeData(
   ),
   inputDecorationTheme: buildInputDecorationTheme(
     color: AppColors.whiteGreen.withOpacity(0.4),
+    fillColor:  AppColors.background,
     errorColor: AppColors.whiteRed.withOpacity(0.4),
   ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
@@ -186,6 +188,7 @@ final darkTheme = ThemeData(
   ),
   inputDecorationTheme: buildInputDecorationTheme(
     color: AppColors.blackGreen.withOpacity(0.4),
+    fillColor: AppColors.dark,
     errorColor: AppColors.blackRed.withOpacity(0.4),
   ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
