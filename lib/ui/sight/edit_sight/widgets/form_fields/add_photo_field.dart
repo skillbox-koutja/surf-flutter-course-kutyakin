@@ -77,7 +77,7 @@ class _AddPhotoButton extends StatelessWidget {
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: colorsTheme?.green?.withOpacity(0.48) ?? Colors.green),
         ),
         child: SizedBox.square(

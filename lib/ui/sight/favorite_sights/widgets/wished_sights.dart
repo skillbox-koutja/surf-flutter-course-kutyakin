@@ -29,26 +29,29 @@ class WishedSightsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<FavoriteSightsState>();
-    final list = context.select<FavoriteSightsState, FavoriteSights>((s) => s.wished);
+    final sights = context.select<FavoriteSightsState, FavoriteSights>((s) => s.wished);
 
-    if (list.isEmpty) {
+    if (sights.isEmpty) {
       return const _WishedEmptyState();
     }
 
     return FavoriteSightList(
-      children: list
-          .map(
-            (favoriteSight) => FavoriteSightCard(
-              favoriteSight: favoriteSight,
-              actions: _PlannedFavoriteActions(
-                favoriteSight: favoriteSight,
-                onRemove: () {
-                  state.removeWished(favoriteSight);
-                },
-              ),
-            ),
-          )
-          .toList(),
+      sights: sights,
+      itemBuilder: ({required favoriteSight}) {
+        return FavoriteSightCard(
+          key: ObjectKey(favoriteSight),
+          favoriteSight: favoriteSight,
+          onDismissed: (_) {
+            state.removeWished(favoriteSight);
+          },
+          actions: _PlannedFavoriteActions(
+            favoriteSight: favoriteSight,
+            onRemove: () {
+              state.removeWished(favoriteSight);
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -112,7 +112,7 @@ class _FloatingButtonText extends StatelessWidget {
       padding: const EdgeInsets.only(left: 9),
       child: MainGradientOverlay(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 22),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
           child: Row(
             children: [
               PlusSvgIcon(

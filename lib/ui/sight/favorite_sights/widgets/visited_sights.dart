@@ -19,26 +19,29 @@ class VisitedSightsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<FavoriteSightsState>();
-    final list = context.select<FavoriteSightsState, FavoriteSights>((s) => s.visited);
+    final sights = context.select<FavoriteSightsState, FavoriteSights>((s) => s.visited);
 
-    if (list.isEmpty) {
+    if (sights.isEmpty) {
       return const _VisitedEmptyState();
     }
 
     return FavoriteSightList(
-      children: list
-          .map(
-            (favoriteSight) => FavoriteSightCard(
-              favoriteSight: favoriteSight,
-              actions: _VisitedActions(
-                favoriteSight: favoriteSight,
-                onRemove: () {
-                  state.removeVisited(favoriteSight);
-                },
-              ),
-            ),
-          )
-          .toList(),
+      sights: sights,
+      itemBuilder: ({required favoriteSight}) {
+        return FavoriteSightCard(
+          key: ObjectKey(favoriteSight),
+          favoriteSight: favoriteSight,
+          onDismissed: (_) {
+            state.removeVisited(favoriteSight);
+          },
+          actions: _VisitedActions(
+            favoriteSight: favoriteSight,
+            onRemove: () {
+              state.removeVisited(favoriteSight);
+            },
+          ),
+        );
+      },
     );
   }
 }
