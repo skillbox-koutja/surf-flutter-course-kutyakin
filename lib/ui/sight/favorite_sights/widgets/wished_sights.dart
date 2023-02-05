@@ -37,13 +37,11 @@ class WishedSightsWidget extends StatelessWidget {
 
     return FavoriteSightList(
       sights: sights,
-      itemBuilder: ({required favoriteSight}) {
+      onRemove: state.removeWished,
+      onReorder: state.reorderWished,
+      buildCard: ({required favoriteSight}) {
         return FavoriteSightCard(
-          key: ObjectKey(favoriteSight),
           favoriteSight: favoriteSight,
-          onDismissed: (_) {
-            state.removeWished(favoriteSight);
-          },
           actions: _PlannedFavoriteActions(
             favoriteSight: favoriteSight,
             onRemove: () {

@@ -10,6 +10,8 @@ import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 import 'package:provider/provider.dart';
 
 class AddPhotoField extends StatelessWidget {
+  static const _photoListViewPadding = 72 + 2 * 16;
+
   const AddPhotoField({
     Key? key,
   }) : super(key: key);
@@ -18,8 +20,6 @@ class AddPhotoField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final photos = context.select<EditSightState, List<SightPhoto>>((s) => s.model.photos);
-    final isLockedPhotoRemoving = context.select<EditSightState, bool>((s) => s.model.isLockedPhotoRemoving);
-    final itemBuilder = isLockedPhotoRemoving ? normalItemBuilder : removableItemBuilder;
 
     return Row(
       children: [
@@ -32,7 +32,7 @@ class AddPhotoField extends StatelessWidget {
         ),
         SizedBox(
           height: 72,
-          width: MediaQuery.of(context).size.width - 72 - 2 * 16,
+          width: MediaQuery.of(context).size.width - _photoListViewPadding,
           child: ListView.separated(
             separatorBuilder: (_, __) {
               return const SizedBox(width: 16);
@@ -40,22 +40,10 @@ class AddPhotoField extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8),
             scrollDirection: Axis.horizontal,
             itemCount: photos.length,
-            itemBuilder: (_, index) => itemBuilder(photos[index]),
+            itemBuilder: (_, index) => _RemovableListItem(sightPhoto: photos[index]),
           ),
         ),
       ],
-    );
-  }
-
-  Widget normalItemBuilder(SightPhoto sightPhoto) {
-    return _ListItem(
-      sightPhoto: sightPhoto,
-    );
-  }
-
-  Widget removableItemBuilder(SightPhoto sightPhoto) {
-    return _RemovableListItem(
-      sightPhoto: sightPhoto,
     );
   }
 }

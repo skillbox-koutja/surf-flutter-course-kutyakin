@@ -27,13 +27,11 @@ class VisitedSightsWidget extends StatelessWidget {
 
     return FavoriteSightList(
       sights: sights,
-      itemBuilder: ({required favoriteSight}) {
+      onRemove: state.removeVisited,
+      onReorder: state.reorderVisited,
+      buildCard: ({required favoriteSight}) {
         return FavoriteSightCard(
-          key: ObjectKey(favoriteSight),
           favoriteSight: favoriteSight,
-          onDismissed: (_) {
-            state.removeVisited(favoriteSight);
-          },
           actions: _VisitedActions(
             favoriteSight: favoriteSight,
             onRemove: () {

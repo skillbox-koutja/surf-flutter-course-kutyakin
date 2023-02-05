@@ -23,7 +23,6 @@ typedef SightModelErrors = Map<SightModelField, List<EditSightModelError>>;
 @freezed
 class SightModel with _$SightModel {
   bool get isValid => errors.isEmpty;
-  bool get isLockedPhotoRemoving => photos.length <= 1;
 
   EditSightModelError? get nameError => fieldError(SightModelField.name);
   EditSightModelError? get detailsError => fieldError(SightModelField.details);

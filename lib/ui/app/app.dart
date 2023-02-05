@@ -38,9 +38,9 @@ class _AppState extends State<App> {
               controller: pageController,
               onPageChanged: onPageChanged,
               children: [
-                const FavoriteSightsScreen(),
-                SightDetailsScreen(sight: sights.last),
                 const SightListScreen(),
+                SightDetailsScreen(sight: sights.last),
+                const FavoriteSightsScreen(),
                 const SettingsScreen(),
               ],
             ),
