@@ -11,7 +11,7 @@ import 'package:places/ui/sight/edit_sight/widgets/form_fields/latlong_field_gro
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/name_field.dart';
 import 'package:provider/provider.dart';
 
-class AddSightForm extends StatefulWidget {
+class AddSightForm extends StatelessWidget {
   final ValueChanged<Sight> onSave;
 
   const AddSightForm({
@@ -20,108 +20,65 @@ class AddSightForm extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<AddSightForm> createState() => _AddSightFormState();
-}
-
-class _AddSightFormState extends State<AddSightForm> {
-  late EditSightState sightModelNotifier;
-
-  @override
-  void initState() {
-    super.initState();
-
-    sightModelNotifier = EditSightState(SightModel.initial());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Flexible(
       child: Padding(
         padding: EdgeInsets.only(bottom: 8 + MediaQuery.of(context).padding.bottom),
-        child: ChangeNotifierProvider(
-          create: (_) => sightModelNotifier,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            child: Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const AddPhotoField(),
-                  const SizedBox(height: 24),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FieldLabel(
-                            label: AppMessages.editingSight.selectCategoryFieldLabel,
-                          ),
-                          const CategorySelectField(),
-                          const SizedBox(height: 24),
-                          FieldLabel(
-                            label: AppMessages.editingSight.nameFieldLabel,
-                          ),
-                          const NameField(),
-                          const SizedBox(height: 24),
-                          LatLongFieldGroup(
-                            lat: sightModelNotifier.model.lat,
-                            long: sightModelNotifier.model.long,
-                          ),
-                          const SizedBox(height: 37),
-                          FieldLabel(
-                            label: AppMessages.editingSight.detailsFieldLabel,
-                          ),
-                          const DetailsField(),
-                          const Spacer(),
-                          const SizedBox(height: 24),
-                          SizedBox(
-                            width: double.infinity,
-                            child: _SubmitButton(
-                              onSubmit: onSubmit,
-                            ),
-                          ),
-                        ],
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Form(
+            child: ListView(
+              children: [
+                const AddPhotoField(),
+                const SizedBox(height: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FieldLabel(
+                        label: AppMessages.editingSight.selectCategoryFieldLabel,
                       ),
-                    ),
+                      const CategorySelectField(),
+                      const SizedBox(height: 24),
+                      FieldLabel(
+                        label: AppMessages.editingSight.nameFieldLabel,
+                      ),
+                      const NameField(),
+                      const SizedBox(height: 24),
+                      const _LatLong(),
+                      const SizedBox(height: 37),
+                      FieldLabel(
+                        label: AppMessages.editingSight.detailsFieldLabel,
+                      ),
+                      const DetailsField(),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-
-  void onSubmit() {
-    final sightModel = sightModelNotifier.model;
-    if (sightModel.isValid) {
-      final sight = sightModelNotifier.model.toSight();
-      widget.onSave(sight);
-    }
-  }
 }
 
-class _SubmitButton extends StatelessWidget {
-  final VoidCallback onSubmit;
-  const _SubmitButton({
-    required this.onSubmit,
-    Key? key,
-  }) : super(key: key);
+class _LatLong extends StatelessWidget {
+  const _LatLong({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final isValid = context.select<EditSightState, bool>((s) => s.model.isValid);
+    final lat = context.select<EditSightState, double?>((s) => s.model.lat);
+    final long = context.select<EditSightState, double?>((s) => s.model.long);
 
-    return ElevatedButton(
-      onPressed: isValid ? onSubmit : null,
-      child: Text(
-        AppMessages.editingSight.createButtonLabel,
-      ),
+    return LatLongFieldGroup(
+      lat: lat,
+      long: long,
     );
   }
 }
+

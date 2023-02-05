@@ -20,24 +20,30 @@ class SightFiltersScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 56 + MediaQuery.of(context).padding.top),
             _Header(
               onClose: onClose,
             ),
-            const SizedBox(
-              width: double.infinity,
-              child: CategoryFilter(),
+            Flexible(
+              child: ListView(
+                children: const [
+                  SizedBox(
+                    width: double.infinity,
+                    child: CategoryFilter(),
+                  ),
+                  SizedBox(height: 60),
+                  DistanceFilter(),
+                ],
+              ),
             ),
-            const SizedBox(height: 60),
-            const DistanceFilter(),
-            const Spacer(),
-            _ApplyFiltersButton(
-              onClose: onClose,
-            ),
-            SizedBox(height: 8 + MediaQuery.of(context).padding.bottom),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _ApplyFiltersButton(
+          onClose: onClose,
         ),
       ),
     );
