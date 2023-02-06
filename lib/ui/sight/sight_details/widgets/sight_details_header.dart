@@ -4,6 +4,7 @@ import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/images/loading_progress_value.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
+import 'package:places/ui/sight/sight_details/widgets/gallery.dart';
 
 class SightDetailsHeader extends StatelessWidget {
   final Sight sight;
@@ -22,22 +23,8 @@ class SightDetailsHeader extends StatelessWidget {
       child: SizedBox.expand(
         child: Stack(
           children: [
-            SizedBox.expand(
-              child: ImageOverlay(
-                image: Image.network(
-                  sight.imageUrl,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (_, child, loadingProgress) {
-                    return loadingProgress == null
-                        ? child
-                        : Center(
-                            child: CircularProgressIndicator(
-                              value: LoadingProgressValue.fromImageChunkEvent(loadingProgress).value,
-                            ),
-                          );
-                  },
-                ),
-              ),
+            SightPhotosGallery(
+              photos: sight.photos,
             ),
             Positioned(
               top: 36 + MediaQuery.of(context).padding.top,

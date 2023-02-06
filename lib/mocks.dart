@@ -47,7 +47,11 @@ final List<Sight> sights = [
   Sight(
     name: 'Пряности и радости',
     coordinates: const MapCoordinates(lat: 55.74001855028845, long: 37.59595459157536),
-    photos: [SightPhoto(imageUrl: 'https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg?w=2000&t=st=1673350186~exp=1673350786~hmac=032547a723606804dc49088c1e06a30e43adf4caa5c821578112f0017b2daf5e')],
+    photos: [
+      SightPhoto(imageUrl: 'https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg?w=2000&t=st=1673350186~exp=1673350786~hmac=032547a723606804dc49088c1e06a30e43adf4caa5c821578112f0017b2daf5e'),
+      SightPhoto(imageUrl: 'https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg?w=2000&t=st=1673350186~exp=1673350786~hmac=032547a723606804dc49088c1e06a30e43adf4caa5c821578112f0017b2daf5e'),
+      SightPhoto(imageUrl: 'https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg?w=2000&t=st=1673350186~exp=1673350786~hmac=032547a723606804dc49088c1e06a30e43adf4caa5c821578112f0017b2daf5e'),
+    ],
     details:
         'Пряный вкус радостной жизни вместе с\u{00A0}шеф-поваром Изо Дзандзава, благодаря которой у\u{00A0}гостей ресторана есть возможность выбирать из\u{00A0}двух направлений: европейского и\u{00A0}восточного',
     type: SightType.restaurant,
