@@ -31,11 +31,11 @@ class SearchBar extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 12),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(style: BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(style: BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         hintText: AppMessages.searchSights.searchFieldLabel,
         filled: true,

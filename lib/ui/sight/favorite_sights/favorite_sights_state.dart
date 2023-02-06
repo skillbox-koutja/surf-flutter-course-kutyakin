@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
-import 'package:places/domain/sight/sight.dart';
 
 typedef FavoriteSights = UnmodifiableListView<FavoriteSight>;
 
@@ -17,19 +15,42 @@ class FavoriteSightsState extends ChangeNotifier {
   FavoriteSightsState({
     required List<FavoriteSight> wished,
     required List<FavoriteSight> visited,
-  }): _wished = wished, _visited = visited;
+  })  : _wished = wished,
+        _visited = visited;
 
   void removeWished(FavoriteSight favoriteSight) {
-    final newList = [..._wished]..remove(favoriteSight);
-    _wished = newList;
+    _wished = [..._wished]..remove(favoriteSight);
 
     notifyListeners();
   }
 
   void removeVisited(FavoriteSight favoriteSight) {
-    final newList = [..._visited]..remove(favoriteSight);
-    _visited = newList;
+    _visited = [..._visited]..remove(favoriteSight);
 
     notifyListeners();
+  }
+
+  void reorderWished({
+    required int index,
+    required FavoriteSight favoriteSight,
+  }) {
+    _wished = _reorderSights(_wished, index, favoriteSight);
+
+    notifyListeners();
+  }
+
+  void reorderVisited({
+    required int index,
+    required FavoriteSight favoriteSight,
+  }) {
+    _visited = _reorderSights(_visited, index, favoriteSight);
+
+    notifyListeners();
+  }
+
+  List<FavoriteSight> _reorderSights(List<FavoriteSight> sights, int index, FavoriteSight favoriteSight) {
+    return [...sights]
+      ..remove(favoriteSight)
+      ..insert(index, favoriteSight);
   }
 }

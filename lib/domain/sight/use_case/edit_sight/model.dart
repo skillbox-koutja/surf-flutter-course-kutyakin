@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/domain/map/map_coordinates.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/domain/sight/sight_type.dart';
 import 'package:places/domain/sight/use_case/edit_sight/error.dart';
 import 'package:places/domain/sight/use_case/edit_sight/validator.dart';
@@ -10,11 +11,11 @@ part 'model.freezed.dart';
 
 enum SightModelField {
   name,
-  imageUrl,
   details,
   type,
   lat,
   long,
+  photos,
 }
 
 typedef SightModelErrors = Map<SightModelField, List<EditSightModelError>>;
@@ -30,20 +31,18 @@ class SightModel with _$SightModel {
 
   const factory SightModel({
     @Default('') String name,
-    @Default('https://picsum.photos/300/400') String imageUrl,
     @Default('') String details,
     double? lat,
     double? long,
     @Default(SightType.none) SightType type,
-    required Map<SightModelField, List<EditSightModelError>> errors,
+    @Default(<SightPhoto>[]) List<SightPhoto> photos,
+    @Default(<SightModelField, List<EditSightModelError>> {}) SightModelErrors errors,
   }) = _SightModel;
 
   const SightModel._();
 
   factory SightModel.initial() {
-    const model = SightModel(
-      errors: {},
-    );
+    const model = SightModel();
 
     return model.validate();
   }
@@ -51,12 +50,17 @@ class SightModel with _$SightModel {
   factory SightModel.initialFilled() {
     const lat = 55.73495792679506;
     const long = 37.58815325199811;
-    const model = SightModel(
+    final model = SightModel(
       name: 'test',
       details: 'test',
       lat: lat,
       long: long,
       type: SightType.hotel,
+      photos: [
+        SightPhoto(imageUrl: 'https://picsum.photos/300/400?_c=1'),
+        SightPhoto(imageUrl: 'https://picsum.photos/300/400?_c=2'),
+        SightPhoto(imageUrl: 'https://picsum.photos/300/400?_c=3'),
+      ],
       errors: {},
     );
 
@@ -75,15 +79,25 @@ class SightModel with _$SightModel {
     return copyWith(errors:errors);
   }
 
+  SightModel addPhoto(SightPhoto photo) {
+    return copyWith(photos: [photo, ...photos]);
+  }
+
+  SightModel removePhoto(SightPhoto photo) {
+    final newPhotos = photos.where((element) => element != photo).toList();
+
+    return copyWith(photos: newPhotos);
+  }
+
   Sight toSight() {
     assert(isValid);
 
     return Sight(
       name: name,
       coordinates: MapCoordinates(lat: lat!, long: long!),
-      imageUrl: imageUrl,
       details: details,
       type: type,
+      photos: photos,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/domain/sight/sight_type.dart';
 import 'package:places/domain/sight/use_case/edit_sight/error.dart';
 import 'package:places/domain/sight/use_case/edit_sight/model.dart';
@@ -51,6 +52,16 @@ final Validator<SightModel> sightModelValidator = Verify.all<SightModel>([
       error: const EditSightModelError(
         field: SightModelField.type,
         message: 'need choice type',
+      ),
+    ),
+  ),
+  Verify.subject<SightModel>().checkField(
+    (state) => state.photos,
+    Verify.that<List<SightPhoto>>(
+      (value) => value.isNotEmpty,
+      error: const EditSightModelError(
+        field: SightModelField.photos,
+        message: 'cannot be empty',
       ),
     ),
   ),

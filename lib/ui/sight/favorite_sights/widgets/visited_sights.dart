@@ -3,13 +3,13 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/ui/components/empty_state.dart';
+import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/icons/empty/svg_icons.dart' as empty_icons;
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/empty_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart';
-import 'package:places/ui/sight/sight_card/widgets/action.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:provider/provider.dart';
 
@@ -19,26 +19,27 @@ class VisitedSightsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<FavoriteSightsState>();
-    final list = context.select<FavoriteSightsState, FavoriteSights>((s) => s.visited);
+    final sights = context.select<FavoriteSightsState, FavoriteSights>((s) => s.visited);
 
-    if (list.isEmpty) {
+    if (sights.isEmpty) {
       return const _VisitedEmptyState();
     }
 
     return FavoriteSightList(
-      children: list
-          .map(
-            (favoriteSight) => FavoriteSightCard(
-              favoriteSight: favoriteSight,
-              actions: _VisitedActions(
-                favoriteSight: favoriteSight,
-                onRemove: () {
-                  state.removeVisited(favoriteSight);
-                },
-              ),
-            ),
-          )
-          .toList(),
+      sights: sights,
+      onRemove: state.removeVisited,
+      onReorder: state.reorderVisited,
+      buildCard: ({required favoriteSight}) {
+        return FavoriteSightCard(
+          favoriteSight: favoriteSight,
+          actions: _VisitedActions(
+            favoriteSight: favoriteSight,
+            onRemove: () {
+              state.removeVisited(favoriteSight);
+            },
+          ),
+        );
+      },
     );
   }
 }
@@ -76,17 +77,17 @@ class _VisitedActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SightActions(
       children: [
-        SightAction(
-          onTap: () {
+        IconActionWidget(
+          onPressed: () {
             print('ShareSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
           },
-          child: const ShareSvgIcon(
+          icon: const ShareSvgIcon(
             color: AppColors.white,
           ),
         ),
-        SightAction(
-          onTap: onRemove,
-          child: const CloseSvgIcon(
+        IconActionWidget(
+          onPressed: onRemove,
+          icon: const CloseSvgIcon(
             color: AppColors.white,
           ),
         ),

@@ -1,21 +1,24 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/domain/map/map_coordinates.dart';
 import 'package:places/domain/map/map_distance.dart';
+import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/domain/sight/sight_type.dart';
 
-class Sight {
-  final String name;
-  final MapCoordinates coordinates;
-  final String imageUrl;
-  final String details;
-  final SightType type;
+part 'sight.freezed.dart';
 
-  const Sight({
-    required this.name,
-    required this.coordinates,
-    required this.imageUrl,
-    required this.details,
-    required this.type,
-  });
+@freezed
+class Sight with _$Sight {
+  String get imageUrl => photos.isEmpty ? '' : photos.first.imageUrl;
+
+  const factory Sight({
+    required String name,
+    required MapCoordinates coordinates,
+    required String details,
+    required SightType type,
+    required List<SightPhoto> photos,
+  }) = _Sight;
+
+  const Sight._();
 
   MapDistance getDistance(MapCoordinates centerPoint) {
     return MapDistance(

@@ -17,11 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SightModel {
   String get name => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
   String get details => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get long => throw _privateConstructorUsedError;
   SightType get type => throw _privateConstructorUsedError;
+  List<SightPhoto> get photos => throw _privateConstructorUsedError;
   Map<SightModelField, List<EditSightModelError>> get errors =>
       throw _privateConstructorUsedError;
 
@@ -38,11 +38,11 @@ abstract class $SightModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String imageUrl,
       String details,
       double? lat,
       double? long,
       SightType type,
+      List<SightPhoto> photos,
       Map<SightModelField, List<EditSightModelError>> errors});
 }
 
@@ -60,21 +60,17 @@ class _$SightModelCopyWithImpl<$Res, $Val extends SightModel>
   @override
   $Res call({
     Object? name = null,
-    Object? imageUrl = null,
     Object? details = null,
     Object? lat = freezed,
     Object? long = freezed,
     Object? type = null,
+    Object? photos = null,
     Object? errors = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       details: null == details
           ? _value.details
@@ -92,6 +88,10 @@ class _$SightModelCopyWithImpl<$Res, $Val extends SightModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as SightType,
+      photos: null == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<SightPhoto>,
       errors: null == errors
           ? _value.errors
           : errors // ignore: cast_nullable_to_non_nullable
@@ -110,11 +110,11 @@ abstract class _$$_SightModelCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
-      String imageUrl,
       String details,
       double? lat,
       double? long,
       SightType type,
+      List<SightPhoto> photos,
       Map<SightModelField, List<EditSightModelError>> errors});
 }
 
@@ -130,21 +130,17 @@ class __$$_SightModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? imageUrl = null,
     Object? details = null,
     Object? lat = freezed,
     Object? long = freezed,
     Object? type = null,
+    Object? photos = null,
     Object? errors = null,
   }) {
     return _then(_$_SightModel(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       details: null == details
           ? _value.details
@@ -162,6 +158,10 @@ class __$$_SightModelCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as SightType,
+      photos: null == photos
+          ? _value._photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<SightPhoto>,
       errors: null == errors
           ? _value._errors
           : errors // ignore: cast_nullable_to_non_nullable
@@ -175,21 +175,20 @@ class __$$_SightModelCopyWithImpl<$Res>
 class _$_SightModel extends _SightModel {
   const _$_SightModel(
       {this.name = '',
-      this.imageUrl = 'https://picsum.photos/300/400',
       this.details = '',
       this.lat,
       this.long,
       this.type = SightType.none,
-      required final Map<SightModelField, List<EditSightModelError>> errors})
-      : _errors = errors,
+      final List<SightPhoto> photos = const <SightPhoto>[],
+      final Map<SightModelField, List<EditSightModelError>> errors =
+          const <SightModelField, List<EditSightModelError>>{}})
+      : _photos = photos,
+        _errors = errors,
         super._();
 
   @override
   @JsonKey()
   final String name;
-  @override
-  @JsonKey()
-  final String imageUrl;
   @override
   @JsonKey()
   final String details;
@@ -200,8 +199,17 @@ class _$_SightModel extends _SightModel {
   @override
   @JsonKey()
   final SightType type;
+  final List<SightPhoto> _photos;
+  @override
+  @JsonKey()
+  List<SightPhoto> get photos {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_photos);
+  }
+
   final Map<SightModelField, List<EditSightModelError>> _errors;
   @override
+  @JsonKey()
   Map<SightModelField, List<EditSightModelError>> get errors {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_errors);
@@ -209,7 +217,7 @@ class _$_SightModel extends _SightModel {
 
   @override
   String toString() {
-    return 'SightModel(name: $name, imageUrl: $imageUrl, details: $details, lat: $lat, long: $long, type: $type, errors: $errors)';
+    return 'SightModel(name: $name, details: $details, lat: $lat, long: $long, type: $type, photos: $photos, errors: $errors)';
   }
 
   @override
@@ -218,18 +226,24 @@ class _$_SightModel extends _SightModel {
         (other.runtimeType == runtimeType &&
             other is _$_SightModel &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
             (identical(other.details, details) || other.details == details) &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.long, long) || other.long == long) &&
             (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality().equals(other._photos, _photos) &&
             const DeepCollectionEquality().equals(other._errors, _errors));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, imageUrl, details, lat,
-      long, type, const DeepCollectionEquality().hash(_errors));
+  int get hashCode => Object.hash(
+      runtimeType,
+      name,
+      details,
+      lat,
+      long,
+      type,
+      const DeepCollectionEquality().hash(_photos),
+      const DeepCollectionEquality().hash(_errors));
 
   @JsonKey(ignore: true)
   @override
@@ -240,20 +254,18 @@ class _$_SightModel extends _SightModel {
 
 abstract class _SightModel extends SightModel {
   const factory _SightModel(
-      {final String name,
-      final String imageUrl,
-      final String details,
-      final double? lat,
-      final double? long,
-      final SightType type,
-      required final Map<SightModelField, List<EditSightModelError>>
-          errors}) = _$_SightModel;
+          {final String name,
+          final String details,
+          final double? lat,
+          final double? long,
+          final SightType type,
+          final List<SightPhoto> photos,
+          final Map<SightModelField, List<EditSightModelError>> errors}) =
+      _$_SightModel;
   const _SightModel._() : super._();
 
   @override
   String get name;
-  @override
-  String get imageUrl;
   @override
   String get details;
   @override
@@ -262,6 +274,8 @@ abstract class _SightModel extends SightModel {
   double? get long;
   @override
   SightType get type;
+  @override
+  List<SightPhoto> get photos;
   @override
   Map<SightModelField, List<EditSightModelError>> get errors;
   @override

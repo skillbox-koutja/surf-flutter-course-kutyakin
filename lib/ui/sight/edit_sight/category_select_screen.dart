@@ -154,7 +154,7 @@ class _Option extends StatelessWidget {
           behavior: HitTestBehavior.translucent,
           onTap: selected == sightType ? null : onTap,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: selected == sightType ? 12.0 : 14.0),
+            padding: EdgeInsets.symmetric(vertical: selected == sightType ? 12 : 14),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

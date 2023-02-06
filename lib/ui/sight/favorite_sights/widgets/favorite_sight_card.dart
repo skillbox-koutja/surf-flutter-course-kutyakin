@@ -23,28 +23,25 @@ class FavoriteSightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: SightCard(
-        header: SightCardHeader(
-          image: SightImage(sight: favoriteSight.sight, fit: BoxFit.fitWidth),
-          typeText: SightTypeText(sight: favoriteSight.sight),
-          actions: actions,
-          flex: 2,
-        ),
-        body: SightCardBody(
-          flex: 3,
-          children: [
-            SightNameText(sight: favoriteSight.sight),
-            const SizedBox(height: 2),
-            SightStatusText(
-              status: favoriteSight.status,
-              color: _SightStatusColors(favoriteSight).color,
-            ),
-            const SizedBox(height: 12),
-            SightDetailsText(sight: favoriteSight.sight),
-          ],
-        ),
+    return SightCard(
+      header: SightCardHeader(
+        image: SightImage(sight: favoriteSight.sight, fit: BoxFit.fitWidth),
+        typeText: SightTypeText(sight: favoriteSight.sight),
+        actions: actions,
+        flex: 2,
+      ),
+      body: SightCardBody(
+        flex: 3,
+        children: [
+          SightNameText(sight: favoriteSight.sight),
+          const SizedBox(height: 2),
+          SightStatusText(
+            status: favoriteSight.status,
+            color: _SightStatusColors(favoriteSight).color,
+          ),
+          const SizedBox(height: 12),
+          SightDetailsText(sight: favoriteSight.sight),
+        ],
       ),
     );
   }

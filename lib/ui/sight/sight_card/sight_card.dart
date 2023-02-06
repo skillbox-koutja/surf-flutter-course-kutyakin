@@ -20,12 +20,15 @@ class SightCard extends StatelessWidget {
       color: theme.cardColor,
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
         onTap: () {
           print('SightCard.onTap'); // ignore: avoid_print
         },
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: AspectRatio(
           aspectRatio: 3 / 2,
           child: Column(

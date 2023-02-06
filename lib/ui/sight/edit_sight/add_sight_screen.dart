@@ -24,25 +24,29 @@ class _AddSightScreenState extends State<AddSightScreen> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraint) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 56 + MediaQuery.of(context).padding.top),
-                      _Header(
-                        onClose: widget.onClose,
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 56 + MediaQuery.of(context).padding.top),
+                          _Header(
+                            onClose: widget.onClose,
+                          ),
+                          const SizedBox(height: 24),
+                        ],
                       ),
-                      const SizedBox(height: 24),
-                      AddSightForm(
-                        onSave: widget.onSave,
-                      ),
-                    ],
-                  ),
+                    ),
+                    AddSightForm(
+                      onSave: widget.onSave,
+                    ),
+                  ],
                 ),
               ),
             ),

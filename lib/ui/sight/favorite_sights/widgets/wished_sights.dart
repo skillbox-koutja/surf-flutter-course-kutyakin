@@ -4,13 +4,13 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/mocks.dart';
 import 'package:places/ui/components/empty_state.dart';
+import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/icons/empty/svg_icons.dart' as empty_icons;
 import 'package:places/ui/icons/svg_icons.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/empty_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart';
-import 'package:places/ui/sight/sight_card/widgets/action.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:provider/provider.dart';
 
@@ -29,26 +29,27 @@ class WishedSightsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<FavoriteSightsState>();
-    final list = context.select<FavoriteSightsState, FavoriteSights>((s) => s.wished);
+    final sights = context.select<FavoriteSightsState, FavoriteSights>((s) => s.wished);
 
-    if (list.isEmpty) {
+    if (sights.isEmpty) {
       return const _WishedEmptyState();
     }
 
     return FavoriteSightList(
-      children: list
-          .map(
-            (favoriteSight) => FavoriteSightCard(
-              favoriteSight: favoriteSight,
-              actions: _PlannedFavoriteActions(
-                favoriteSight: favoriteSight,
-                onRemove: () {
-                  state.removeWished(favoriteSight);
-                },
-              ),
-            ),
-          )
-          .toList(),
+      sights: sights,
+      onRemove: state.removeWished,
+      onReorder: state.reorderWished,
+      buildCard: ({required favoriteSight}) {
+        return FavoriteSightCard(
+          favoriteSight: favoriteSight,
+          actions: _PlannedFavoriteActions(
+            favoriteSight: favoriteSight,
+            onRemove: () {
+              state.removeWished(favoriteSight);
+            },
+          ),
+        );
+      },
     );
   }
 }
@@ -86,17 +87,17 @@ class _PlannedFavoriteActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SightActions(
       children: [
-        SightAction(
-          onTap: () {
+        IconActionWidget(
+          onPressed: () {
             print('CalendarSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
           },
-          child: const CalendarSvgIcon(
+          icon: const CalendarSvgIcon(
             color: AppColors.white,
           ),
         ),
-        SightAction(
-          onTap: onRemove,
-          child: const CloseSvgIcon(
+        IconActionWidget(
+          onPressed: onRemove,
+          icon: const CloseSvgIcon(
             color: AppColors.white,
           ),
         ),
