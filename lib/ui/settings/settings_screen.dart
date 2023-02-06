@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final colorsTheme = theme.extension<CustomColors>();
 
     return Consumer<SettingsState>(
-      builder: (context, settings, child) {
+      builder: (_, settings, __) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Scaffold(

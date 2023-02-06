@@ -56,8 +56,8 @@ class _DoneResult extends StatelessWidget {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: result.data.length,
-      separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: (context, index) {
+      separatorBuilder: (_, __) => const Divider(),
+      itemBuilder: (_, index) {
         final sight = result.data[index];
 
         return _Row(
@@ -89,7 +89,7 @@ class _Row extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<SightDetailsScreen>(
-            builder: (context) => SightDetailsScreen(
+            builder: (_) => SightDetailsScreen(
               sight: sight,
             ),
           ),

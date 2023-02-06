@@ -73,8 +73,8 @@ class _HistoryList extends StatelessWidget {
           shrinkWrap: true,
           padding: EdgeInsets.zero,
           itemCount: items.length,
-          separatorBuilder: (context, index) => const Divider(),
-          itemBuilder: (context, index) {
+          separatorBuilder: (_, __) => const Divider(),
+          itemBuilder: (_, index) {
             final query = items[index];
 
             return _Row(

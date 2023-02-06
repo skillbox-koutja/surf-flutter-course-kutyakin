@@ -24,11 +24,11 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Consumer<SettingsState>(
-      builder: (context, settings, child) {
+      builder: (_, settings, __) {
         return MaterialApp(
           title: 'Places',
           theme: settings.isDark ? darkTheme : lightTheme,
-          builder: (context, child) {
+          builder: (_, child) {
             return _Unfocus(
               child: child!,
             );

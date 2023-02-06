@@ -27,7 +27,7 @@ class SightDetailsHeader extends StatelessWidget {
                 image: Image.network(
                   sight.imageUrl,
                   fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
+                  loadingBuilder: (_, child, loadingProgress) {
                     return loadingProgress == null
                         ? child
                         : Center(

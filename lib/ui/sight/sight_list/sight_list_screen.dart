@@ -210,7 +210,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute<SightSearchScreen>(builder: (context) => const SightSearchScreen()),
+                MaterialPageRoute<SightSearchScreen>(builder: (_) => const SightSearchScreen()),
               );
             },
           ),

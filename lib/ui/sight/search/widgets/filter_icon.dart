@@ -20,7 +20,7 @@ class SearchFilterIcon extends StatelessWidget {
         showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
-          builder: (context) {
+          builder: (_) {
             return SightFiltersScreen(
               onClose: onClose,
             );

@@ -23,7 +23,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraint) {
+        builder: (_, constraint) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),

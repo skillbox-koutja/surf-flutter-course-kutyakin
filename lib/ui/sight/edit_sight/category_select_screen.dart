@@ -36,7 +36,7 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraint) {
+        builder: (_, constraint) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: SingleChildScrollView(
