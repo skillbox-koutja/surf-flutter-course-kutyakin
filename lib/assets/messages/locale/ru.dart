@@ -8,6 +8,7 @@ class AppMessages {
   static const editingSight = _EditingSightMessages();
   static const searchSights = _SearchSightsMessages();
   static const placeholder = _PlaceholderMessages();
+  static const onboarding = _OnboardingMessages();
 }
 
 const _shortMonths = {
@@ -163,6 +164,33 @@ class _SearchSightsMessages {
   String get emptyListDescription => 'Попробуйте изменить параметры поиска';
 
   const _SearchSightsMessages();
+}
+
+class _TutorialFrame {
+  final String title;
+  final String description;
+
+  _TutorialFrame({required this.title, required this.description});
+}
+
+class _OnboardingMessages {
+  String get skipTitle => 'Пропустить';
+  String get startButtonLabel => 'НА СТАРТ';
+  String get tutorialFrames => 'НА СТАРТ';
+  _TutorialFrame get tutorialFrame1 => _TutorialFrame(
+        title: 'Добро пожаловать в Путеводитель',
+        description: 'Ищи новые локации и сохраняй самые любимые.',
+      );
+  _TutorialFrame get tutorialFrame2 => _TutorialFrame(
+        title: 'Построй маршрут и отправляйся в путь',
+        description: 'Достигай цели максимально быстро и комфортно.',
+      );
+  _TutorialFrame get tutorialFrame3 => _TutorialFrame(
+        title: 'Добавляй места, которые нашёл сам',
+        description: 'Делись самыми интересными и помоги нам стать лучше!',
+      );
+
+  const _OnboardingMessages();
 }
 
 class _PlaceholderMessages {
