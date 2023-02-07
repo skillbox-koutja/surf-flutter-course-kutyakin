@@ -41,22 +41,17 @@ class _SightListScreenState extends State<SightListScreen> {
 
     return Scaffold(
       appBar: _AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: filteredSights
-                  .map(
-                    (sight) => Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: _SightCard(sight: sight),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView.separated(
+          itemCount: filteredSights.length,
+          padding: EdgeInsets.zero,
+          separatorBuilder: (_, __) {
+            return const SizedBox(height: 16);
+          },
+          itemBuilder: (_, index) {
+            return _SightCard(sight: filteredSights[index]);
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
