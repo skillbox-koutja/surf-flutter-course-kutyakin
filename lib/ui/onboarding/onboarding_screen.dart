@@ -22,14 +22,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  late final OnboardingState onboardingState;
-
-  @override
-  void initState() {
-    super.initState();
-
-    onboardingState = OnboardingState(0);
-  }
+  final OnboardingState onboardingState = OnboardingState(0);
 
   @override
   Widget build(BuildContext context) {

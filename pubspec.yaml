@@ -35,6 +35,7 @@ flutter:
     - assets/icons/category/
     - assets/icons/empty/
     - assets/icons/menu/
+    - assets/icons/tutorial/
 
   fonts:
     - family: 'Roboto'

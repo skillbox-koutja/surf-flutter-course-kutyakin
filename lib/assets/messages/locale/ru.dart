@@ -38,7 +38,7 @@ class _AppDateFormat {
 }
 
 class _SightsListMessages {
-  String get screenTitle => 'Список\nинтересных мест';
+  String get screenTitle => 'Список интересных мест';
   String get newButtonLabel => 'НОВОЕ МЕСТО';
   String get successAddedSight => 'Новое место добавлено';
 

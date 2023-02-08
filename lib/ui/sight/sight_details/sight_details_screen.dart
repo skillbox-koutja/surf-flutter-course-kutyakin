@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/components/back_button.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_body.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_header.dart';
 
@@ -16,15 +17,19 @@ class _SightDetailsScreenState extends State<SightDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SightDetailsHeader(sight: widget.sight),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            flexibleSpace: SightDetailsHeader(sight: widget.sight),
+            leading: Center(child: const AppBackButton()),
+            expandedHeight: 360,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              child: SightDetailsBody(sight: widget.sight),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                SightDetailsBody(sight: widget.sight),
+              ]),
             ),
           ),
         ],
