@@ -3,6 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/onboarding/onboarding_screen.dart';
 import 'package:places/ui/settings/settings_state.dart';
 import 'package:provider/provider.dart';
 
@@ -68,8 +69,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child: InfoSvgIcon(
-                        color: colorsTheme?.green,
+                      child: GestureDetector(
+                        onTap: openOnboardingScreen,
+                        child: InfoSvgIcon(
+                          color: colorsTheme?.green,
+                        ),
                       ),
                     ),
                   ],
@@ -79,6 +83,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void openOnboardingScreen() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return OnboardingScreen(
+          onSkip: () {
+            Navigator.of(context).pop();
+          },
+          onStart: () {
+            Navigator.of(context).pop();
+          },
         );
       },
     );
