@@ -8,6 +8,7 @@ import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/main_gradient_overlay.dart';
 import 'package:places/ui/icons/menu/svg_icons.dart';
 import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/onboarding/onboarding_screen.dart';
 import 'package:places/ui/sight/edit_sight/add_sight_screen.dart';
 import 'package:places/ui/sight/filters/filters_state.dart';
 import 'package:places/ui/sight/search/sight_search_screen.dart';
@@ -68,8 +69,26 @@ class _SightListScreenState extends State<SightListScreen> {
         highlightElevation: 0,
         icon: const _FloatingButtonText(),
         label: const SizedBox(),
-        onPressed: openAddSightScreen,
+        onPressed: openOnboardingScreen,
+        // onPressed: openAddSightScreen,
       ),
+    );
+  }
+
+  void openOnboardingScreen() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return OnboardingScreen(
+          onSkip: () {
+            Navigator.of(context).pop();
+          },
+          onStart: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
     );
   }
 
