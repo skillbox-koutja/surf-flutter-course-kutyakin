@@ -3,9 +3,11 @@ import 'package:places/assets/theme/colors.dart';
 
 class MainGradientOverlay extends StatelessWidget {
   final Widget child;
+  final BorderRadius? borderRadius;
 
   const MainGradientOverlay({
     required this.child,
+    this.borderRadius,
     Key? key,
   }) : super(key: key);
 
@@ -16,8 +18,7 @@ class MainGradientOverlay extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(24)),
-        // color: Colors.white.withOpacity(0.35),
+        borderRadius: borderRadius,
         gradient: LinearGradient(
           begin: const Alignment(-2.255, 0.0),
           end: const Alignment(2.3294, 0.0),
