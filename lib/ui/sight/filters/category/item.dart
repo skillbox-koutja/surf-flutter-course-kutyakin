@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/category/value.dart';
 import 'package:places/domain/sight/sight_type.dart';
-import 'package:places/ui/icons/category/svg_icons.dart';
-import 'package:places/ui/icons/svg_icon.dart';
+import 'package:places/ui/components/icons/category/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icon.dart';
 
 class CategoryFilterItem extends StatelessWidget {
   final CategoryFilterValue category;

@@ -11,7 +11,7 @@ Future<void> main() async {
   for (final iconDir in dirs) {
     final lines = await generateLines(iconDir);
     final uiDir = iconDir.path.replaceFirst('assets/', '');
-    final outputFile = File('lib/ui/$uiDir/svg_icons.dart')..createSync(recursive: true);
+    final outputFile = File('lib/ui/components/$uiDir/svg_icons.dart')..createSync(recursive: true);
     await save(lines, outputFile);
   }
 }
@@ -48,7 +48,7 @@ Future<List<String>> generateLines(Directory dir) async {
 
 Future<void> save(List<String> lines, File outputFile) async {
   final sink = outputFile.openWrite()
-    ..write("import 'package:places/ui/icons/svg_icon.dart';\n")
+    ..write("import 'package:places/ui/components/icons/svg_icon.dart';\n")
     ..write('${lines.join('\n')}\n');
 
   await sink.close();

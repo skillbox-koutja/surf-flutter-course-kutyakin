@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/ui/icons/tutorial/svg_icons.dart';
+import 'package:places/ui/components/icons/tutorial/svg_icons.dart';
 import 'package:places/ui/onboarding/onboarding_state.dart';
-import 'package:places/ui/onboarding/widgets/tutorial_frame_slider.dart';
 import 'package:places/ui/onboarding/widgets/tutorial_frame.dart';
+import 'package:places/ui/onboarding/widgets/tutorial_frame_slider.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -57,7 +57,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       create: (_) => onboardingState,
       child: Scaffold(
         body: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

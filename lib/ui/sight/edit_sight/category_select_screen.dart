@@ -3,7 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight_type.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:recase/recase.dart';
 
 class CategorySelectScreen extends StatefulWidget {

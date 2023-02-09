@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/filters/filters_screen.dart';
 
 class SearchFilterIcon extends StatelessWidget {

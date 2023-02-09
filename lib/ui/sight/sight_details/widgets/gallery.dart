@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/sight_photo.dart';
-import 'package:places/ui/images/loading_progress_value.dart';
+import 'package:places/ui/components/images/loading_progress_value.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightPhotosGallery extends StatefulWidget {

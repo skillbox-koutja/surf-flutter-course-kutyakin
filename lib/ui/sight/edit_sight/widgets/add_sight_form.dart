@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/domain/sight/sight.dart';
-import 'package:places/domain/sight/use_case/edit_sight/model.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/field_label.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_field.dart';

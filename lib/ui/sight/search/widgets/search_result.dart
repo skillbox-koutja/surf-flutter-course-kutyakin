@@ -5,7 +5,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/components/empty_state.dart';
-import 'package:places/ui/icons/empty/svg_icons.dart';
+import 'package:places/ui/components/icons/empty/svg_icons.dart';
 import 'package:places/ui/sight/search/search_state.dart';
 import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
 import 'package:provider/provider.dart';

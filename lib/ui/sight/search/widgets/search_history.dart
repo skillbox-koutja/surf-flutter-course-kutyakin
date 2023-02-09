@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/search/search_state.dart';
 import 'package:provider/provider.dart';
 

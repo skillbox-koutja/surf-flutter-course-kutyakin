@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/ui/components/icon_action.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 import 'package:provider/provider.dart';

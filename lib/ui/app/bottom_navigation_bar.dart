@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/icons/menu/svg_icons.dart';
+import 'package:places/ui/components/icons/menu/svg_icons.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   final int currentIndex;

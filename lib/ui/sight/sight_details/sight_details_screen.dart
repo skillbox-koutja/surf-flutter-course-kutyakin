@@ -21,7 +21,7 @@ class _SightDetailsScreenState extends State<SightDetailsScreen> {
         slivers: [
           SliverAppBar(
             flexibleSpace: SightDetailsHeader(sight: widget.sight),
-            leading: Center(child: const AppBackButton()),
+            leading: const Center(child: AppBackButton()),
             expandedHeight: 360,
           ),
           SliverPadding(

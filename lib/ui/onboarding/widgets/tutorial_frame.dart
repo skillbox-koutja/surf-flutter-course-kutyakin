@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight_photo.dart';
-import 'package:places/ui/icons/tutorial/svg_icons.dart';
-import 'package:places/ui/images/loading_progress_value.dart';
-import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class TutorialFrame extends StatelessWidget {
   final Widget icon;

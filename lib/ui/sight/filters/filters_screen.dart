@@ -3,7 +3,7 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/sight/sight.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/filters/category/filter.dart';
 import 'package:places/ui/sight/filters/distance/filter.dart';
 import 'package:places/ui/sight/filters/filters_state.dart';

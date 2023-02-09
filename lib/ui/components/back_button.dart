@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/ui/icons/svg_icons.dart';
+import 'package:places/ui/components/icons/svg_icons.dart';
 
 class AppBackButton extends StatelessWidget {
   const AppBackButton({Key? key}) : super(key: key);

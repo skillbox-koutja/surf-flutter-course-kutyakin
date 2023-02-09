@@ -1,4 +1,4 @@
-import 'package:places/ui/icons/svg_icon.dart';
+import 'package:places/ui/components/icons/svg_icon.dart';
 
 class CancelSvgIcon extends SvgIcon {
   static const iconPath = 'assets/icons/empty/cancel.svg';
