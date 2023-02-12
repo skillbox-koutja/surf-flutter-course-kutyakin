@@ -89,19 +89,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void openOnboardingScreen() {
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return OnboardingScreen(
-          onSkip: () {
-            Navigator.of(context).pop();
-          },
-          onStart: () {
-            Navigator.of(context).pop();
-          },
-        );
-      },
+    Navigator.push<void>(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return OnboardingScreen(
+            onSkip: () {
+              Navigator.of(context).pop();
+            },
+            onStart: () {
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      ),
     );
   }
 }

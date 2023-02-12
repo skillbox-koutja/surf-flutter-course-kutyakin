@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/theme.dart';
-import 'package:places/mocks.dart';
-import 'package:places/ui/app/bottom_navigation_bar.dart';
-import 'package:places/ui/settings/settings_screen.dart';
+import 'package:places/ui/home_screen/home_screen.dart';
+import 'package:places/ui/onboarding/onboarding_screen.dart';
 import 'package:places/ui/settings/settings_state.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sights_screen.dart';
-import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
-import 'package:places/ui/sight/sight_list/sight_list_screen.dart';
+import 'package:places/ui/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
-class App extends StatefulWidget {
+final GlobalKey<NavigatorState> _navigator = GlobalKey<NavigatorState>();
+
+class App extends StatelessWidget {
   const App({super.key});
-
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  final PageController pageController = PageController();
-  int selectedIndex = 0;
-  bool isDark = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,42 +18,45 @@ class _AppState extends State<App> {
         return MaterialApp(
           title: 'Places',
           theme: settings.isDark ? darkTheme : lightTheme,
-          builder: (_, child) {
-            return _Unfocus(
-              child: child!,
-            );
-          },
-          home: Scaffold(
-            body: PageView(
-              controller: pageController,
-              onPageChanged: onPageChanged,
-              children: [
-                const SightListScreen(),
-                SightDetailsScreen(sight: sights.last),
-                const FavoriteSightsScreen(),
-                const SettingsScreen(),
-              ],
-            ),
-            bottomNavigationBar: AppBottomNavigationBar(
-              currentIndex: selectedIndex,
-              onTap: onTap,
-            ),
-          ),
+          navigatorKey: _navigator,
+          home: const _Home(),
         );
       },
     );
   }
+}
 
-  void onPageChanged(int page) {
-    setState(() {
-      selectedIndex = page;
-    });
-  }
+class _Home extends StatelessWidget {
+  const _Home({Key? key}) : super(key: key);
 
-  void onTap(int page) {
-    pageController.jumpToPage(page);
+  @override
+  Widget build(BuildContext context) {
+    void gotoHome() {
+      _navigator.currentState?.pushReplacement<void, void>(
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    }
+    void gotoOnboardingScreen() {
+      _navigator.currentState?.pushReplacement<void, void>(
+        MaterialPageRoute(
+          builder: (context) => OnboardingScreen(
+            onSkip: gotoHome,
+            onStart: gotoHome,
+          ),
+        ),
+      );
+    }
+
+    return _Unfocus(
+      child: SplashScreen(
+        onReady: gotoOnboardingScreen,
+      ),
+    );
   }
 }
+
 
 class _Unfocus extends StatelessWidget {
   final Widget child;
