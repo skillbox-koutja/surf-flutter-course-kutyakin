@@ -88,8 +88,13 @@ class _PlannedFavoriteActions extends StatelessWidget {
     return SightActions(
       children: [
         IconActionWidget(
-          onPressed: () {
-            print('CalendarSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
+          onPressed: () async {
+            final time = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+
+            if (time != null) debugPrint('Selected time: $time');
           },
           icon: const CalendarSvgIcon(
             color: AppColors.white,
