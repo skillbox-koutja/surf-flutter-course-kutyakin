@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/header.dart';
-import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
+import 'package:places/ui/sight/sight_details/sight_details_bottom_sheet.dart';
 
 class SightCard extends StatelessWidget {
   final Sight sight;
@@ -28,12 +28,11 @@ class SightCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<SightDetailsScreen>(
-              builder: (_) => SightDetailsScreen(
-                sight: sight,
-              ),
+          showModalBottomSheet<void>(
+            context: context,
+            isScrollControlled: true,
+            builder: (_) => SightDetailsBottomSheet(
+              sight: sight,
             ),
           );
         },
