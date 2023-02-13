@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/header.dart';
+import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
 
 class SightCard extends StatelessWidget {
+  final Sight sight;
   final SightCardHeader header;
   final SightCardBody body;
 
   const SightCard({
+    required this.sight,
     required this.header,
     required this.body,
     Key? key,
@@ -24,7 +28,14 @@ class SightCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          print('SightCard.onTap'); // ignore: avoid_print
+          Navigator.push(
+            context,
+            MaterialPageRoute<SightDetailsScreen>(
+              builder: (_) => SightDetailsScreen(
+                sight: sight,
+              ),
+            ),
+          );
         },
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

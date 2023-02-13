@@ -17,7 +17,7 @@ class SightPhotosGallery extends StatefulWidget {
 }
 
 class SightPhotosGalleryState extends State<SightPhotosGallery> {
-  final controller = PageController(viewportFraction: 0.9);
+  late final PageController controller;
 
   int get pageCount => widget.photos.length;
   int get page => controller.hasClients ? controller.page?.round() ?? 0 : 0;
@@ -25,6 +25,7 @@ class SightPhotosGalleryState extends State<SightPhotosGallery> {
   @override
   void initState() {
     super.initState();
+    controller = PageController(viewportFraction: widget.photos.length > 1 ? 0.9 : 1);
     controller.addListener(() => setState(() {}));
   }
 

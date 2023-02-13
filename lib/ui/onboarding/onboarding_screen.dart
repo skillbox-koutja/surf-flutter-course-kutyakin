@@ -58,10 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: SizedBox(height: 56 + MediaQuery.of(context).padding.top),
-            ),
+            SizedBox(height: MediaQuery.of(context).padding.top),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: _Header(
@@ -145,7 +142,7 @@ class _Footer extends StatelessWidget {
     final frame = context.select<OnboardingState, int>((s) => s.frame);
 
     return SizedBox(
-      height: 54,
+      height: 54 + MediaQuery.of(context).padding.bottom,
       child: Padding(
         padding:
             const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 8 + MediaQuery.of(context).padding.bottom),

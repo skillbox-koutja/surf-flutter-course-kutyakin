@@ -60,24 +60,25 @@ class _SightListScreenState extends State<SightListScreen> {
   }
 
   void openAddSightScreen() {
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        final filtersState = context.read<SightFiltersState>();
+    Navigator.push(
+      context,
+      MaterialPageRoute<AddSightScreen>(
+        builder: (context) {
+          final filtersState = context.read<SightFiltersState>();
 
-        return AddSightScreen(
-          onSave: (sight) {
-            sights.add(sight);
-            filtersState.clear();
-            Navigator.of(context).pop();
-            ScaffoldMessenger.of(context).showSnackBar(successAddedSightSnackBar);
-          },
-          onClose: () {
-            Navigator.of(context).pop();
-          },
-        );
-      },
+          return AddSightScreen(
+            onSave: (sight) {
+              sights.add(sight);
+              filtersState.clear();
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(successAddedSightSnackBar);
+            },
+            onClose: () {
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      ),
     );
   }
 }
@@ -267,6 +268,7 @@ class _SightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SightCard(
+      sight: sight,
       header: SightCardHeader(
         image: SightImage(sight: sight, fit: BoxFit.fitWidth),
         typeText: SightTypeText(sight: sight),

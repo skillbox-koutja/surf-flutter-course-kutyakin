@@ -24,6 +24,7 @@ class FavoriteSightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SightCard(
+      sight: favoriteSight.sight,
       header: SightCardHeader(
         image: SightImage(sight: favoriteSight.sight, fit: BoxFit.fitWidth),
         typeText: SightTypeText(sight: favoriteSight.sight),
