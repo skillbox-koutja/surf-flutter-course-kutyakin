@@ -30,6 +30,7 @@ class AddSightForm extends StatelessWidget {
           },
           child: Form(
             child: ListView(
+              padding: EdgeInsets.zero,
               children: [
                 const AddPhotoField(),
                 const SizedBox(height: 24),
