@@ -7,6 +7,7 @@ import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart';
 import 'package:places/ui/sight/search/search_state.dart';
+import 'package:places/ui/sight/sight_details/sight_details_bottom_sheet.dart';
 import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
@@ -86,12 +87,11 @@ class _Row extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<SightDetailsScreen>(
-            builder: (_) => SightDetailsScreen(
-              sight: sight,
-            ),
+        showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (_) => SightDetailsBottomSheet(
+            sight: sight,
           ),
         );
       },

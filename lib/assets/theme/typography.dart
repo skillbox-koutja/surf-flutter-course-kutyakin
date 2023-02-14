@@ -45,6 +45,17 @@ class AppTextStyle extends TextStyle {
         );
 }
 
+class AppTextDialogStyle extends TextStyle {
+  const AppTextDialogStyle({Color? color})
+      : super(
+          color: color,
+          fontFamily: 'Roboto',
+          fontSize: 16.0,
+          height: 1.25,
+          fontWeight: FontWeight.w400,
+        );
+}
+
 class AppSmallBoldStyle extends TextStyle {
   const AppSmallBoldStyle({Color? color})
       : super(
@@ -107,6 +118,9 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     textSecondary: AppTextStyle(
       color: AppColors.secondary2,
     ),
+    textDialog: AppTextDialogStyle(
+      color: AppColors.secondary2,
+    ),
     smallBold: AppSmallBoldStyle(
       color: AppColors.secondary,
     ),
@@ -140,6 +154,9 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     textSecondary: AppTextStyle(
       color: AppColors.secondary2,
     ),
+    textDialog: AppTextDialogStyle(
+      color: AppColors.white,
+    ),
     smallBold: AppSmallBoldStyle(
       color: AppColors.secondary2,
     ),
@@ -162,6 +179,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
   final TextStyle? subtitle;
   final TextStyle? text;
   final TextStyle? textSecondary;
+  final TextStyle? textDialog;
   final TextStyle? smallBold;
   final TextStyle? small;
   final TextStyle? smallSecondary;
@@ -174,6 +192,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     this.subtitle,
     this.text,
     this.textSecondary,
+    this.textDialog,
     this.smallBold,
     this.small,
     this.smallSecondary,
@@ -188,6 +207,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     TextStyle? subtitle,
     TextStyle? text,
     TextStyle? textSecondary,
+    TextStyle? textDialog,
     TextStyle? smallBold,
     TextStyle? small,
     TextStyle? smallSecondary,
@@ -200,6 +220,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       subtitle: subtitle ?? this.subtitle,
       text: text ?? this.text,
       textSecondary: textSecondary ?? this.textSecondary,
+      textDialog: textDialog ?? this.textDialog,
       smallBold: smallBold ?? this.smallBold,
       small: small ?? this.small,
       smallSecondary: smallSecondary ?? this.smallSecondary,
@@ -220,6 +241,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       subtitle: TextStyle.lerp(subtitle, other.subtitle, t),
       text: TextStyle.lerp(text, other.text, t),
       textSecondary: TextStyle.lerp(textSecondary, other.textSecondary, t),
+      textDialog: TextStyle.lerp(textDialog, other.textDialog, t),
       smallBold: TextStyle.lerp(smallBold, other.smallBold, t),
       small: TextStyle.lerp(small, other.small, t),
       smallSecondary: TextStyle.lerp(smallSecondary, other.smallSecondary, t),
@@ -235,6 +257,7 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
       'subtitle: $subtitle, '
       'text: $text, '
       'textSecondary: $textSecondary, '
+      'textDialog: $textDialog, '
       'smallBold: $smallBold, '
       'small: $small, '
       'smallSecondary: $smallSecondary, '

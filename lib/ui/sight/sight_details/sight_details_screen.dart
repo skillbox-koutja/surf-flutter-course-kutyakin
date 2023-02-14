@@ -4,23 +4,18 @@ import 'package:places/ui/components/back_button.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_body.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_header.dart';
 
-class SightDetailsScreen extends StatefulWidget {
+class SightDetailsScreen extends StatelessWidget {
   final Sight sight;
 
   const SightDetailsScreen({required this.sight, Key? key}) : super(key: key);
 
-  @override
-  State<SightDetailsScreen> createState() => _SightDetailsScreenState();
-}
-
-class _SightDetailsScreenState extends State<SightDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            flexibleSpace: SightDetailsHeader(sight: widget.sight),
+            flexibleSpace: SightDetailsHeader(sight: sight),
             leading: const Center(child: AppBackButton()),
             expandedHeight: 360,
           ),
@@ -28,7 +23,7 @@ class _SightDetailsScreenState extends State<SightDetailsScreen> {
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                SightDetailsBody(sight: widget.sight),
+                SightDetailsBody(sight: sight),
               ]),
             ),
           ),

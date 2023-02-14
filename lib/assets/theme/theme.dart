@@ -133,6 +133,12 @@ final lightTheme = ThemeData(
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: AppColors.inactive,
   ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+  ),
 ).copyWith(
   extensions: [
     CustomColors.light,
@@ -199,6 +205,12 @@ final darkTheme = ThemeData(
   ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: AppColors.inactive,
+  ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
   ),
 ).copyWith(
   extensions: [

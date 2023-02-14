@@ -43,11 +43,10 @@ class _AddSightScreenState extends State<AddSightScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  SizedBox(height: 56 + MediaQuery.of(context).padding.top),
+                  SizedBox(height: MediaQuery.of(context).padding.top),
                   _Header(
                     onClose: widget.onClose,
                   ),
-                  const SizedBox(height: 24),
                 ],
               ),
             ),

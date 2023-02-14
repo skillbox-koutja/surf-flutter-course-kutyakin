@@ -6,6 +6,7 @@ import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_dialog.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 import 'package:provider/provider.dart';
 
@@ -58,10 +59,15 @@ class _AddPhotoButton extends StatelessWidget {
     final state = context.read<EditSightState>();
 
     return GestureDetector(
-      // behavior: HitTestBehavior.translucent,
-      onTap: () {
-        final rng = Random();
-        state.addPhoto(SightPhoto(imageUrl: 'https://picsum.photos/300/400?_c=${rng.nextDouble()}'));
+      onTap: () async {
+        final photo = await showDialog<SightPhoto>(
+          context: context,
+          builder: (_) => const AddPhotoDialog(),
+        );
+
+        if (photo != null) {
+          state.addPhoto(photo);
+        }
       },
       child: DecoratedBox(
         decoration: BoxDecoration(

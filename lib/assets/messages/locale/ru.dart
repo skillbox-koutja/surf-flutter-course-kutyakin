@@ -151,6 +151,10 @@ class _EditingSightMessages {
   String get createButtonLabel => 'СОЗДАТЬ';
   String get saveButtonLabel => 'СОХРАНИТЬ';
   String get pointOnMapTitle => 'Указать на карте';
+  String get addPhotoDialogCameraTitle => 'Камера';
+  String get addPhotoDialogPhotoTitle => 'Фотография';
+  String get addPhotoDialogFileTitle => 'Файл';
+  String get addPhotoDialogCancelButtonLabel => 'ОТМЕНА';
 
   const _EditingSightMessages();
 }
