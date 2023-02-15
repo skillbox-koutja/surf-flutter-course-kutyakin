@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/sight/favorite_sight.dart';
@@ -89,12 +92,18 @@ class _PlannedFavoriteActions extends StatelessWidget {
       children: [
         IconActionWidget(
           onPressed: () async {
-            final time = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            );
+            if (Platform.isIOS) {
+              final date = await _showCupertinoDatePickerModal(context);
 
-            if (time != null) debugPrint('Selected time: $time');
+              if (date != null) debugPrint('Selected date: $date');
+            } else {
+              final time = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.now(),
+              );
+
+              if (time != null) debugPrint('Selected time: $time');
+            }
           },
           icon: const CalendarSvgIcon(
             color: AppColors.white,
@@ -109,4 +118,31 @@ class _PlannedFavoriteActions extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<DateTime?> _showCupertinoDatePickerModal(BuildContext context) async {
+  DateTime? date;
+
+  await showCupertinoModalPopup<void>(
+    context: context,
+    builder: (context) => Container(
+      height: 216,
+      padding: const EdgeInsets.only(top: 6.0),
+      margin: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      color: CupertinoColors.systemBackground.resolveFrom(context),
+      child: SafeArea(
+        top: false,
+        child: CupertinoDatePicker(
+          initialDateTime: DateTime.now(),
+          onDateTimeChanged: (value) {
+            date = value;
+          },
+        ),
+      ),
+    ),
+  );
+
+  return date;
 }

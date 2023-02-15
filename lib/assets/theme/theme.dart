@@ -139,6 +139,16 @@ final lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(12.0),
     ),
   ),
+  timePickerTheme: const TimePickerThemeData(
+    backgroundColor: AppColors.timer,
+    hourMinuteTextColor: AppColors.white,
+    hourMinuteColor: AppColors.inactive,
+    dayPeriodTextColor: AppColors.white,
+    dayPeriodColor: AppColors.inactive,
+    dialHandColor: AppColors.whiteGreen,
+    dialBackgroundColor: AppColors.inactive,
+    dialTextColor: AppColors.white,
+  ),
 ).copyWith(
   extensions: [
     CustomColors.light,
@@ -211,6 +221,16 @@ final darkTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),
+  ),
+  timePickerTheme: const TimePickerThemeData(
+    backgroundColor: AppColors.dark,
+    hourMinuteTextColor: AppColors.white,
+    hourMinuteColor: AppColors.inactive,
+    dayPeriodTextColor: AppColors.white,
+    dayPeriodColor: AppColors.inactive,
+    dialHandColor: AppColors.whiteGreen,
+    dialBackgroundColor: AppColors.inactive,
+    dialTextColor: AppColors.white,
   ),
 ).copyWith(
   extensions: [

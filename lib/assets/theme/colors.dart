@@ -9,6 +9,7 @@ class AppColors {
   static const secondary2 = Color(0xFF7C7E92);
   static const inactive = Color.fromRGBO(124, 126, 146, 0.56);
   static const splash = Color.fromRGBO(196, 196, 196, 0.5);
+  static const timer = Color(0xFFC4C4C4);
   // white
   static const whiteMain = Color(0xFF252849);
   static const whiteGreen = Color(0xFF4CAF50);
