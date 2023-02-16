@@ -6,7 +6,7 @@ class SettingsState extends ChangeNotifier {
   bool _isDark = false;
 
   SettingsState({
-    bool initDark = false,
+    bool initDark = true,
   }) {
     _isDark = initDark;
   }

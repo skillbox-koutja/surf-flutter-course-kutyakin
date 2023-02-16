@@ -84,27 +84,32 @@ class _SightListScreenState extends State<SightListScreen> {
 }
 
 class _Body extends StatelessWidget {
+  static const appBarPaddingHeight = 56.0;
   const _Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appBarDelegate = MediaQuery.of(context).orientation == Orientation.portrait
+        ? const _PortraitSliverAppBar(expandedHeight: appBarPaddingHeight + 72.0)
+        : const _LandscapeSliverAppBar();
+
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      child: const CustomScrollView(
+      child: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: _SliverAppBar(expandedHeight: 72 + 40 + 16),
+            delegate: appBarDelegate,
             pinned: true,
           ),
-          _SearchBar(),
-          _FilteredSights(),
+          const _SearchBar(),
+          const _FilteredSights(),
         ],
       ),
     );
   }
 }
 
-class _SliverAppBar extends SliverPersistentHeaderDelegate {
+class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
 
   @override
@@ -113,7 +118,7 @@ class _SliverAppBar extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent => kToolbarHeight;
 
-  const _SliverAppBar({required this.expandedHeight});
+  const _PortraitSliverAppBar({required this.expandedHeight});
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
@@ -168,15 +173,64 @@ class _SliverAppBar extends SliverPersistentHeaderDelegate {
   }
 }
 
+class _LandscapeSliverAppBar extends SliverPersistentHeaderDelegate {
+  @override
+  double get maxExtent => kToolbarHeight;
+
+  @override
+  double get minExtent => kToolbarHeight;
+
+  const _LandscapeSliverAppBar();
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final theme = Theme.of(context);
+    final textTheme = theme.extension<CustomTextStyles>();
+
+    return SizedBox(
+      width: double.infinity,
+      child: Flexible(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.scaffoldBackgroundColor,
+            // color: Colors.red,
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: MediaQuery.of(context).padding.right,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppMessages.sightsList.screenTitle,
+                  style: textTheme?.subtitle,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _SearchBar extends StatelessWidget {
   const _SearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final filtersState = context.read<SightFiltersState>();
+    final padding = MediaQuery.of(context).orientation == Orientation.portrait
+        ? const EdgeInsets.all(16.0)
+        : EdgeInsets.symmetric(horizontal: MediaQuery.of(context).padding.right).copyWith(bottom: 14);
 
     return SliverPadding(
-      padding: const EdgeInsets.all(16),
+      padding: padding,
       sliver: SliverToBoxAdapter(
         child: SearchBar(
           suffixIcons: [
@@ -206,23 +260,67 @@ class _FilteredSights extends StatelessWidget {
   Widget build(BuildContext context) {
     final filteredSights = context.select<SightFiltersState, List<Sight>>((s) => s.filteredSights);
 
+    return MediaQuery.of(context).orientation == Orientation.portrait
+        ? _SliverListSights(
+            sights: filteredSights,
+          )
+        : _SliverGridSights(
+            sights: filteredSights,
+          );
+  }
+}
+
+class _SliverListSights extends StatelessWidget {
+  final List<Sight> sights;
+
+  const _SliverListSights({required this.sights, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          childCount: filteredSights.length * 2 - 1,
+          childCount: sights.length * 2 - 1,
           semanticIndexCallback: (_, index) {
             return index.isEven ? index ~/ 2 : null;
           },
           (context, index) {
             final itemIndex = index ~/ 2;
             if (index.isEven) {
-              return _SightCard(sight: filteredSights[itemIndex]);
+              return _SightCard(sight: sights[itemIndex]);
             }
 
             const separator = SizedBox(height: 16);
 
             return separator;
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _SliverGridSights extends StatelessWidget {
+  final List<Sight> sights;
+
+  const _SliverGridSights({required this.sights, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).padding.right),
+      sliver: SliverGrid(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 36.0,
+          crossAxisSpacing: 36.0,
+          childAspectRatio: 2,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          childCount: sights.length,
+          (context, index) {
+            return _SightCard(sight: sights[index]);
           },
         ),
       ),
