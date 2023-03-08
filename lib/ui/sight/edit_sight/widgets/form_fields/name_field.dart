@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/form_field_decorations.dart';
-import 'package:places/domain/core/field/field.dart';
 import 'package:places/domain/places/place/use_case/edit/model.dart';
 import 'package:places/ui/components/field_icons/clear_icon.dart';
 import 'package:places/ui/components/touch_detector.dart';

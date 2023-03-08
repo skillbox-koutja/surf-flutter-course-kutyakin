@@ -5,7 +5,11 @@ abstract class SvgIcon extends StatelessWidget {
   final String path;
   final Color? color;
 
-  const SvgIcon({required this.path, this.color, Key? key}) : super(key: key);
+  const SvgIcon({
+    required this.path,
+    this.color,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

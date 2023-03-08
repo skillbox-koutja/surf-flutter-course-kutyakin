@@ -4,7 +4,6 @@ import 'package:places/assets/highlight_text.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/places/place/entity.dart';
-import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart';

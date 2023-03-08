@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/typography.dart';
 import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/domain/places/category/option.dart';
 import 'package:places/domain/places/category/selector.dart';
 import 'package:places/ui/app/state/place_filters.dart';
-import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/sight/filters/category/item.dart';
 import 'package:places/ui/sight/filters/category/selectable_item.dart';
 import 'package:provider/provider.dart';
@@ -66,8 +64,7 @@ class _CategoryFilterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
     final type = category.type;
 
     return Column(
@@ -85,7 +82,7 @@ class _CategoryFilterItem extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           type.title.sentenceCase,
-          style: textTheme?.superSmall,
+          style: textTheme.superSmall,
           overflow: TextOverflow.ellipsis,
         ),
       ],

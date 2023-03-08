@@ -4,7 +4,6 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
-import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
@@ -22,7 +21,6 @@ class VisitedSightsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<VisitedPlacesState>();
-    final placeFiltersState = context.read<PlaceFiltersState>();
     final favoritePlacesData = context.select<VisitedPlacesState, FavoritePlacesData>((s) => s.places);
 
     Future<void> onRemove(FavoritePlace favoritePlace) async {
