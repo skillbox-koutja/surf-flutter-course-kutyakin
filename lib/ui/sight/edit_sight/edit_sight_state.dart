@@ -1,20 +1,21 @@
 import 'package:flutter/widgets.dart';
-import 'package:places/domain/sight/sight_photo.dart';
-import 'package:places/domain/sight/sight_type.dart';
-import 'package:places/domain/sight/use_case/edit_sight/event.dart';
-import 'package:places/domain/sight/use_case/edit_sight/model.dart';
+import 'package:places/domain/core/field/field.dart';
+import 'package:places/domain/places/place/photo.dart';
+import 'package:places/domain/places/place/type.dart';
+import 'package:places/domain/places/place/use_case/edit/command.dart';
+import 'package:places/domain/places/place/use_case/edit/model.dart';
 
 typedef NextFieldHandler = void Function(FocusNode currentFocusNode);
 
-typedef FocusChangeHandler = void Function(FocusNode focusNode);
-
-typedef TouchedFieldChecker = bool Function(FocusNode focusNode);
-
-typedef TouchedFormChecker = bool Function();
+typedef FocusChangeHandler = void Function({
+  required EditablePlaceFieldKeys key,
+  required Field field,
+  required FocusNode focusNode,
+});
 
 typedef PointOnMap = void Function({
   required double lat,
-  required double long,
+  required double lng,
 });
 
 class EditSightState extends ChangeNotifier {
@@ -23,65 +24,59 @@ class EditSightState extends ChangeNotifier {
   final FocusNode latFocusNode = FocusNode();
   final FocusNode longFocusNode = FocusNode();
 
-  final Map<FocusNode, bool> touchedFields = {};
   FocusNode? currentFocusNode;
 
-  SightModel model;
+  EditablePlace model;
 
   EditSightState(this.model);
 
-  @override
-  void dispose() {
-    touchedFields.clear();
+  void rename(String value) => dispatch(EditPlaceCommand.setName(value));
 
-    super.dispose();
-  }
+  void editDetails(String value) => dispatch(EditPlaceCommand.setDetails(value));
 
-  void rename(String value) => dispatch(EditSightModelEvent.setName(value));
+  void switchType(PlaceType value) => dispatch(EditPlaceCommand.setType(value));
 
-  void editDetails(String value) => dispatch(EditSightModelEvent.setDetails(value));
+  void editLat(double? value) => dispatch(EditPlaceCommand.setLat(value));
 
-  void switchType(SightType value) => dispatch(EditSightModelEvent.setType(value));
+  void editLng(double? value) => dispatch(EditPlaceCommand.setLng(value));
 
-  void editLat(double? value) => dispatch(EditSightModelEvent.setLat(value));
+  void addPhoto(PlacePhoto photo) => dispatch(EditPlaceCommand.addPhoto(photo));
 
-  void editLong(double? value) => dispatch(EditSightModelEvent.setLong(value));
-
-  void addPhoto(SightPhoto photo) => dispatch(EditSightModelEvent.addPhoto(photo));
-
-  void removePhoto(SightPhoto photo) => dispatch(EditSightModelEvent.removePhoto(photo));
+  void removePhoto(PlacePhoto photo) => dispatch(EditPlaceCommand.removePhoto(photo));
 
   void pointOnMap({
     required double lat,
-    required double long,
+    required double lng,
   }) =>
-      dispatch(EditSightModelEvent.pointOnMap(
+      dispatch(EditPlaceCommand.pointOnMap(
         lat: lat,
-        long: long,
+        lng: lng,
       ));
 
-  void dispatch(EditSightModelEvent event) {
-    final newModal = event.when(
-      setName: (value) => model.copyWith(name: value),
-      setDetails: (value) => model.copyWith(details: value),
-      setType: (value) => model.copyWith(type: value),
-      setLat: (value) => model.copyWith(lat: value),
-      setLong: (value) => model.copyWith(long: value),
-      pointOnMap: (lat, long) => model.copyWith(
-        lat: lat,
-        long: long,
-      ),
-      addPhoto: (photo) => model.addPhoto(photo),
-      removePhoto: (photo) => model.removePhoto(photo),
-    );
-
-    model = newModal.validate();
+  void dispatch(EditPlaceCommand command) {
+    model = model.edit(command);
 
     notifyListeners();
   }
 
-  void onFocusChange(FocusNode focusNode) {
-    touchedFields[focusNode] = focusNode.hasFocus;
+  void save() {
+    if (!model.canSave) {
+      return;
+    }
+
+    model = model.save();
+    notifyListeners();
+  }
+
+  void onFocusChange({
+    required EditablePlaceFieldKeys key,
+    required Field field,
+    required FocusNode focusNode,
+  }) {
+    if (!field.isDirty) {
+      model = model.touchField(key);
+    }
+
     currentFocusNode = !focusNode.hasFocus && currentFocusNode == focusNode ? null : focusNode;
 
     notifyListeners();
@@ -119,11 +114,5 @@ class EditSightState extends ChangeNotifier {
     }
 
     throw UnimplementedError('Unknown FocusNode');
-  }
-
-  bool isTouchedField(FocusNode focusNode) {
-    final result = focusNode.hasFocus || touchedFields.containsKey(focusNode);
-
-    return result;
   }
 }

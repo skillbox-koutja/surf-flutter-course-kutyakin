@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/favorite_sight.dart';
-import 'package:places/domain/sight/sight_status.dart';
+import 'package:places/domain/places/favorite/model.dart';
+import 'package:places/domain/places/place/status.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
@@ -12,51 +12,54 @@ import 'package:places/ui/sight/sight_card/widgets/status_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
 
 class FavoriteSightCard extends StatelessWidget {
-  final FavoriteSight favoriteSight;
+  final FavoritePlace favoritePlace;
   final Widget actions;
 
   const FavoriteSightCard({
-    required this.favoriteSight,
+    required this.favoritePlace,
     required this.actions,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final placeEntity = favoritePlace.placeEntity;
+    final place = placeEntity.place;
+
     return SightCard(
-      sight: favoriteSight.sight,
+      placeEntity: favoritePlace.placeEntity,
       header: SightCardHeader(
-        image: SightImage(sight: favoriteSight.sight, fit: BoxFit.fitWidth),
-        typeText: SightTypeText(sight: favoriteSight.sight),
+        image: SightImage(place: place, fit: BoxFit.fitWidth),
+        typeText: SightTypeText(place: place),
         actions: actions,
         flex: 2,
       ),
       body: SightCardBody(
         flex: 3,
         children: [
-          SightNameText(sight: favoriteSight.sight),
+          SightNameText(place: place),
           const SizedBox(height: 2),
           SightStatusText(
-            status: favoriteSight.status,
-            color: _SightStatusColors(favoriteSight).color,
+            status: favoritePlace.status,
+            color: _StatusColors(favoritePlace).color,
           ),
           const SizedBox(height: 12),
-          SightDetailsText(sight: favoriteSight.sight),
+          SightDetailsText(place: place),
         ],
       ),
     );
   }
 }
 
-const _sightStatusColorsMap = <SightStatusType, Color>{
-  SightStatusType.planned: AppColors.whiteGreen,
-  SightStatusType.done: AppColors.secondary2,
+const _statusColorsMap = <PlaceStatusType, Color>{
+  PlaceStatusType.planned: AppColors.whiteGreen,
+  PlaceStatusType.done: AppColors.secondary2,
 };
 
-class _SightStatusColors {
-  final FavoriteSight favoriteSight;
+class _StatusColors {
+  final FavoritePlace favoritePlace;
 
-  Color get color => _sightStatusColorsMap[favoriteSight.status.type] ?? AppColors.secondary2;
+  Color get color => _statusColorsMap[favoritePlace.status.type] ?? AppColors.secondary2;
 
-  const _SightStatusColors(this.favoriteSight);
+  const _StatusColors(this.favoritePlace);
 }

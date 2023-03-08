@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/places/place/model.dart';
 
 class SightTypeText extends StatelessWidget {
-  final Sight sight;
+  final Place place;
 
-  const SightTypeText({required this.sight, Key? key}) : super(key: key);
+  const SightTypeText({required this.place, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class SightTypeText extends StatelessWidget {
     final textTheme = theme.extension<CustomTextStyles>();
 
     return Text(
-      sight.type.title,
+      place.type.title,
       style: textTheme?.smallBold?.copyWith(
         color: AppColors.white,
       ),

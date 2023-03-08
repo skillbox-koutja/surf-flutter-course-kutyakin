@@ -1,56 +1,72 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/favorite_sight.dart';
-import 'package:places/mocks.dart';
+import 'package:places/domain/places/favorite/model.dart';
+import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
+import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/components/empty_state.dart';
+import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart' as empty_icons;
 import 'package:places/ui/components/icons/svg_icons.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/empty_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:provider/provider.dart';
 
-final certainPlannedSights = sights
-    .map(
-      (sight) => FavoriteSight.certainPlanned(
-        sight: sight,
-        date: DateTime(2022, 1, 15),
-      ),
-    )
-    .toList();
-
 class WishedSightsWidget extends StatelessWidget {
   const WishedSightsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<FavoriteSightsState>();
-    final sights = context.select<FavoriteSightsState, FavoriteSights>((s) => s.wished);
+    final state = context.read<WishedPlacesState>();
+    final favoritePlacesData = context.select<WishedPlacesState, FavoritePlacesData>((s) => s.places);
 
-    if (sights.isEmpty) {
-      return const _WishedEmptyState();
+    void onRemove(FavoritePlace favoritePlace) {
+      state.remove(favoritePlace);
     }
 
-    return FavoriteSightList(
-      sights: sights,
-      onRemove: state.removeWished,
-      onReorder: state.reorderWished,
-      buildCard: ({required favoriteSight}) {
-        return FavoriteSightCard(
-          favoriteSight: favoriteSight,
-          actions: _PlannedFavoriteActions(
-            favoriteSight: favoriteSight,
-            onRemove: () {
-              state.removeWished(favoriteSight);
-            },
-          ),
+    void onReorder({
+      required int index,
+      required FavoritePlace favoritePlace,
+    }) {
+      state.reorder(ReorderArgs(
+        index: index,
+        favoritePlace: favoritePlace,
+      ));
+    }
+
+    if (favoritePlacesData.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return favoritePlacesData.data.fold(
+      (failure) {
+        return const ErrorState();
+      },
+      (favoritePlaces) {
+        if (favoritePlaces.isEmpty) {
+          return const _WishedEmptyState();
+        }
+
+        return FavoriteSightList(
+          favoritePlaces: favoritePlaces,
+          onRemove: onRemove,
+          onReorder: onReorder,
+          buildCard: ({required favoritePlace}) {
+            return FavoriteSightCard(
+              favoritePlace: favoritePlace,
+              actions: _PlannedFavoriteActions(
+                onRemove: () {
+                  onRemove(favoritePlace);
+                },
+              ),
+            );
+          },
         );
       },
     );
@@ -77,11 +93,9 @@ class _WishedEmptyState extends StatelessWidget {
 }
 
 class _PlannedFavoriteActions extends StatelessWidget {
-  final FavoriteSight favoriteSight;
   final VoidCallback onRemove;
 
   const _PlannedFavoriteActions({
-    required this.favoriteSight,
     required this.onRemove,
     Key? key,
   }) : super(key: key);

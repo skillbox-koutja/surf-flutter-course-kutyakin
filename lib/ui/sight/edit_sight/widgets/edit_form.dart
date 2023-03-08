@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/places/place/use_case/edit/model.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/field_label.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_field.dart';
@@ -10,11 +10,8 @@ import 'package:places/ui/sight/edit_sight/widgets/form_fields/latlong_field_gro
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/name_field.dart';
 import 'package:provider/provider.dart';
 
-class AddSightForm extends StatelessWidget {
-  final ValueChanged<Sight> onSave;
-
-  const AddSightForm({
-    required this.onSave,
+class EditPlaceForm extends StatelessWidget {
+  const EditPlaceForm({
     Key? key,
   }) : super(key: key);
 
@@ -72,12 +69,12 @@ class _LatLong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lat = context.select<EditSightState, double?>((s) => s.model.lat);
-    final long = context.select<EditSightState, double?>((s) => s.model.long);
+    final lat = context.select<EditSightState, double?>((s) => s.model.lat.value);
+    final lng = context.select<EditSightState, double?>((s) => s.model.lng.value);
 
     return LatLongFieldGroup(
       lat: lat,
-      long: long,
+      lng: lng,
     );
   }
 }

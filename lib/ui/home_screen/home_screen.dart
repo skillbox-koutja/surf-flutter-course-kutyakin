@@ -22,9 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: const [
-          FavoriteSightsScreen(),
           SightListScreen(),
           Center(child: Text('MapScreen is coming soon')),
+          FavoriteSightsScreen(),
           SettingsScreen(),
         ],
       ),

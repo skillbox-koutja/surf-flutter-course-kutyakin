@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight.dart';
 import 'package:places/ui/app/bottom_navigation_bar.dart';
+import 'package:places/ui/app/state/place_filters.dart';
+import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/field_icons/clear_icon.dart';
-import 'package:places/ui/sight/filters/filters_state.dart';
-import 'package:places/ui/sight/search/search_state.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/search/widgets/search_history.dart';
@@ -25,9 +24,7 @@ const queryMinLength = 3;
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
   final TextEditingController textEditingController = TextEditingController();
-  final searchState = SearchState();
 
-  List<Sight> _filteredSights = [];
   Timer? _debounce;
 
   @override
@@ -42,6 +39,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       ..removeListener(_onSearchChanged)
       ..dispose();
 
+    _debounce?.cancel();
+
     super.dispose();
   }
 
@@ -49,7 +48,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    _updateFilters(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -66,9 +64,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ChangeNotifierProvider(
-          create: (_) => searchState,
-          builder: (_, __) {
+        child: Consumer<PlaceSearchState>(
+          builder: (_, __, ___) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -77,7 +74,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   controller: textEditingController,
                   onClose: () {
                     Navigator.of(context).pop();
-                    _updateFilters(context);
                     _onSearchChanged();
                   },
                 ),
@@ -100,11 +96,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     );
   }
 
-  void _updateFilters(BuildContext context) {
-    final filteredSights = context.read<SightFiltersState>().filteredSights;
-    _filteredSights = filteredSights;
-  }
-
   void _onSearchChanged() {
     final query = textEditingController.text.trim();
     if (query.isEmpty) {
@@ -114,6 +105,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
+      final searchState = context.read<PlaceSearchState>();
+      final filtersState = context.read<PlaceFiltersState>();
       if (searchState.isSameQuery(query)) {
         return;
       }
@@ -126,7 +119,10 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
       searchState
         ..wait()
-        ..search(query, _filteredSights);
+        ..search(
+          query: query,
+          searchFilters: filtersState.filters,
+        );
     });
   }
 }
@@ -141,10 +137,10 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select<SearchState, SearchingStatus>((s) => s.status);
+    final status = context.select<PlaceSearchState, PlaceSearchingStatus>((s) => s.status);
 
     return Expanded(
-      child: SearchingStatus.none == status
+      child: PlaceSearchingStatus.none == status
           ? SearchHistory(
               onSelectItem: onSelectHistoryItem,
             )
@@ -165,7 +161,7 @@ class _SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final query = context.select<SearchState, String>((s) => s.query);
+    final query = context.select<PlaceSearchState, String>((s) => s.query);
 
     return SearchBar(
       controller: controller,

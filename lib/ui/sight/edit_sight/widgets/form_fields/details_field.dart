@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/form_field_decorations.dart';
-import 'package:places/domain/sight/use_case/edit_sight/error.dart';
+import 'package:places/domain/core/field/field.dart';
+import 'package:places/domain/places/place/use_case/edit/model.dart';
 import 'package:places/ui/components/field_icons/clear_icon.dart';
 import 'package:places/ui/components/touch_detector.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
@@ -13,22 +14,22 @@ class DetailsField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initialValue = context.select<EditSightState, String?>((s) => s.model.details);
+    final detailsField = context.select<EditSightState, EditablePlaceDetailsField>((s) => s.model.details);
     final onChanged = context.select<EditSightState, ValueChanged<String>>((s) => s.editDetails);
 
     return _Input(
-      value: initialValue,
+      detailsField: detailsField,
       onChanged: onChanged,
     );
   }
 }
 
 class _Input extends StatefulWidget {
-  final String? value;
+  final EditablePlaceDetailsField detailsField;
   final ValueChanged<String> onChanged;
 
   const _Input({
-    required this.value,
+    required this.detailsField,
     required this.onChanged,
     Key? key,
   }) : super(key: key);
@@ -43,7 +44,7 @@ class _InputState extends State<_Input> {
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController(text: widget.value);
+    controller = TextEditingController(text: widget.detailsField.value);
 
     controller.addListener(onChanged);
   }
@@ -59,16 +60,21 @@ class _InputState extends State<_Input> {
 
   @override
   Widget build(BuildContext context) {
-    final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.detailsError);
+    final detailsField = widget.detailsField;
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.detailsFocusNode);
     final onFocusChange = context.select<EditSightState, FocusChangeHandler>((s) => s.onFocusChange);
-    final isTouched = context.select<EditSightState, TouchedFieldChecker>((s) => s.isTouchedField);
     final nextField = context.select<EditSightState, NextFieldHandler>((s) => s.nextField);
     final currentFocusNode = context.select<EditSightState, FocusNode?>((s) => s.currentFocusNode);
 
     return TouchDetector(
       focusNode: focusNode,
-      onFocusChange: onFocusChange,
+      onFocusChange: (focusNode) {
+        onFocusChange(
+          key: EditablePlaceFieldKeys.details,
+          field: detailsField,
+          focusNode: focusNode,
+        );
+      },
       builder: ({
         required focusNode,
         required onFocusChange,
@@ -93,7 +99,7 @@ class _InputState extends State<_Input> {
             nextField(focusNode);
           },
           validator: (value) {
-            if (isTouched(focusNode) && error != null) {
+            if (detailsField.isDirty && !detailsField.isValid) {
               return '';
             }
 
@@ -106,6 +112,10 @@ class _InputState extends State<_Input> {
 
   void onChanged() {
     final value = controller.text;
+    if (value == widget.detailsField.value) {
+      return;
+    }
+
     widget.onChanged(value);
   }
 }

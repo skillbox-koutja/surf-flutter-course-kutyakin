@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight_type.dart';
+import 'package:places/domain/places/place/type.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/category_select_screen.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
@@ -18,8 +18,8 @@ class CategorySelectField extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
-    final type = context.select<EditSightState, SightType>((s) => s.model.type);
-    final onChanged = context.select<EditSightState, ValueChanged<SightType>>((s) => s.switchType);
+    final type = context.select<EditSightState, PlaceType>((s) => s.model.type.value);
+    final onChanged = context.select<EditSightState, ValueChanged<PlaceType>>((s) => s.switchType);
 
     return Column(
       children: [
@@ -56,8 +56,8 @@ class CategorySelectField extends StatelessWidget {
 
   void openCategorySelectScreen({
     required BuildContext context,
-    required SightType type,
-    required ValueChanged<SightType> onChanged,
+    required PlaceType type,
+    required ValueChanged<PlaceType> onChanged,
   }) {
     showModalBottomSheet<void>(
       context: context,

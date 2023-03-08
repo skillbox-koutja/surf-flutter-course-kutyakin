@@ -3,12 +3,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:places/assets/highlight_text.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
+import 'package:places/domain/places/place/entity.dart';
 import 'package:places/domain/sight/sight.dart';
+import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart';
-import 'package:places/ui/sight/search/search_state.dart';
+import 'package:places/ui/place/photo/image.dart';
 import 'package:places/ui/sight/sight_details/sight_details_bottom_sheet.dart';
-import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
@@ -17,13 +18,13 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select<SearchState, SearchingStatus>((s) => s.status);
+    final status = context.select<PlaceSearchState, PlaceSearchingStatus>((s) => s.status);
 
-    if (SearchingStatus.none == status) {
+    if (PlaceSearchingStatus.none == status) {
       return const SizedBox();
     }
 
-    if (SearchingStatus.waiting == status || SearchingStatus.searching == status) {
+    if (PlaceSearchingStatus.waiting == status || PlaceSearchingStatus.searching == status) {
       return Column(children: const [
         SizedBox(height: 35),
         CircularProgressIndicator(),
@@ -48,7 +49,7 @@ class _DoneResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = context.select<SearchState, SearchResponse>((s) => s.response);
+    final result = context.select<PlaceSearchState, SearchResponse>((s) => s.response);
 
     if (result.data.isEmpty) {
       return const _EmptyState();
@@ -59,10 +60,10 @@ class _DoneResult extends StatelessWidget {
       itemCount: result.data.length,
       separatorBuilder: (_, __) => const Divider(),
       itemBuilder: (_, index) {
-        final sight = result.data[index];
+        final placeEntity = result.data[index];
 
         return _Row(
-          sight: sight,
+          placeEntity: placeEntity,
           query: result.query,
         );
       },
@@ -71,11 +72,11 @@ class _DoneResult extends StatelessWidget {
 }
 
 class _Row extends StatelessWidget {
-  final Sight sight;
+  final PlaceEntity placeEntity;
   final String query;
 
   const _Row({
-    required this.sight,
+    required this.placeEntity,
     required this.query,
     Key? key,
   }) : super(key: key);
@@ -84,6 +85,7 @@ class _Row extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
+    final place = placeEntity.place;
 
     return GestureDetector(
       onTap: () {
@@ -91,7 +93,7 @@ class _Row extends StatelessWidget {
           context: context,
           isScrollControlled: true,
           builder: (_) => SightDetailsBottomSheet(
-            sight: sight,
+            placeEntity: placeEntity,
           ),
         );
       },
@@ -101,10 +103,12 @@ class _Row extends StatelessWidget {
             size: const Size.square(56),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: Image.network(
-                sight.imageUrl,
-                fit: BoxFit.cover,
-              ),
+              child: (place.photos.isEmpty)
+                  ? null
+                  : Image(
+                      image: PlacePhotoImage(place.photo).image,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           const SizedBox(width: 16),
@@ -115,13 +119,13 @@ class _Row extends StatelessWidget {
                 SizedBox(
                   height: 20,
                   child: _NameSight(
-                    name: sight.name,
+                    name: place.name,
                     query: query,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  sight.type.title.sentenceCase,
+                  place.type.title.sentenceCase,
                   style: textTheme?.smallSecondary,
                 ),
               ],

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/sight.dart';
-import 'package:places/ui/components/back_button.dart';
+import 'package:places/domain/places/place/entity.dart';
 import 'package:places/ui/components/close_card_button.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_body.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_header.dart';
 
 class SightDetailsBottomSheet extends StatelessWidget {
-  final Sight sight;
+  final PlaceEntity placeEntity;
 
-  const SightDetailsBottomSheet({required this.sight, Key? key}) : super(key: key);
+  const SightDetailsBottomSheet({required this.placeEntity, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final place = placeEntity.place;
 
     return SizedBox(
       height: MediaQuery.of(context).size.height - 64,
@@ -31,7 +31,7 @@ class SightDetailsBottomSheet extends StatelessWidget {
               CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    flexibleSpace: SightDetailsHeader(sight: sight),
+                    flexibleSpace: SightDetailsHeader(place: place),
                     automaticallyImplyLeading: false,
                     expandedHeight: 360,
                   ),
@@ -39,7 +39,7 @@ class SightDetailsBottomSheet extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                     sliver: SliverList(
                       delegate: SliverChildListDelegate([
-                        SightDetailsBody(sight: sight),
+                        SightDetailsBody(place: place),
                       ]),
                     ),
                   ),

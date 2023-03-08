@@ -1,13 +1,16 @@
 class AppMessages {
   static const sightsList = _SightsListMessages();
   static const sightDetails = _SightDetailsMessages();
-  static const sightStatus = _SightStatusMessages();
+  @Deprecated('use placeStatus')
+  static const sightStatus = _PlaceStatusMessages();
+  static const placeStatus = _PlaceStatusMessages();
   static const favoriteSights = _FavoriteSightsMessages();
   static const sightFilters = _SightFilters();
   static const settings = _SettingsMessages();
   static const editingSight = _EditingSightMessages();
   static const searchSights = _SearchSightsMessages();
   static const placeholder = _PlaceholderMessages();
+  static const failure = _FailureMessages();
   static const onboarding = _OnboardingMessages();
 }
 
@@ -40,7 +43,8 @@ class _AppDateFormat {
 class _SightsListMessages {
   String get screenTitle => 'Список интересных мест';
   String get newButtonLabel => 'НОВОЕ МЕСТО';
-  String get successAddedSight => 'Новое место добавлено';
+  String get successAddedPlace => 'Новое место добавлено';
+  String get successEditedPlace => 'Сохранено';
 
   const _SightsListMessages();
 }
@@ -65,8 +69,8 @@ class _SightDetailsMessages {
   const _SightDetailsMessages();
 }
 
-class _SightStatusMessages {
-  const _SightStatusMessages();
+class _PlaceStatusMessages {
+  const _PlaceStatusMessages();
 
   String certainPlanned(DateTime date) {
     return 'Запланировано на ${_AppDateFormat(date)}';
@@ -89,6 +93,7 @@ class _SightFilters {
   String get categoriesTitle => 'КАТЕГОРИИ';
   String get clearTitle => 'Очистить';
   String get distanceTitle => 'Расстояние';
+  String get failedToLoadMessage => 'Не удалось загрузить данные';
 
   const _SightFilters();
 
@@ -202,4 +207,24 @@ class _PlaceholderMessages {
   String get enterValue => 'введите значение';
 
   const _PlaceholderMessages();
+}
+
+class _FailureMessages {
+  String get failureTitle => 'Ошибка';
+  String get failureDescription => 'Что-то пошло не так\nПопробуйте позже';
+  String get failureGoBackAction => 'Вернуться';
+
+  const _FailureMessages();
+
+  String notFoundEntity(String entityName) {
+    return 'Не удалось найти $entityName';
+  }
+
+  String invalidRequest() {
+    return 'Некорректный запрос';
+  }
+
+  String failedCreateEntity(String entityName) {
+    return 'Не удалось создать $entityName';
+  }
 }

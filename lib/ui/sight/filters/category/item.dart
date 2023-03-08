@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/category/value.dart';
-import 'package:places/domain/sight/sight_type.dart';
+import 'package:places/domain/places/category/option.dart';
+import 'package:places/domain/places/place/type.dart';
 import 'package:places/ui/components/icons/category/svg_icons.dart';
 import 'package:places/ui/components/icons/svg_icon.dart';
 
 class CategoryFilterItem extends StatelessWidget {
-  final CategoryFilterValue category;
+  final CategoryOption category;
   final VoidCallback? onChanged;
 
   const CategoryFilterItem({
@@ -36,7 +36,7 @@ class CategoryFilterItem extends StatelessWidget {
 }
 
 class _Icon extends StatelessWidget {
-  final SightType type;
+  final PlaceType type;
 
   const _Icon({required this.type, Key? key}) : super(key: key);
 
@@ -48,25 +48,34 @@ class _Icon extends StatelessWidget {
     late SvgIcon icon;
 
     switch (type) {
-      case SightType.hotel:
+      case PlaceType.hotel:
         icon = HotelSvgIcon(color: color);
         break;
-      case SightType.restaurant:
+      case PlaceType.restaurant:
         icon = RestaurantSvgIcon(color: color);
         break;
-      case SightType.park:
+      case PlaceType.park:
         icon = ParkSvgIcon(color: color);
         break;
-      case SightType.museum:
+      case PlaceType.museum:
         icon = MuseumSvgIcon(color: color);
         break;
-      case SightType.cafe:
+      case PlaceType.cafe:
         icon = CafeSvgIcon(color: color);
         break;
-      case SightType.other:
+      case PlaceType.other:
         icon = OtherSvgIcon(color: color);
         break;
-      case SightType.none:
+      case PlaceType.temple:
+        icon = OtherSvgIcon(color: color);
+        break;
+      case PlaceType.monument:
+        icon = OtherSvgIcon(color: color);
+        break;
+      case PlaceType.theatre:
+        icon = OtherSvgIcon(color: color);
+        break;
+      case PlaceType.none:
         icon = OtherSvgIcon(color: color);
         break;
     }

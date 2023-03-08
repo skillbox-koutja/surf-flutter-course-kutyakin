@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/ui/sight/filters/filters_state.dart';
+import 'package:places/ui/app/state/place_filters.dart';
 import 'package:provider/provider.dart';
 
 class DistanceFilter extends StatelessWidget {
@@ -11,33 +11,43 @@ class DistanceFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final distanceLimit = context.select<SightFiltersState, RangeValues>((s) => s.distanceLimit);
-    final distance = context.select<SightFiltersState, RangeValues>((s) => s.distance);
-    final onChanged = context.select<SightFiltersState, ValueChanged<RangeValues>>((s) => s.changeDistance);
-
     return Column(
-      children: [
-        const _RangeLabel(),
-        const SizedBox(height: 24),
-        RangeSlider(
-          min: distanceLimit.start,
-          max: distanceLimit.end,
-          values: distance,
-          onChanged: onChanged,
-        ),
+      children: const [
+        _RangeLabel(),
+        SizedBox(height: 24),
+        _RadiusSlider(),
       ],
     );
   }
 }
 
+class _RadiusSlider extends StatelessWidget {
+  const _RadiusSlider();
+
+  @override
+  Widget build(BuildContext context) {
+    final distanceLimit = context.select<PlaceFiltersState, RangeValues>((s) => s.distanceLimit);
+    final radius = context.select<PlaceFiltersState, double>((s) => s.radius);
+    final onChanged = context.select<PlaceFiltersState, ValueChanged<double>>((s) => s.changeRadius);
+
+    return Slider(
+      min: distanceLimit.start,
+      max: distanceLimit.end,
+      value: radius,
+      onChanged: onChanged,
+      label: AppMessages.sightFilters.distanceSliderTitle(radius),
+    );
+  }
+}
+
 class _RangeLabel extends StatelessWidget {
-  const _RangeLabel({Key? key}) : super(key: key);
+  const _RangeLabel();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final distanceLimit = context.select<SightFiltersState, RangeValues>((s) => s.distanceLimit);
+    final distanceLimit = context.select<PlaceFiltersState, RangeValues>((s) => s.distanceLimit);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

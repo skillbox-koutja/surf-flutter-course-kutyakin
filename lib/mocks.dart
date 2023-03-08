@@ -1,5 +1,6 @@
-import 'package:places/domain/map/map_coordinates.dart';
+import 'package:places/domain/geo/map_coordinates.dart';
 import 'package:places/domain/sight/category/value.dart';
+import 'package:places/domain/sight/favorite_sight.dart';
 import 'package:places/domain/sight/sight.dart';
 import 'package:places/domain/sight/sight_photo.dart';
 import 'package:places/domain/sight/sight_type.dart';
@@ -70,6 +71,24 @@ final List<Sight> sights = [
     type: SightType.restaurant,
   ),
 ];
+
+final certainPlannedSights = sights
+    .map(
+      (sight) => FavoriteSight.certainPlanned(
+    sight: sight,
+    date: DateTime(2022, 1, 15),
+  ),
+)
+    .toList();
+
+final certainDoneSights = sights
+    .map(
+      (sight) => FavoriteSight.certainDone(
+    sight: sight,
+    date: DateTime(2021, 1, 12),
+  ),
+)
+    .toList();
 
 List<CategoryFilterValue> getCategoryFilterValues() => [
       CategoryFilterValue(
