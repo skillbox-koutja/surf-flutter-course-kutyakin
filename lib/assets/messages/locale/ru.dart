@@ -1,8 +1,6 @@
 class AppMessages {
   static const sightsList = _SightsListMessages();
   static const sightDetails = _SightDetailsMessages();
-  @Deprecated('use placeStatus')
-  static const sightStatus = _PlaceStatusMessages();
   static const placeStatus = _PlaceStatusMessages();
   static const favoriteSights = _FavoriteSightsMessages();
   static const sightFilters = _SightFilters();
