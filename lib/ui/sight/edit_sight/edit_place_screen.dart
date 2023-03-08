@@ -44,7 +44,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> {
   }
 
   Future<void> onSubmit() async {
-    sightModelNotifier.save();
     widget.onSave(sightModelNotifier.model);
+    sightModelNotifier.save();
   }
 }

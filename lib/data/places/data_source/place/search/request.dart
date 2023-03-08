@@ -3,9 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'request.freezed.dart';
 part 'request.g.dart';
 
-@JsonSerializable(includeIfNull: false)
 @freezed
 class SearchPlaceRequest with _$SearchPlaceRequest {
+  @JsonSerializable(includeIfNull: false)
+
   const factory SearchPlaceRequest({
     String? nameFilter,
     double? lat,

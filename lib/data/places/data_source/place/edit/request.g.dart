@@ -6,8 +6,8 @@ part of 'request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EditPlaceRequest _$EditPlaceRequestFromJson(Map<String, dynamic> json) =>
-    EditPlaceRequest(
+_$_EditPlaceRequest _$$_EditPlaceRequestFromJson(Map<String, dynamic> json) =>
+    _$_EditPlaceRequest(
       name: json['name'] as String?,
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
@@ -16,7 +16,7 @@ EditPlaceRequest _$EditPlaceRequestFromJson(Map<String, dynamic> json) =>
       urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$EditPlaceRequestToJson(EditPlaceRequest instance) {
+Map<String, dynamic> _$$_EditPlaceRequestToJson(_$_EditPlaceRequest instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -33,23 +33,3 @@ Map<String, dynamic> _$EditPlaceRequestToJson(EditPlaceRequest instance) {
   writeNotNull('urls', instance.urls);
   return val;
 }
-
-_$_EditPlaceRequest _$$_EditPlaceRequestFromJson(Map<String, dynamic> json) =>
-    _$_EditPlaceRequest(
-      name: json['name'] as String?,
-      lat: (json['lat'] as num?)?.toDouble(),
-      lng: (json['lng'] as num?)?.toDouble(),
-      description: json['description'] as String?,
-      placeType: json['placeType'] as String?,
-      urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    );
-
-Map<String, dynamic> _$$_EditPlaceRequestToJson(_$_EditPlaceRequest instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'lat': instance.lat,
-      'lng': instance.lng,
-      'description': instance.description,
-      'placeType': instance.placeType,
-      'urls': instance.urls,
-    };

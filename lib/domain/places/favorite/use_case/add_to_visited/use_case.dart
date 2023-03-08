@@ -12,11 +12,15 @@ class AddToVisited implements UseCase<FavoritePlaces, FavoritePlace> {
   });
 
   @override
-  Future<Either<Failure, FavoritePlaces>> call(FavoritePlace favoritePlace) {
-    if (!favoritePlace.canDone) {
+  Future<Either<Failure, FavoritePlaces>> call(FavoritePlace wished) {
+    if (!wished.canDone) {
       return Future.value(Left(InvalidModel()));
     }
 
-    return favoritePlaceRepository.addToVisited(favoritePlace);
+    favoritePlaceRepository.removeFromFavorites(wished);
+
+    final visited = wished.done(DateTime.now());
+
+    return favoritePlaceRepository.addToVisited(visited);
   }
 }

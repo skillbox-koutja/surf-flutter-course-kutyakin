@@ -162,8 +162,9 @@ class __$$_EditPlaceRequestCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_EditPlaceRequest implements _EditPlaceRequest {
+
+@JsonSerializable(includeIfNull: false)
+class _$_EditPlaceRequest extends _EditPlaceRequest {
   const _$_EditPlaceRequest(
       {this.name,
       this.lat,
@@ -171,7 +172,8 @@ class _$_EditPlaceRequest implements _EditPlaceRequest {
       this.description,
       this.placeType,
       final List<String>? urls})
-      : _urls = urls;
+      : _urls = urls,
+        super._();
 
   factory _$_EditPlaceRequest.fromJson(Map<String, dynamic> json) =>
       _$$_EditPlaceRequestFromJson(json);
@@ -235,7 +237,7 @@ class _$_EditPlaceRequest implements _EditPlaceRequest {
   }
 }
 
-abstract class _EditPlaceRequest implements EditPlaceRequest {
+abstract class _EditPlaceRequest extends EditPlaceRequest {
   const factory _EditPlaceRequest(
       {final String? name,
       final double? lat,
@@ -243,6 +245,7 @@ abstract class _EditPlaceRequest implements EditPlaceRequest {
       final String? description,
       final String? placeType,
       final List<String>? urls}) = _$_EditPlaceRequest;
+  const _EditPlaceRequest._() : super._();
 
   factory _EditPlaceRequest.fromJson(Map<String, dynamic> json) =
       _$_EditPlaceRequest.fromJson;

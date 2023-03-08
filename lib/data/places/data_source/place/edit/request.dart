@@ -4,9 +4,11 @@ import 'package:places/domain/places/place/use_case/edit/model.dart';
 part 'request.freezed.dart';
 part 'request.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+
 @freezed
 class EditPlaceRequest with _$EditPlaceRequest {
+  @JsonSerializable(includeIfNull: false)
+
   const factory EditPlaceRequest({
     String? name,
     double? lat,
@@ -15,6 +17,8 @@ class EditPlaceRequest with _$EditPlaceRequest {
     String? placeType,
     List<String>? urls,
   }) = _EditPlaceRequest;
+
+  const EditPlaceRequest._();
 
   factory EditPlaceRequest.fromJson(Map<String, dynamic> json) => _$EditPlaceRequestFromJson(json);
 
@@ -27,10 +31,10 @@ class EditPlaceRequest with _$EditPlaceRequest {
       placeType: place.type.isDirty ? place.type.value.name : null,
       urls: place.photos.isDirty
           ? place.photos.value
-              .map((photo) => photo.imageProvider.when(
-                    network: (url) => url,
-                  ))
-              .toList()
+          .map((photo) => photo.imageProvider.when(
+        network: (url) => url,
+      ))
+          .toList()
           : null,
     );
   }

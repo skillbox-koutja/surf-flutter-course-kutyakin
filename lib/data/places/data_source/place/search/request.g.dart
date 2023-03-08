@@ -6,8 +6,9 @@ part of 'request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SearchPlaceRequest _$SearchPlaceRequestFromJson(Map<String, dynamic> json) =>
-    SearchPlaceRequest(
+_$_SearchPlaceRequest _$$_SearchPlaceRequestFromJson(
+        Map<String, dynamic> json) =>
+    _$_SearchPlaceRequest(
       nameFilter: json['nameFilter'] as String?,
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
@@ -17,7 +18,8 @@ SearchPlaceRequest _$SearchPlaceRequestFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$SearchPlaceRequestToJson(SearchPlaceRequest instance) {
+Map<String, dynamic> _$$_SearchPlaceRequestToJson(
+    _$_SearchPlaceRequest instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -33,25 +35,3 @@ Map<String, dynamic> _$SearchPlaceRequestToJson(SearchPlaceRequest instance) {
   writeNotNull('typeFilter', instance.typeFilter);
   return val;
 }
-
-_$_SearchPlaceRequest _$$_SearchPlaceRequestFromJson(
-        Map<String, dynamic> json) =>
-    _$_SearchPlaceRequest(
-      nameFilter: json['nameFilter'] as String?,
-      lat: (json['lat'] as num?)?.toDouble(),
-      lng: (json['lng'] as num?)?.toDouble(),
-      radius: (json['radius'] as num?)?.toDouble(),
-      typeFilter: (json['typeFilter'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-    );
-
-Map<String, dynamic> _$$_SearchPlaceRequestToJson(
-        _$_SearchPlaceRequest instance) =>
-    <String, dynamic>{
-      'nameFilter': instance.nameFilter,
-      'lat': instance.lat,
-      'lng': instance.lng,
-      'radius': instance.radius,
-      'typeFilter': instance.typeFilter,
-    };

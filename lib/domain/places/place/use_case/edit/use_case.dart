@@ -31,7 +31,7 @@ class EditPlaceEntity implements UseCase<PlaceEntity, EditPlaceArgs>{
 
   @override
   Future<Either<Failure, PlaceEntity>> call(EditPlaceArgs args) {
-    if (!args.place.isValid && args.place.isTouched) {
+    if (!args.place.isValid) {
       return Future.value(Left(InvalidModel()));
     }
 

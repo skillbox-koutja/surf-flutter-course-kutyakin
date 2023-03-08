@@ -149,7 +149,8 @@ class __$$_SearchPlaceRequestCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_SearchPlaceRequest implements _SearchPlaceRequest {
   const _$_SearchPlaceRequest(
       {this.nameFilter,

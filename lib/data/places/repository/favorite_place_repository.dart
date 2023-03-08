@@ -11,13 +11,9 @@ import 'package:places/domain/places/search/filters/filters.dart';
 class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
   FavoritePlaces favorites;
 
-  FavoritePlaces get wishedPlaces => favorites.rebuild(
-        (b) => b.where((favoritePlace) => !favoritePlace.status.isPlanned),
-      );
+  FavoritePlaces get wishedPlaces => favorites.where((favoritePlace) => favoritePlace.status.isPlanned).toBuiltList();
 
-  FavoritePlaces get visitedPlaces => favorites.rebuild(
-        (b) => b.where((favoritePlace) => !favoritePlace.status.isDone),
-      );
+  FavoritePlaces get visitedPlaces => favorites.where((favoritePlace) => favoritePlace.status.isPlanned).toBuiltList();
 
   FavoritePlaceRepositoryImpl({
     required this.favorites,
@@ -64,11 +60,8 @@ class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
   }
 
   @override
-  Future<Either<Failure, FavoritePlaces>> addToVisited(FavoritePlace wished) {
-    final visited = wished.done(DateTime.now());
-    favorites = favorites.rebuild((b) => b
-      ..remove(wished)
-      ..insert(0, visited));
+  Future<Either<Failure, FavoritePlaces>> addToVisited(FavoritePlace visited) {
+    favorites = favorites.rebuild((b) => b.insert(0, visited));
 
     return Future.value(Right(visitedPlaces));
   }

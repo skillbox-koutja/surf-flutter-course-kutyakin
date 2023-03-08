@@ -23,7 +23,7 @@ class VisitedSightsWidget extends StatelessWidget {
     final state = context.read<VisitedPlacesState>();
     final favoritePlacesData = context.select<VisitedPlacesState, FavoritePlacesData>((s) => s.places);
 
-    Future<void> onRemove(FavoritePlace favoritePlace) async {
+    void onRemove(FavoritePlace favoritePlace) {
       state.remove(favoritePlace);
     }
 
