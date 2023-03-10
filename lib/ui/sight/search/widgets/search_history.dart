@@ -1,9 +1,13 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
+import 'package:places/domain/core/use_case/use_case.dart';
+import 'package:places/domain/places/search/history/use_case/clear/use_case.dart';
+import 'package:places/domain/places/search/history/use_case/remove/use_case.dart';
+import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
-import 'package:places/ui/sight/search/search_state.dart';
 import 'package:provider/provider.dart';
 
 const _historyItemsLimit = 4;
@@ -20,7 +24,7 @@ class SearchHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
-    final history = context.select<SearchState, List<String>>((s) => s.history);
+    final history = context.select<PlaceSearchState, BuiltList<String>>((s) => s.history);
 
     if (history.isEmpty) {
       return const SizedBox();
@@ -63,8 +67,8 @@ class _HistoryList extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
-    final clearHistory = context.select<SearchState, ClearHistory>((s) => s.clearHistory);
-    final removeHistoryItem = context.select<SearchState, RemoveHistoryItem>((s) => s.removeHistoryItem);
+    final clearHistory = context.select<PlaceSearchState, ClearSearchHistory>((s) => s.clearSearchHistory);
+    final removeHistoryItem = context.select<PlaceSearchState, RemoveSearchHistory>((s) => s.removeSearchHistory);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +90,7 @@ class _HistoryList extends StatelessWidget {
         ),
         const SizedBox(height: 28),
         GestureDetector(
-          onTap: clearHistory,
+          onTap: () => clearHistory(NoArgs()),
           child: Text(
             AppMessages.searchSights.clearHistoryTitle,
             style: textTheme?.text?.copyWith(
@@ -101,7 +105,7 @@ class _HistoryList extends StatelessWidget {
 
 class _Row extends StatelessWidget {
   final String query;
-  final RemoveHistoryItem removeHistoryItem;
+  final RemoveSearchHistory removeHistoryItem;
   final ValueChanged<String> onSelectItem;
 
   const _Row({

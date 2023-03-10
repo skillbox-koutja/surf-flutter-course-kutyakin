@@ -1,50 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/favorite_sight.dart';
-import 'package:places/mocks.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/visited_sights.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/wished_sights.dart';
-import 'package:provider/provider.dart';
 
-final certainPlannedSights = sights
-    .map(
-      (sight) => FavoriteSight.certainPlanned(
-        sight: sight,
-        date: DateTime(2022, 1, 15),
-      ),
-    )
-    .toList();
-
-final certainDoneSights = sights
-    .map(
-      (sight) => FavoriteSight.certainDone(
-        sight: sight,
-        date: DateTime(2021, 1, 12),
-      ),
-    )
-    .toList();
-
-class FavoriteSightsScreen extends StatefulWidget {
+class FavoriteSightsScreen extends StatelessWidget {
   const FavoriteSightsScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FavoriteSightsScreen> createState() => _FavoriteSightsScreenState();
-}
-
-class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
-  late final FavoriteSightsState favoriteSightsState;
-
-  @override
-  void initState() {
-    super.initState();
-
-    favoriteSightsState = FavoriteSightsState(
-      wished: certainPlannedSights,
-      visited: certainDoneSights,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,16 +50,11 @@ class _FavoriteSightsScreenState extends State<FavoriteSightsScreen> {
             ),
           ),
         ),
-        body: ChangeNotifierProvider(
-          create: (_) => favoriteSightsState,
-          builder: (_, __) {
-            return const TabBarView(
-              children: [
-                WishedSightsWidget(),
-                VisitedSightsWidget(),
-              ],
-            );
-          },
+        body: const TabBarView(
+          children: [
+            WishedSightsWidget(),
+            VisitedSightsWidget(),
+          ],
         ),
       ),
     );

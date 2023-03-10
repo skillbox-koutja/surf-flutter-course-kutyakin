@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/places/place/model.dart';
 import 'package:places/ui/components/icons/menu/svg_icons.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 
 class SightDetailsBody extends StatelessWidget {
-  final Sight sight;
+  final Place place;
 
-  const SightDetailsBody({required this.sight, Key? key}) : super(key: key);
+  const SightDetailsBody({required this.place, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +20,17 @@ class SightDetailsBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          sight.name,
+          place.name,
           style: textTheme?.title,
         ),
         const SizedBox(height: 2),
         Text(
-          sight.type.title,
+          place.type.title,
           style: textTheme?.smallBold,
         ),
         const SizedBox(height: 24),
         Text(
-          sight.details,
+          place.details,
           style: textTheme?.small,
         ),
         Padding(

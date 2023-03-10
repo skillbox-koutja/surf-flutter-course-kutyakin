@@ -2,14 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight_photo.dart';
-import 'package:places/ui/components/icon_action.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
+import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
-import 'package:places/ui/sight/image_overlay/image_overlay.dart';
-import 'package:provider/provider.dart';
 
 class AddPhotoDialog extends StatelessWidget {
   const AddPhotoDialog({Key? key}) : super(key: key);
@@ -17,7 +13,7 @@ class AddPhotoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorsTheme = theme.extension<CustomColors>();
+    final colorsTheme = context.themeColors;
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -47,7 +43,7 @@ class AddPhotoDialog extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.scaffoldBackgroundColor,
-                foregroundColor: colorsTheme?.green,
+                foregroundColor: colorsTheme.green,
                 padding: const EdgeInsets.all(15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -76,11 +72,10 @@ class _Camera extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
 
     return _Item(
-      icon: CameraSvgIcon(color: textTheme?.textDialog?.color),
+      icon: CameraSvgIcon(color: textTheme.textDialog?.color),
       title: AppMessages.editingSight.addPhotoDialogCameraTitle,
     );
   }
@@ -91,11 +86,10 @@ class _Photo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
 
     return _Item(
-      icon: PhotoSvgIcon(color: textTheme?.textDialog?.color),
+      icon: PhotoSvgIcon(color: textTheme.textDialog?.color),
       title: AppMessages.editingSight.addPhotoDialogPhotoTitle,
     );
   }
@@ -106,11 +100,10 @@ class _File extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
 
     return _Item(
-      icon: FileSvgIcon(color: textTheme?.textDialog?.color),
+      icon: FileSvgIcon(color: textTheme.textDialog?.color),
       title: AppMessages.editingSight.addPhotoDialogFileTitle,
     );
   }
@@ -127,21 +120,22 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
         final rng = Random();
-        final photo = SightPhoto(imageUrl: 'https://picsum.photos/300/400?_c=${rng.nextDouble()}');
-        Navigator.of(context).pop<SightPhoto>(photo);
+        final photo = PlacePhoto(
+          imageProvider: PlacePhotoProvider.network('https://picsum.photos/300/400?_c=${rng.nextDouble()}'),
+        );
+        Navigator.of(context).pop<PlacePhoto>(photo);
       },
       child: Row(
         children: [
           icon,
           const SizedBox(width: 14),
-          Text(title, style: textTheme?.textDialog),
+          Text(title, style: textTheme.textDialog),
         ],
       ),
     );

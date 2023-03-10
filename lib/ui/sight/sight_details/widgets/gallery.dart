@@ -1,11 +1,13 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/sight_photo.dart';
+import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/images/loading_progress_value.dart';
+import 'package:places/ui/place/photo/image.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightPhotosGallery extends StatefulWidget {
-  final List<SightPhoto> photos;
+  final BuiltList<PlacePhoto> photos;
 
   const SightPhotosGallery({
     required this.photos,
@@ -44,8 +46,8 @@ class SightPhotosGalleryState extends State<SightPhotosGallery> {
           controller: controller,
           itemCount: widget.photos.length,
           itemBuilder: (context, index) => ImageOverlay(
-            image: Image.network(
-              widget.photos[index].imageUrl,
+            image: Image(
+              image: PlacePhotoImage(widget.photos[index]).image,
               fit: BoxFit.cover,
               loadingBuilder: (_, child, loadingProgress) {
                 return loadingProgress == null

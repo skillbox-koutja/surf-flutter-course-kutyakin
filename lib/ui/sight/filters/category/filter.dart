@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/category/value.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
+import 'package:places/domain/places/category/option.dart';
+import 'package:places/domain/places/category/selector.dart';
+import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/sight/filters/category/item.dart';
 import 'package:places/ui/sight/filters/category/selectable_item.dart';
-import 'package:places/ui/sight/filters/filters_state.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
@@ -16,25 +17,29 @@ class CategoryFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
-    final sightFilterCategories = context.select<SightFiltersState, CategoryFilters>((s) => s.sightFilterCategories);
-    final onChanged = context.select<SightFiltersState, ValueChanged<CategoryFilterValue>>((s) => s.toggleCategoryFilter);
+    final textTheme = context.themeTextStyles;
+    final categorySelector = context.select<PlaceFiltersState, CategorySelector>((s) => s.filters.categorySelector);
+    final onChanged = context.select<PlaceFiltersState, ValueChanged<CategoryOption>>((s) => s.toggleCategory);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           AppMessages.sightFilters.categoriesTitle,
-          style: textTheme?.superSmall?.copyWith(
+          style: textTheme.superSmall?.copyWith(
             color: theme.disabledColor,
           ),
         ),
         const SizedBox(height: 24),
-        Center(
-          child: Wrap(
-            spacing: 40,
-            runSpacing: 40,
-            children: sightFilterCategories.map((category) {
+        SizedBox(
+          height: 224,
+          child: GridView.count(
+            scrollDirection: Axis.horizontal,
+            crossAxisCount: 2,
+            mainAxisSpacing: 40,
+            crossAxisSpacing: 40,
+            shrinkWrap: true, // You won't see infinite size error
+            children: categorySelector.list.map((category) {
               return _CategoryFilterItem(
                 category: category,
                 onChanged: onChanged,
@@ -48,8 +53,8 @@ class CategoryFilter extends StatelessWidget {
 }
 
 class _CategoryFilterItem extends StatelessWidget {
-  final ValueChanged<CategoryFilterValue> onChanged;
-  final CategoryFilterValue category;
+  final ValueChanged<CategoryOption> onChanged;
+  final CategoryOption category;
 
   const _CategoryFilterItem({
     required this.category,
@@ -59,8 +64,7 @@ class _CategoryFilterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
     final type = category.type;
 
     return Column(
@@ -78,7 +82,7 @@ class _CategoryFilterItem extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           type.title.sentenceCase,
-          style: textTheme?.superSmall,
+          style: textTheme.superSmall,
           overflow: TextOverflow.ellipsis,
         ),
       ],

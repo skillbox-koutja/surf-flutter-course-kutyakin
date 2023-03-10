@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
+import 'package:places/ui/app/state/settings_state.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/onboarding/onboarding_screen.dart';
-import 'package:places/ui/settings/settings_state.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {

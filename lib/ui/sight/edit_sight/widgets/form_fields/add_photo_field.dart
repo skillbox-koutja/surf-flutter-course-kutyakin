@@ -1,10 +1,10 @@
-import 'dart:math';
-
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/sight_photo.dart';
+import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
+import 'package:places/ui/place/photo/image.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_dialog.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
@@ -20,7 +20,7 @@ class AddPhotoField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final photos = context.select<EditSightState, List<SightPhoto>>((s) => s.model.photos);
+    final photos = context.select<EditSightState, BuiltList<PlacePhoto>>((s) => s.model.photos.value);
 
     return Row(
       children: [
@@ -41,7 +41,7 @@ class AddPhotoField extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8),
             scrollDirection: Axis.horizontal,
             itemCount: photos.length,
-            itemBuilder: (_, index) => _RemovableListItem(sightPhoto: photos[index]),
+            itemBuilder: (_, index) => _RemovableListItem(placePhoto: photos[index]),
           ),
         ),
       ],
@@ -60,7 +60,7 @@ class _AddPhotoButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        final photo = await showDialog<SightPhoto>(
+        final photo = await showDialog<PlacePhoto>(
           context: context,
           builder: (_) => const AddPhotoDialog(),
         );
@@ -91,40 +91,40 @@ class _AddPhotoButton extends StatelessWidget {
 }
 
 class _ListItem extends StatelessWidget {
-  final SightPhoto sightPhoto;
+  final PlacePhoto placePhoto;
 
-  const _ListItem({required this.sightPhoto, Key? key}) : super(key: key);
+  const _ListItem({required this.placePhoto, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _Image(sightPhoto: sightPhoto);
+    return _Image(placePhoto: placePhoto);
   }
 }
 
 class _RemovableListItem extends StatelessWidget {
-  final SightPhoto sightPhoto;
+  final PlacePhoto placePhoto;
 
-  const _RemovableListItem({required this.sightPhoto, Key? key}) : super(key: key);
+  const _RemovableListItem({required this.placePhoto, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final state = context.read<EditSightState>();
 
     return Dismissible(
-      key: ObjectKey(sightPhoto),
+      key: ObjectKey(placePhoto),
       direction: DismissDirection.up,
       onDismissed: (_) {
-        state.removePhoto(sightPhoto);
+        state.removePhoto(placePhoto);
       },
       child: Stack(
         children: [
-          Material(child: _ListItem(sightPhoto: sightPhoto)),
+          Material(child: _ListItem(placePhoto: placePhoto)),
           Positioned(
             top: 6,
             right: 6,
             child: IconActionWidget(
               onPressed: () {
-                state.removePhoto(sightPhoto);
+                state.removePhoto(placePhoto);
               },
               icon: const ClearSvgIcon(
                 color: AppColors.white,
@@ -139,10 +139,10 @@ class _RemovableListItem extends StatelessWidget {
 
 
 class _Image extends StatelessWidget {
-  final SightPhoto sightPhoto;
+  final PlacePhoto placePhoto;
 
   const _Image({
-    required this.sightPhoto,
+    required this.placePhoto,
     Key? key,
   }) : super(key: key);
 
@@ -159,9 +159,7 @@ class _Image extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                  sightPhoto.imageUrl,
-                ), // Background image
+                image: PlacePhotoImage(placePhoto).image, // Background image
               ),
             ),
           ),

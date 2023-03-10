@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/colors.dart';
-import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/use_case/edit_sight/error.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
+import 'package:places/domain/places/place/use_case/edit/model.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/latlong_field.dart';
 import 'package:provider/provider.dart';
 
 class LatLongFieldGroup extends StatefulWidget {
   final double? lat;
-  final double? long;
+  final double? lng;
 
   const LatLongFieldGroup({
     this.lat,
-    this.long,
+    this.lng,
     Key? key,
   }) : super(key: key);
 
@@ -23,29 +22,28 @@ class LatLongFieldGroup extends StatefulWidget {
 
 class _LatLongFieldGroupState extends State<LatLongFieldGroup> {
   late final TextEditingController latController;
-  late final TextEditingController longController;
+  late final TextEditingController lngController;
 
   @override
   void initState() {
     super.initState();
 
     latController = TextEditingController(text: widget.lat?.toString());
-    longController = TextEditingController(text: widget.long?.toString());
+    lngController = TextEditingController(text: widget.lng?.toString());
   }
 
   @override
   void dispose() {
     latController.dispose();
-    longController.dispose();
+    lngController.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
-    final colorsTheme = theme.extension<CustomColors>();
+    final textTheme = context.themeTextStyles;
+    final colorsTheme = context.themeColors;
     final onPointOnMap = context.select<EditSightState, PointOnMap>((s) => s.pointOnMap);
 
     return Column(
@@ -58,7 +56,7 @@ class _LatLongFieldGroupState extends State<LatLongFieldGroup> {
             ),
             const SizedBox(width: 16),
             _Long(
-              controller: longController,
+              controller: lngController,
             ),
           ],
         ),
@@ -69,8 +67,8 @@ class _LatLongFieldGroupState extends State<LatLongFieldGroup> {
           },
           child: Text(
             AppMessages.editingSight.pointOnMapTitle,
-            style: textTheme?.text?.copyWith(
-              color: colorsTheme?.green,
+            style: textTheme.text?.copyWith(
+              color: colorsTheme.green,
             ),
           ),
         ),
@@ -80,13 +78,13 @@ class _LatLongFieldGroupState extends State<LatLongFieldGroup> {
 
   void pointOnMap(PointOnMap onPointOnMap) {
     const lat = 55.73495792679506;
-    const long = 37.58815325199811;
+    const lng = 37.58815325199811;
     latController.value = TextEditingValue(text: lat.toString());
-    longController.value = TextEditingValue(text: long.toString());
+    lngController.value = TextEditingValue(text: lng.toString());
 
     onPointOnMap(
       lat: lat,
-      long: long,
+      lng: lng,
     );
   }
 }
@@ -101,18 +99,17 @@ class _Lat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lat = context.select<EditSightState, double?>((s) => s.model.lat);
-    final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.latError);
+    final latField = context.select<EditSightState, EditablePlaceGeoField>((s) => s.model.lat);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.latFocusNode);
     final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLat);
 
     return LatLongField(
-      value: lat,
+      fieldKey: EditablePlaceFieldKeys.lat,
+      field: latField,
       focusNode: focusNode,
       controller: controller,
       label: AppMessages.editingSight.latitudeFieldLabel,
       onChanged: onChanged,
-      error: error,
     );
   }
 }
@@ -127,18 +124,17 @@ class _Long extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final long = context.select<EditSightState, double?>((s) => s.model.long);
-    final error = context.select<EditSightState, EditSightModelError?>((s) => s.model.longError);
+    final lngField = context.select<EditSightState, EditablePlaceGeoField>((s) => s.model.lng);
     final focusNode = context.select<EditSightState, FocusNode>((s) => s.longFocusNode);
-    final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLong);
+    final onChanged = context.select<EditSightState, ValueChanged<double?>>((s) => s.editLng);
 
     return LatLongField(
-      value: long,
+      fieldKey: EditablePlaceFieldKeys.lng,
+      field: lngField,
       focusNode: focusNode,
       controller: controller,
       label: AppMessages.editingSight.latitudeFieldLabel,
       onChanged: onChanged,
-      error: error,
     );
   }
 }

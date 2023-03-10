@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight_type.dart';
+import 'package:places/domain/places/place/type.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:recase/recase.dart';
 
 class CategorySelectScreen extends StatefulWidget {
-  final SightType selected;
+  final PlaceType selected;
   final VoidCallback onClose;
-  final ValueChanged<SightType> onSave;
+  final ValueChanged<PlaceType> onSave;
 
   const CategorySelectScreen({
     required this.selected,
@@ -23,7 +23,7 @@ class CategorySelectScreen extends StatefulWidget {
 }
 
 class _CategorySelectScreenState extends State<CategorySelectScreen> {
-  late ValueNotifier<SightType> selectedNotifier;
+  late ValueNotifier<PlaceType> selectedNotifier;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
                   Flexible(
                     child: ListView(
                       children: [
-                        for (final sightType in SightType.availableForSelection())
+                        for (final sightType in PlaceType.availableForSelection())
                           _Option(sightType: sightType, select: onSelect, selected: selected),
                       ],
                     ),
@@ -78,7 +78,7 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
   }
 
   // ignore: use_setters_to_change_properties
-  void onSelect(SightType value) => selectedNotifier.value = value;
+  void onSelect(PlaceType value) => selectedNotifier.value = value;
 
   void onSave() {
     widget.onSave(selectedNotifier.value);
@@ -128,9 +128,9 @@ class _Header extends StatelessWidget {
 }
 
 class _Option extends StatelessWidget {
-  final SightType sightType;
-  final SightType selected;
-  final ValueChanged<SightType> select;
+  final PlaceType sightType;
+  final PlaceType selected;
+  final ValueChanged<PlaceType> select;
 
   const _Option({
     required this.sightType,

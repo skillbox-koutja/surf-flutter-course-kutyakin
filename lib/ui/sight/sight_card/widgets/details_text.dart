@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/places/place/model.dart';
 
 class SightDetailsText extends StatelessWidget {
-  final Sight sight;
+  final Place place;
 
-  const SightDetailsText({required this.sight, Key? key}) : super(key: key);
+  const SightDetailsText({required this.place, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class SightDetailsText extends StatelessWidget {
     final textTheme = theme.extension<CustomTextStyles>();
 
     return Text(
-      sight.details,
+      place.details,
       style: textTheme?.small,
       overflow: TextOverflow.ellipsis,
     );

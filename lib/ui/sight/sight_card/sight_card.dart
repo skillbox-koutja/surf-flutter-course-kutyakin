@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight/sight.dart';
+import 'package:places/domain/places/place/entity.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/header.dart';
 import 'package:places/ui/sight/sight_details/sight_details_bottom_sheet.dart';
 
 class SightCard extends StatelessWidget {
-  final Sight sight;
+  final PlaceEntity placeEntity;
   final SightCardHeader header;
   final SightCardBody body;
 
   const SightCard({
-    required this.sight,
+    required this.placeEntity,
     required this.header,
     required this.body,
     Key? key,
@@ -32,7 +32,7 @@ class SightCard extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (_) => SightDetailsBottomSheet(
-              sight: sight,
+              placeEntity: placeEntity,
             ),
           );
         },

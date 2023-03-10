@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/favorite_sight.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
+import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/sight_card/removable_sight_card.dart';
 
 class FavoriteSightList extends StatefulWidget {
-  final FavoriteSights sights;
+  final FavoritePlaces favoritePlaces;
   final FavoriteSightCard Function({
-    required FavoriteSight favoriteSight,
+    required FavoritePlace favoritePlace,
   }) buildCard;
-  final ValueChanged<FavoriteSight> onRemove;
+  final ValueChanged<FavoritePlace> onRemove;
   final void Function({
     required int index,
-    required FavoriteSight favoriteSight,
+    required FavoritePlace favoritePlace,
   }) onReorder;
 
   const FavoriteSightList({
     required this.buildCard,
-    required this.sights,
+    required this.favoritePlaces,
     required this.onRemove,
     required this.onReorder,
     Key? key,
@@ -29,7 +28,7 @@ class FavoriteSightList extends StatefulWidget {
 }
 
 class _FavoriteSightListState extends State<FavoriteSightList> {
-  final droppedPlace = ValueNotifier<FavoriteSight?>(null);
+  final droppedPlace = ValueNotifier<FavoritePlace?>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -38,29 +37,29 @@ class _FavoriteSightListState extends State<FavoriteSightList> {
         return const SizedBox(height: 16);
       },
       padding: const EdgeInsets.only(bottom: 16),
-      itemCount: widget.sights.length,
+      itemCount: widget.favoritePlaces.length,
       itemBuilder: (_, index) {
-        final favoriteSight = widget.sights[index];
+        final favoritePlace = widget.favoritePlaces[index];
         final card = widget.buildCard(
-          favoriteSight: favoriteSight,
+          favoritePlace: favoritePlace,
         );
 
-        return DragTarget<FavoriteSight>(
-          onAccept: (draggedSight) {
-            if (favoriteSight == draggedSight) return;
+        return DragTarget<FavoritePlace>(
+          onAccept: (draggedPlace) {
+            if (favoritePlace == draggedPlace) return;
 
             droppedPlace.value = null;
-            widget.onReorder(index: index, favoriteSight: draggedSight);
+            widget.onReorder(index: index, favoritePlace: draggedPlace);
           },
-          onWillAccept: (draggedSight) {
-            if (favoriteSight == draggedSight) return false;
+          onWillAccept: (draggedPlace) {
+            if (favoritePlace == draggedPlace) return false;
 
-            droppedPlace.value = favoriteSight;
+            droppedPlace.value = favoritePlace;
 
             return true;
           },
-          onLeave: (draggedSight) {
-            if (droppedPlace.value == favoriteSight) {
+          onLeave: (draggedPlace) {
+            if (droppedPlace.value == favoritePlace) {
               droppedPlace.value = null;
             }
           },
@@ -70,7 +69,7 @@ class _FavoriteSightListState extends State<FavoriteSightList> {
               child: ValueListenableBuilder(
                 valueListenable: droppedPlace,
                 builder: (_, droppedSight, __) {
-                  if (droppedSight == favoriteSight) {
+                  if (droppedSight == favoritePlace) {
                     return Stack(
                       children: [
                         card,
@@ -93,13 +92,13 @@ class _FavoriteSightListState extends State<FavoriteSightList> {
                     );
                   }
 
-                  return LongPressDraggable<FavoriteSight>(
-                    data: favoriteSight,
+                  return LongPressDraggable<FavoritePlace>(
+                    data: favoritePlace,
                     child: RemovableSightCard(
-                      key: ObjectKey(favoriteSight),
+                      key: ObjectKey(favoritePlace),
                       card: card,
                       onRemove: () {
-                        widget.onRemove(favoriteSight);
+                        widget.onRemove(favoritePlace);
                       },
                     ),
                     childWhenDragging: const SizedBox.shrink(),

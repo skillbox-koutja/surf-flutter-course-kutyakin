@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/sight/sight.dart';
-import 'package:places/mocks.dart';
-import 'package:places/ui/components/icon_action.dart';
-import 'package:places/ui/components/icons/menu/svg_icons.dart';
+import 'package:places/ui/app/state/place_filters.dart';
+import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/components/main_gradient_overlay.dart';
-import 'package:places/ui/sight/edit_sight/add_sight_screen.dart';
-import 'package:places/ui/sight/filters/filters_state.dart';
+import 'package:places/ui/sight/edit_sight/add_place_screen.dart';
 import 'package:places/ui/sight/search/sight_search_screen.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
-import 'package:places/ui/sight/sight_card/sight_card.dart';
-import 'package:places/ui/sight/sight_card/widgets/actions.dart';
-import 'package:places/ui/sight/sight_card/widgets/body.dart';
-import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
-import 'package:places/ui/sight/sight_card/widgets/header.dart';
-import 'package:places/ui/sight/sight_card/widgets/image.dart';
-import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
-import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
+import 'package:places/ui/sight/sight_list/widgets/places.dart';
 import 'package:provider/provider.dart';
 
-final successAddedSightSnackBar = SnackBar(
-  content: Text(AppMessages.sightsList.successAddedSight),
+final _successAddedPlaceSnackBar = SnackBar(
+  content: Text(AppMessages.sightsList.successAddedPlace),
+);
+final _successEditedPlaceSnackBar = SnackBar(
+  content: Text(AppMessages.sightsList.successEditedPlace),
 );
 
 class SightListScreen extends StatefulWidget {
@@ -54,7 +46,6 @@ class _SightListScreenState extends State<SightListScreen> {
         icon: const _FloatingButtonText(),
         label: const SizedBox(),
         onPressed: openAddSightScreen,
-        // onPressed: openAddSightScreen,
       ),
     );
   }
@@ -62,16 +53,17 @@ class _SightListScreenState extends State<SightListScreen> {
   void openAddSightScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute<AddSightScreen>(
+      MaterialPageRoute<AddPlaceScreen>(
         builder: (context) {
-          final filtersState = context.read<SightFiltersState>();
+          final filtersState = context.read<PlaceFiltersState>();
+          final placesState = context.read<PlacesState>();
 
-          return AddSightScreen(
-            onSave: (sight) {
-              sights.add(sight);
+          return AddPlaceScreen(
+            onSave: (editablePlace) {
+              placesState.createPlaceEntity(editablePlace);
               filtersState.clear();
               Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(successAddedSightSnackBar);
+              ScaffoldMessenger.of(context).showSnackBar(_successAddedPlaceSnackBar);
             },
             onClose: () {
               Navigator.of(context).pop();
@@ -92,6 +84,10 @@ class _Body extends StatelessWidget {
     final appBarDelegate = MediaQuery.of(context).orientation == Orientation.portrait
         ? const _PortraitSliverAppBar(expandedHeight: appBarPaddingHeight + 72.0)
         : const _LandscapeSliverAppBar();
+    void onEditDone() {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(_successEditedPlaceSnackBar);
+    }
 
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -102,7 +98,9 @@ class _Body extends StatelessWidget {
             pinned: true,
           ),
           const _SearchBar(),
-          const _FilteredSights(),
+          PlacesContainerWidget(
+            onEditDone: onEditDone,
+          ),
         ],
       ),
     );
@@ -224,7 +222,6 @@ class _SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filtersState = context.read<SightFiltersState>();
     final padding = MediaQuery.of(context).orientation == Orientation.portrait
         ? const EdgeInsets.all(16.0)
         : EdgeInsets.symmetric(horizontal: MediaQuery.of(context).padding.right).copyWith(bottom: 14);
@@ -236,7 +233,6 @@ class _SearchBar extends StatelessWidget {
           suffixIcons: [
             SearchFilterIcon(
               onClose: () {
-                filtersState.applyFilters();
                 Navigator.of(context).pop();
               },
             ),
@@ -246,81 +242,6 @@ class _SearchBar extends StatelessWidget {
               context,
               MaterialPageRoute<SightSearchScreen>(builder: (_) => const SightSearchScreen()),
             );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _FilteredSights extends StatelessWidget {
-  const _FilteredSights({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final filteredSights = context.select<SightFiltersState, List<Sight>>((s) => s.filteredSights);
-
-    return MediaQuery.of(context).orientation == Orientation.portrait
-        ? _SliverListSights(
-            sights: filteredSights,
-          )
-        : _SliverGridSights(
-            sights: filteredSights,
-          );
-  }
-}
-
-class _SliverListSights extends StatelessWidget {
-  final List<Sight> sights;
-
-  const _SliverListSights({required this.sights, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          childCount: sights.length * 2 - 1,
-          semanticIndexCallback: (_, index) {
-            return index.isEven ? index ~/ 2 : null;
-          },
-          (context, index) {
-            final itemIndex = index ~/ 2;
-            if (index.isEven) {
-              return _SightCard(sight: sights[itemIndex]);
-            }
-
-            const separator = SizedBox(height: 16);
-
-            return separator;
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _SliverGridSights extends StatelessWidget {
-  final List<Sight> sights;
-
-  const _SliverGridSights({required this.sights, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).padding.right),
-      sliver: SliverGrid(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 36.0,
-          crossAxisSpacing: 36.0,
-          childAspectRatio: 2,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          childCount: sights.length,
-          (context, index) {
-            return _SightCard(sight: sights[index]);
           },
         ),
       ),
@@ -353,42 +274,6 @@ class _FloatingButtonText extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _SightCard extends StatelessWidget {
-  final Sight sight;
-
-  const _SightCard({required this.sight, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SightCard(
-      sight: sight,
-      header: SightCardHeader(
-        image: SightImage(sight: sight, fit: BoxFit.fitWidth),
-        typeText: SightTypeText(sight: sight),
-        actions: SightActions(
-          children: [
-            IconActionWidget(
-              onPressed: () {
-                print('HeartSvgIcon: ${sight.name}'); // ignore: avoid_print
-              },
-              icon: const HeartSvgIcon(
-                color: AppColors.white,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: SightCardBody(
-        children: [
-          SightNameText(sight: sight),
-          const SizedBox(height: 2),
-          SightDetailsText(sight: sight),
-        ],
       ),
     );
   }

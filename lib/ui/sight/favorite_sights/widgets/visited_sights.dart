@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
-import 'package:places/domain/sight/favorite_sight.dart';
+import 'package:places/domain/places/favorite/model.dart';
+import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
+import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/components/empty_state.dart';
+import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart' as empty_icons;
 import 'package:places/ui/components/icons/svg_icons.dart';
-import 'package:places/ui/sight/favorite_sights/favorite_sights_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/empty_state.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_card.dart';
 import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart';
@@ -18,26 +20,53 @@ class VisitedSightsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<FavoriteSightsState>();
-    final sights = context.select<FavoriteSightsState, FavoriteSights>((s) => s.visited);
+    final state = context.read<VisitedPlacesState>();
+    final favoritePlacesData = context.select<VisitedPlacesState, FavoritePlacesData>((s) => s.places);
 
-    if (sights.isEmpty) {
-      return const _VisitedEmptyState();
+    void onRemove(FavoritePlace favoritePlace) {
+      state.remove(favoritePlace);
     }
 
-    return FavoriteSightList(
-      sights: sights,
-      onRemove: state.removeVisited,
-      onReorder: state.reorderVisited,
-      buildCard: ({required favoriteSight}) {
-        return FavoriteSightCard(
-          favoriteSight: favoriteSight,
-          actions: _VisitedActions(
-            favoriteSight: favoriteSight,
-            onRemove: () {
-              state.removeVisited(favoriteSight);
-            },
-          ),
+    Future<void> onReorder({
+      required int index,
+      required FavoritePlace favoritePlace,
+    }) async {
+      state.reorder(ReorderArgs(
+        index: index,
+        favoritePlace: favoritePlace,
+      ));
+    }
+
+    if (favoritePlacesData.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return favoritePlacesData.data.fold(
+      (failure) {
+        return const ErrorState();
+      },
+      (favoritePlaces) {
+        if (favoritePlaces.isEmpty) {
+          return const _VisitedEmptyState();
+        }
+
+        return FavoriteSightList(
+          favoritePlaces: favoritePlaces,
+          onRemove: onRemove,
+          onReorder: onReorder,
+          buildCard: ({required favoritePlace}) {
+            return FavoriteSightCard(
+              favoritePlace: favoritePlace,
+              actions: _VisitedActions(
+                onShare: () {
+                  print('ShareSvgIcon: ${favoritePlace.placeEntity.place.name}'); // ignore: avoid_print
+                },
+                onRemove: () {
+                  onRemove(favoritePlace);
+                },
+              ),
+            );
+          },
         );
       },
     );
@@ -64,11 +93,11 @@ class _VisitedEmptyState extends StatelessWidget {
 }
 
 class _VisitedActions extends StatelessWidget {
-  final FavoriteSight favoriteSight;
+  final VoidCallback onShare;
   final VoidCallback onRemove;
 
   const _VisitedActions({
-    required this.favoriteSight,
+    required this.onShare,
     required this.onRemove,
     Key? key,
   }) : super(key: key);
@@ -78,9 +107,7 @@ class _VisitedActions extends StatelessWidget {
     return SightActions(
       children: [
         IconActionWidget(
-          onPressed: () {
-            print('ShareSvgIcon: ${favoriteSight.sight.name}'); // ignore: avoid_print
-          },
+          onPressed: onShare,
           icon: const ShareSvgIcon(
             color: AppColors.white,
           ),
