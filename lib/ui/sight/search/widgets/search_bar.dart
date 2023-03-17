@@ -44,11 +44,13 @@ class SearchBar extends StatelessWidget {
           heightFactor: 1.0,
           child: SearchSvgIcon(color: theme.disabledColor),
         ),
-        suffixIcon: (suffixIcons.isEmpty) ? null : Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min, // added line
-          children: suffixIcons,
-        ),
+        suffixIcon: (suffixIcons.isEmpty)
+            ? null
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min, // added line
+                children: suffixIcons,
+              ),
       ),
       onTap: onTap,
     );

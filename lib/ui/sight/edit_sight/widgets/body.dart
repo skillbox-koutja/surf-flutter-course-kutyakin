@@ -46,7 +46,7 @@ class EditPlaceBody extends StatelessWidget {
         ),
         bottomNavigationBar: Padding(
           padding:
-          const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 8 + MediaQuery.of(context).padding.bottom),
+              const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 8 + MediaQuery.of(context).padding.bottom),
           child: SizedBox(
             width: double.infinity,
             child: EditPlaceSubmitButton(

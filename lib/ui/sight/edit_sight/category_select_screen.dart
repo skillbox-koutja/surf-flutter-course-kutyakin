@@ -35,45 +35,45 @@ class _CategorySelectScreenState extends State<CategorySelectScreen> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: selectedNotifier,
-        builder: (_, selected, __) {
-          return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 56 + MediaQuery.of(context).padding.top),
-                  _Header(
-                    onClose: widget.onClose,
+      valueListenable: selectedNotifier,
+      builder: (_, selected, __) {
+        return Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 56 + MediaQuery.of(context).padding.top),
+                _Header(
+                  onClose: widget.onClose,
+                ),
+                const SizedBox(height: 24),
+                Flexible(
+                  child: ListView(
+                    children: [
+                      for (final sightType in PlaceType.availableForSelection())
+                        _Option(sightType: sightType, select: onSelect, selected: selected),
+                    ],
                   ),
-                  const SizedBox(height: 24),
-                  Flexible(
-                    child: ListView(
-                      children: [
-                        for (final sightType in PlaceType.availableForSelection())
-                          _Option(sightType: sightType, select: onSelect, selected: selected),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            bottomNavigationBar: Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 16.0).copyWith(bottom: 8 + MediaQuery.of(context).padding.bottom),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: selected.isNone() ? null : onSave,
-                  child: Text(
-                    AppMessages.editingSight.saveButtonLabel,
-                  ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0)
+                .copyWith(bottom: 8 + MediaQuery.of(context).padding.bottom),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: selected.isNone() ? null : onSave,
+                child: Text(
+                  AppMessages.editingSight.saveButtonLabel,
                 ),
               ),
             ),
-          );
-        },
+          ),
+        );
+      },
     );
   }
 

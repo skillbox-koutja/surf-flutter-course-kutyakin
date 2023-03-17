@@ -4,7 +4,6 @@ import 'package:places/domain/places/place/use_case/edit/model.dart';
 part 'request.freezed.dart';
 part 'request.g.dart';
 
-
 @freezed
 class EditPlaceRequest with _$EditPlaceRequest {
   @JsonSerializable(includeIfNull: false)

@@ -113,8 +113,8 @@ class _LatLongFieldState extends State<LatLongField> {
     final value = double.tryParse(text);
 
     debugPrint('$text => $value == ${widget.field.value}');
-    debugPrint(widget.field.errors.isEmpty ? 'nice': widget.field.errors.first.errorDescription);
-    debugPrint(widget.field.isDirty ? 'dirty': 'clean');
+    debugPrint(widget.field.errors.isEmpty ? 'nice' : widget.field.errors.first.errorDescription);
+    debugPrint(widget.field.isDirty ? 'dirty' : 'clean');
     if (!widget.field.isDirty) {
       return;
     }

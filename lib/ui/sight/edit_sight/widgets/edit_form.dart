@@ -77,4 +77,3 @@ class _LatLong extends StatelessWidget {
     );
   }
 }
-

@@ -137,7 +137,6 @@ class _RemovableListItem extends StatelessWidget {
   }
 }
 
-
 class _Image extends StatelessWidget {
   final PlacePhoto placePhoto;
 

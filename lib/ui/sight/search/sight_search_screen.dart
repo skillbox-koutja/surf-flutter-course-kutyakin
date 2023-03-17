@@ -27,16 +27,46 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   Timer? _debounce;
 
+  void onSearchChanged() {
+    final query = textEditingController.text.trim();
+    if (query.isEmpty) {
+      return;
+    }
+
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      final searchState = context.read<PlaceSearchState>();
+      final filtersState = context.read<PlaceFiltersState>();
+      if (searchState.isSameQuery(query)) {
+        return;
+      }
+
+      searchState.editQuery(query);
+
+      if (query.length < queryMinLength) {
+        return;
+      }
+
+      searchState
+        ..wait()
+        ..search(
+          query: query,
+          searchFilters: filtersState.filters,
+        );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    textEditingController.addListener(_onSearchChanged);
+    textEditingController.addListener(onSearchChanged);
   }
 
   @override
   void dispose() {
     textEditingController
-      ..removeListener(_onSearchChanged)
+      ..removeListener(onSearchChanged)
       ..dispose();
 
     _debounce?.cancel();
@@ -74,7 +104,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   controller: textEditingController,
                   onClose: () {
                     Navigator.of(context).pop();
-                    _onSearchChanged();
+                    onSearchChanged();
                   },
                 ),
                 _Body(
@@ -94,36 +124,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         },
       ),
     );
-  }
-
-  void _onSearchChanged() {
-    final query = textEditingController.text.trim();
-    if (query.isEmpty) {
-      return;
-    }
-
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      final searchState = context.read<PlaceSearchState>();
-      final filtersState = context.read<PlaceFiltersState>();
-      if (searchState.isSameQuery(query)) {
-        return;
-      }
-
-      searchState.editQuery(query);
-
-      if (query.length < queryMinLength) {
-        return;
-      }
-
-      searchState
-        ..wait()
-        ..search(
-          query: query,
-          searchFilters: filtersState.filters,
-        );
-    });
   }
 }
 

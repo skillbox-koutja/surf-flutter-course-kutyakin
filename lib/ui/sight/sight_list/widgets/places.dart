@@ -108,10 +108,10 @@ class _PlacesWidgetState extends State<PlacesWidget> {
     }
 
     return placesData.data.fold(
-          (failure) {
+      (failure) {
         return const SliverToBoxAdapter(child: ErrorState());
       },
-          (placeEntities) {
+      (placeEntities) {
         if (placeEntities.isEmpty) {
           return const SliverToBoxAdapter(child: PlacesEmptyState());
         }
@@ -137,16 +137,15 @@ class _PlacesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? _PlacesListWidget(
-      placeEntities: placeEntities,
-      openEditPlaceScreen: openEditPlaceScreen,
-    )
+            placeEntities: placeEntities,
+            openEditPlaceScreen: openEditPlaceScreen,
+          )
         : _PlacesGridWidget(
-      placeEntities: placeEntities,
-      openEditPlaceScreen: openEditPlaceScreen,
-    );
+            placeEntities: placeEntities,
+            openEditPlaceScreen: openEditPlaceScreen,
+          );
   }
 }
 
@@ -170,7 +169,7 @@ class _PlacesListWidget extends StatelessWidget {
           semanticIndexCallback: (_, index) {
             return index.isEven ? index ~/ 2 : null;
           },
-              (context, index) {
+          (context, index) {
             final itemIndex = index ~/ 2;
             if (index.isEven) {
               return _PlaceCard(
@@ -212,7 +211,7 @@ class _PlacesGridWidget extends StatelessWidget {
         ),
         delegate: SliverChildBuilderDelegate(
           childCount: placeEntities.length,
-              (context, index) {
+          (context, index) {
             return _PlaceCard(
               placeEntity: placeEntities[index],
               openEditPlaceScreen: openEditPlaceScreen,

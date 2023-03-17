@@ -86,13 +86,15 @@ class _InputState extends State<_Input> {
           maxLines: null,
           keyboardType: TextInputType.multiline,
           decoration: textFieldInputDecoration.copyWith(
-            suffixIcon: currentFocusNode == focusNode && controller.text.isNotEmpty ? Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: FieldClearIcon(
-                controller: controller,
-              ),
-            ) : null,
+            suffixIcon: currentFocusNode == focusNode && controller.text.isNotEmpty
+                ? Align(
+                    widthFactor: 1.0,
+                    heightFactor: 1.0,
+                    child: FieldClearIcon(
+                      controller: controller,
+                    ),
+                  )
+                : null,
           ),
           onEditingComplete: () {
             nextField(focusNode);
