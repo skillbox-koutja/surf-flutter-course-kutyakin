@@ -9,7 +9,8 @@ import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/menu/svg_icons.dart';
 import 'package:places/ui/place/empty_state/widget.dart';
-import 'package:places/ui/sight/edit_sight/edit_place_screen.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/w.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
@@ -43,7 +44,6 @@ class PlacesContainerWidget extends StatelessWidget {
         MaterialPageRoute<EditPlaceScreen>(
           builder: (context) {
             return EditPlaceScreen(
-              placeEntity: placeEntity,
               onSave: (editablePlace) {
                 placesState.editPlaceEntity(EditPlaceArgs(
                   id: placeEntity.id,
@@ -56,6 +56,7 @@ class PlacesContainerWidget extends StatelessWidget {
               onClose: () {
                 Navigator.of(context).pop();
               },
+              wmFactory: createEditPlaceScreenWidgetModelFactory(placeEntity),
             );
           },
         ),

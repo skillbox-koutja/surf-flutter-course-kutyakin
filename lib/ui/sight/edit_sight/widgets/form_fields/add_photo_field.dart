@@ -5,7 +5,7 @@ import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/place/photo/image.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_dialog.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,8 @@ class AddPhotoField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final photos = context.select<EditSightState, BuiltList<PlacePhoto>>((s) => s.model.photos.value);
+    final photos =
+        context.select<IEditPlaceScreenWidgetModel, BuiltList<PlacePhoto>>((wm) => wm.editablePlace.value.photos.value);
 
     return Row(
       children: [
@@ -56,7 +57,7 @@ class _AddPhotoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorsTheme = theme.extension<CustomColors>();
-    final state = context.read<EditSightState>();
+    final wm = context.read<IEditPlaceScreenWidgetModel>();
 
     return GestureDetector(
       onTap: () async {
@@ -66,7 +67,7 @@ class _AddPhotoButton extends StatelessWidget {
         );
 
         if (photo != null) {
-          state.addPhoto(photo);
+          wm.onAddPhoto(photo);
         }
       },
       child: DecoratedBox(
@@ -108,13 +109,13 @@ class _RemovableListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<EditSightState>();
+    final wm = context.read<IEditPlaceScreenWidgetModel>();
 
     return Dismissible(
       key: ObjectKey(placePhoto),
       direction: DismissDirection.up,
       onDismissed: (_) {
-        state.removePhoto(placePhoto);
+        wm.onRemovePhoto(placePhoto);
       },
       child: Stack(
         children: [
@@ -124,7 +125,7 @@ class _RemovableListItem extends StatelessWidget {
             right: 6,
             child: IconActionWidget(
               onPressed: () {
-                state.removePhoto(placePhoto);
+                wm.onRemovePhoto(placePhoto);
               },
               icon: const ClearSvgIcon(
                 color: AppColors.white,

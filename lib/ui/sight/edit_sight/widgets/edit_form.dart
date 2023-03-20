@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:places/ui/sight/edit_sight/widgets/field_label.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_field.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/category_select_field.dart';
@@ -68,8 +68,8 @@ class _LatLong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lat = context.select<EditSightState, double?>((s) => s.model.lat.value);
-    final lng = context.select<EditSightState, double?>((s) => s.model.lng.value);
+    final lat = context.select<IEditPlaceScreenWidgetModel, double?>((s) => s.editablePlace.value.lat.value);
+    final lng = context.select<IEditPlaceScreenWidgetModel, double?>((s) => s.editablePlace.value.lng.value);
 
     return LatLongFieldGroup(
       lat: lat,

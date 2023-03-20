@@ -5,7 +5,8 @@ import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/components/main_gradient_overlay.dart';
-import 'package:places/ui/sight/edit_sight/add_place_screen.dart';
+import 'package:places/ui/sight/edit_sight/add_place_screen/w.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:places/ui/sight/search/sight_search_screen.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
@@ -68,6 +69,7 @@ class _SightListScreenState extends State<SightListScreen> {
             onClose: () {
               Navigator.of(context).pop();
             },
+            wmFactory: createAddPlaceScreenWidgetModelFactory(),
           );
         },
       ),

@@ -4,16 +4,15 @@ import 'package:places/assets/theme/form_field_decorations.dart';
 import 'package:places/domain/places/place/use_case/edit/model.dart';
 import 'package:places/ui/components/field_icons/clear_icon.dart';
 import 'package:places/ui/components/touch_detector.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:places/ui/sight/edit_sight/widgets/field_label.dart';
 import 'package:provider/provider.dart';
 
-class LatLongField extends StatefulWidget {
+class LatLongField extends StatelessWidget {
   final EditablePlaceFieldKeys fieldKey;
   final EditablePlaceGeoField field;
   final FocusNode focusNode;
   final String label;
-  final ValueChanged<double?> onChanged;
   final TextEditingController controller;
 
   const LatLongField({
@@ -22,48 +21,27 @@ class LatLongField extends StatefulWidget {
     required this.focusNode,
     required this.controller,
     required this.label,
-    required this.onChanged,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<LatLongField> createState() => _LatLongFieldState();
-}
-
-class _LatLongFieldState extends State<LatLongField> {
-  @override
-  void initState() {
-    super.initState();
-
-    widget.controller.addListener(onChanged);
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(onChanged);
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final onFocusChange = context.select<EditSightState, FocusChangeHandler>((s) => s.onFocusChange);
-    final nextField = context.select<EditSightState, NextFieldHandler>((s) => s.nextField);
-    final currentFocusNode = context.select<EditSightState, FocusNode?>((s) => s.currentFocusNode);
+    final wm = context.read<IEditPlaceScreenWidgetModel>();
+    final currentFocusNode = context.select<IEditPlaceScreenWidgetModel, FocusNode?>((wm) => wm.currentFocusNode.value);
 
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FieldLabel(
-            label: widget.label,
+            label: label,
           ),
           TouchDetector(
-            focusNode: widget.focusNode,
+            focusNode: focusNode,
             onFocusChange: (focusNode) {
-              onFocusChange(
-                key: widget.fieldKey,
-                field: widget.field,
+              wm.onFocusChange(
+                key: fieldKey,
+                field: field,
                 focusNode: focusNode,
               );
             },
@@ -72,7 +50,7 @@ class _LatLongFieldState extends State<LatLongField> {
               required onFocusChange,
             }) {
               return TextFormField(
-                controller: widget.controller,
+                controller: controller,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 focusNode: focusNode,
                 keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
@@ -80,21 +58,21 @@ class _LatLongFieldState extends State<LatLongField> {
                   FilteringTextInputFormatter.allow(RegExp(r'[\d+\-\.]')),
                 ],
                 decoration: doubleFieldInputDecoration.copyWith(
-                  suffixIcon: currentFocusNode == focusNode && widget.controller.text.isNotEmpty
+                  suffixIcon: currentFocusNode == focusNode && controller.text.isNotEmpty
                       ? Align(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
                           child: FieldClearIcon(
-                            controller: widget.controller,
+                            controller: controller,
                           ),
                         )
                       : null,
                 ),
                 onEditingComplete: () {
-                  nextField(focusNode);
+                  wm.nextField(focusNode);
                 },
                 validator: (value) {
-                  if (widget.field.isDirty && !widget.field.isValid) {
+                  if (field.isDirty && !field.isValid) {
                     return '';
                   }
 
@@ -106,22 +84,5 @@ class _LatLongFieldState extends State<LatLongField> {
         ],
       ),
     );
-  }
-
-  void onChanged() {
-    final text = widget.controller.text;
-    final value = double.tryParse(text);
-
-    debugPrint('$text => $value == ${widget.field.value}');
-    debugPrint(widget.field.errors.isEmpty ? 'nice' : widget.field.errors.first.errorDescription);
-    debugPrint(widget.field.isDirty ? 'dirty' : 'clean');
-    if (!widget.field.isDirty) {
-      return;
-    }
-    if (value == widget.field.value && widget.field.errors.isEmpty) {
-      return;
-    }
-
-    widget.onChanged(value);
   }
 }

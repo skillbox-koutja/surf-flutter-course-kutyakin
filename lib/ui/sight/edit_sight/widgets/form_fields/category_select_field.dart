@@ -4,7 +4,7 @@ import 'package:places/assets/theme/typography.dart';
 import 'package:places/domain/places/place/type.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/edit_sight/category_select_screen.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
@@ -18,8 +18,8 @@ class CategorySelectField extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
-    final type = context.select<EditSightState, PlaceType>((s) => s.model.type.value);
-    final onChanged = context.select<EditSightState, ValueChanged<PlaceType>>((s) => s.switchType);
+    final wm = context.read<IEditPlaceScreenWidgetModel>();
+    final type = context.select<IEditPlaceScreenWidgetModel, PlaceType>((s) => s.editablePlace.value.type.value);
 
     return Column(
       children: [
@@ -29,7 +29,7 @@ class CategorySelectField extends StatelessWidget {
             openCategorySelectScreen(
               context: context,
               type: type,
-              onChanged: onChanged,
+              onChanged: wm.onSwitchType,
             );
           },
           child: Row(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:provider/provider.dart';
 
 class EditPlaceSubmitButton extends StatelessWidget {
@@ -14,7 +14,7 @@ class EditPlaceSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isValid = context.select<EditSightState, bool>((s) => s.model.isValid);
+    final isValid = context.select<IEditPlaceScreenWidgetModel, bool>((s) => s.editablePlace.value.isValid);
 
     return ElevatedButton(
       onPressed: isValid ? onSubmit : null,

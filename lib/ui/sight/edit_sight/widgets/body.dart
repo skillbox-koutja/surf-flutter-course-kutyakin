@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/places/place/use_case/edit/model.dart';
-import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
+import 'package:places/ui/sight/edit_sight/edit_place_screen/wm.dart';
 import 'package:places/ui/sight/edit_sight/widgets/edit_form.dart';
 import 'package:places/ui/sight/edit_sight/widgets/header.dart';
 import 'package:places/ui/sight/edit_sight/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 
 class EditPlaceBody extends StatelessWidget {
-  final EditSightState sightModelNotifier;
+  // final EditSightState sightModelNotifier;
+  final IEditPlaceScreenWidgetModel wm;
   final String submitButtonLabel;
   final VoidCallback onClose;
   final VoidCallback onSubmit;
   final EditablePlace? model;
 
   const EditPlaceBody({
-    required this.sightModelNotifier,
+    required this.wm,
     required this.submitButtonLabel,
     required this.onClose,
     required this.onSubmit,
@@ -24,8 +25,8 @@ class EditPlaceBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => sightModelNotifier,
+    return Provider(
+      create: (_) => wm,
       child: Scaffold(
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
