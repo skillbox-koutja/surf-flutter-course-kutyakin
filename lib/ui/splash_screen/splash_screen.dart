@@ -22,6 +22,19 @@ class _SplashScreenState extends State<SplashScreen> {
     _navigateToNext();
   }
 
+  void _navigateToNext() {
+    Future<bool>.delayed(const Duration(seconds: 2), () => true).then(
+          (isInitialized) {
+        if (isInitialized) {
+          widget.onReady();
+          debugPrint('Initializing done');
+        } else {
+          debugPrint('Initializing failed');
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return const SizedBox.expand(
@@ -30,19 +43,6 @@ class _SplashScreenState extends State<SplashScreen> {
           child: LogoSvgIcon(),
         ),
       ),
-    );
-  }
-
-  void _navigateToNext() {
-    Future<bool>.delayed(const Duration(seconds: 2), () => true).then(
-      (isInitialized) {
-        if (isInitialized) {
-          widget.onReady();
-          debugPrint('Initializing done');
-        } else {
-          debugPrint('Initializing failed');
-        }
-      },
     );
   }
 }
