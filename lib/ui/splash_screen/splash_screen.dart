@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigateToNext() {
     Future<bool>.delayed(const Duration(seconds: 2), () => true).then(
-          (isInitialized) {
+      (isInitialized) {
         if (isInitialized) {
           widget.onReady();
           debugPrint('Initializing done');
@@ -40,9 +40,57 @@ class _SplashScreenState extends State<SplashScreen> {
     return const SizedBox.expand(
       child: MainGradientOverlay(
         child: Center(
-          child: LogoSvgIcon(),
+          child: _RotatedLogo(),
         ),
       ),
+    );
+  }
+}
+
+class _RotatedLogo extends StatefulWidget {
+  const _RotatedLogo({Key? key}) : super(key: key);
+
+  @override
+  State<_RotatedLogo> createState() => _RotatedLogoState();
+}
+
+class _RotatedLogoState extends State<_RotatedLogo> with SingleTickerProviderStateMixin {
+  late final AnimationController controller;
+  late final Animation<double> rotationAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1600),
+    )..repeat();
+
+    rotationAnimation = TweenSequence(<TweenSequenceItem<double>>[
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0, end: 0.5).chain(CurveTween(curve: Curves.easeIn)),
+        weight: 50.0,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0, end: 0.5).chain(CurveTween(curve: Curves.easeOut)),
+        weight: 50.0,
+      ),
+    ]).animate(controller);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RotationTransition(
+      turns: rotationAnimation,
+      child: const LogoSvgIcon(),
     );
   }
 }
