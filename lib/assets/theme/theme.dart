@@ -84,8 +84,6 @@ final lightTheme = ThemeData(
       borderRadius: BorderRadius.all(Radius.circular(40)),
       color: AppColors.secondary,
     ),
-    labelColor: AppColors.white,
-    unselectedLabelColor: AppColors.secondary2,
     labelStyle: AppSmallBoldStyle(
       color: AppColors.white,
     ),
@@ -173,8 +171,12 @@ final darkTheme = ThemeData(
       borderRadius: BorderRadius.all(Radius.circular(40)),
       color: AppColors.white,
     ),
-    labelColor: AppColors.secondary,
-    unselectedLabelColor: AppColors.secondary2,
+    labelStyle: AppSmallBoldStyle(
+      color: AppColors.secondary,
+    ),
+    unselectedLabelStyle: AppSmallBoldStyle(
+      color: AppColors.secondary2,
+    ),
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: AppColors.blackMain,
