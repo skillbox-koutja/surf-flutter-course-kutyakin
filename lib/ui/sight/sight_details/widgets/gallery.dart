@@ -4,6 +4,7 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/images/loading_progress_value.dart';
 import 'package:places/ui/place/photo/image.dart';
+import 'package:places/ui/place/photo/image_widget.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightPhotosGallery extends StatefulWidget {
@@ -46,18 +47,9 @@ class SightPhotosGalleryState extends State<SightPhotosGallery> {
           controller: controller,
           itemCount: widget.photos.length,
           itemBuilder: (context, index) => ImageOverlay(
-            image: Image(
-              image: PlacePhotoImage(widget.photos[index]).image,
+            image: PlacePhotoImageWidget(
+              photo: widget.photos[index],
               fit: BoxFit.cover,
-              loadingBuilder: (_, child, loadingProgress) {
-                return loadingProgress == null
-                    ? child
-                    : Center(
-                        child: CircularProgressIndicator(
-                          value: LoadingProgressValue.fromImageChunkEvent(loadingProgress).value,
-                        ),
-                      );
-              },
             ),
           ),
         ),

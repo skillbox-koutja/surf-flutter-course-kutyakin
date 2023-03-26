@@ -130,6 +130,7 @@ final lightTheme = ThemeData(
   ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: AppColors.inactive,
+    circularTrackColor: AppColors.background,
   ),
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: Colors.transparent,
@@ -217,6 +218,7 @@ final darkTheme = ThemeData(
   ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: AppColors.inactive,
+    circularTrackColor: AppColors.dark,
   ),
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: Colors.transparent,

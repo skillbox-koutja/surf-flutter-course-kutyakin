@@ -64,7 +64,7 @@ class _RotatedLogoState extends State<_RotatedLogo> with SingleTickerProviderSta
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 700),
     )..repeat();
 
     rotationAnimation = TweenSequence(<TweenSequenceItem<double>>[

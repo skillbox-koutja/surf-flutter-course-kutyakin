@@ -49,6 +49,9 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? icon;
   final Color? iconBackground;
 
+  Color get yellowThemeColor => yellow ?? Colors.yellow;
+  Color get greenThemeColor => green ?? Colors.green;
+
   const CustomColors({
     required this.main,
     required this.green,

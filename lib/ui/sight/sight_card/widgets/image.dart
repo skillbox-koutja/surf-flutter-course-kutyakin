@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/places/place/model.dart';
-import 'package:places/ui/place/photo/image.dart';
+import 'package:places/ui/place/image_widget.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
 
 class SightImage extends StatelessWidget {
@@ -18,16 +18,9 @@ class SightImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
       child: ImageOverlay(
-        image: Ink(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            image: (place.photos.isEmpty)
-                ? null
-                : DecorationImage(
-                    image: PlacePhotoImage(place.photo).image,
-                    fit: fit,
-                  ),
-          ),
+        image: PlaceImageWidget(
+          place: place,
+          fit: fit,
         ),
       ),
     );

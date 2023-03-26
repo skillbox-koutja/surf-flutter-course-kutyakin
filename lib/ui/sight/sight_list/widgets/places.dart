@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/domain/places/place/entity.dart';
 import 'package:places/domain/places/place/use_case/edit/use_case.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
@@ -8,6 +9,7 @@ import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/menu/svg_icons.dart';
+import 'package:places/ui/components/progress_indicator/circular.dart';
 import 'package:places/ui/place/empty_state/widget.dart';
 import 'package:places/ui/sight/edit_sight/edit_place_screen.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
@@ -102,8 +104,8 @@ class _PlacesWidgetState extends State<PlacesWidget> {
     final placesData = context.select<PlacesState, PlacesData>((s) => s.places);
 
     if (placesData.loading) {
-      return const SliverToBoxAdapter(
-        child: Center(child: CircularProgressIndicator()),
+      return SliverToBoxAdapter(
+        child: Center(child: AppCircularProgressIndicator.defaultLoader()),
       );
     }
 
@@ -283,21 +285,31 @@ class _AddToFavoriteAction extends StatelessWidget {
     final isFavorite = context.select<WishedPlacesState, bool>((s) => s.isFavorite(placeEntity));
     final wishedPlacesState = context.read<WishedPlacesState>();
 
-    if (isFavorite) {
-      return const IconActionWidget(
-        icon: HeartSvgIcon.filled(
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 250),
+      firstCurve: Curves.easeIn,
+      firstChild: IconActionWidget(
+        onPressed: () {
+          wishedPlacesState.add(placeEntity);
+        },
+        icon: const HeartSvgIcon(
           color: AppColors.white,
         ),
-      );
-    }
-
-    return IconActionWidget(
-      onPressed: () {
-        wishedPlacesState.add(placeEntity);
-      },
-      icon: const HeartSvgIcon(
-        color: AppColors.white,
       ),
+      secondCurve: Curves.easeOut,
+      secondChild: IconActionWidget(
+        onPressed: () {
+          final favoritePlace = wishedPlacesState.findFavoritePlace(placeEntity);
+
+          if (favoritePlace == null) return;
+
+          wishedPlacesState.remove(favoritePlace);
+        },
+        icon: const HeartSvgIcon.filled(
+          color: AppColors.white,
+        ),
+      ),
+      crossFadeState: isFavorite ? CrossFadeState.showSecond : CrossFadeState.showFirst,
     );
   }
 }

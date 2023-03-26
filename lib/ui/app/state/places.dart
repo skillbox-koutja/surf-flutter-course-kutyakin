@@ -54,6 +54,7 @@ class PlacesState extends ChangeNotifier {
 
     getPlaces(searchFilters).then((data) {
       places = PlacesData.loaded(data);
+      notifyListeners();
     });
   }
 
