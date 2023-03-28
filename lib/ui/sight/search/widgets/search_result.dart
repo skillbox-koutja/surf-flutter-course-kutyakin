@@ -7,7 +7,10 @@ import 'package:places/domain/places/place/entity.dart';
 import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart';
+import 'package:places/ui/components/progress_indicator/circular.dart';
+import 'package:places/ui/place/image_widget.dart';
 import 'package:places/ui/place/photo/image.dart';
+import 'package:places/ui/sight/sight_card/widgets/image.dart';
 import 'package:places/ui/sight/sight_details/sight_details_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
@@ -24,9 +27,9 @@ class SearchResult extends StatelessWidget {
     }
 
     if (PlaceSearchingStatus.waiting == status || PlaceSearchingStatus.searching == status) {
-      return Column(children: const [
-        SizedBox(height: 35),
-        CircularProgressIndicator(),
+      return Column(children: [
+        const SizedBox(height: 35),
+        AppCircularProgressIndicator.defaultLoader(),
       ]);
     }
 
@@ -102,12 +105,10 @@ class _Row extends StatelessWidget {
             size: const Size.square(56),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: (place.photos.isEmpty)
-                  ? null
-                  : Image(
-                      image: PlacePhotoImage(place.photo).image,
-                      fit: BoxFit.cover,
-                    ),
+              child: SightImage(
+                place: place,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(width: 16),

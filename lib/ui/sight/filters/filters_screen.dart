@@ -4,6 +4,7 @@ import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
+import 'package:places/ui/components/progress_indicator/circular.dart';
 import 'package:places/ui/sight/filters/category/filter.dart';
 import 'package:places/ui/sight/filters/distance/filter.dart';
 import 'package:provider/provider.dart';
@@ -135,7 +136,7 @@ class _LoaderButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: null,
       child: SizedBox.square(
-        child: const CircularProgressIndicator(),
+        child: AppCircularProgressIndicator.defaultLoader(),
         dimension: textTheme.text?.fontSize,
       ),
     );

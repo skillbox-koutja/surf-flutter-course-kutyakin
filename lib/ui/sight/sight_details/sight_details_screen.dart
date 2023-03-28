@@ -6,6 +6,7 @@ import 'package:places/domain/places/place/use_case/get_place_details/use_case.d
 import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/back_button.dart';
 import 'package:places/ui/components/error_state.dart';
+import 'package:places/ui/components/progress_indicator/circular.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_body.dart';
 import 'package:places/ui/sight/sight_details/widgets/sight_details_header.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +68,7 @@ class _DetailsLoaderState extends State<_DetailsLoader> {
             );
           }
 
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: AppCircularProgressIndicator.defaultLoader());
         },
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/assets/theme/colors.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
 
 class MainGradientOverlay extends StatelessWidget {
   final Widget child;
@@ -13,8 +13,7 @@ class MainGradientOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorsTheme = theme.extension<CustomColors>();
+    final colorsTheme = context.themeColors;
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -23,8 +22,8 @@ class MainGradientOverlay extends StatelessWidget {
           begin: const Alignment(-2.255, 0.0),
           end: const Alignment(2.3294, 0.0),
           colors: [
-            colorsTheme?.yellow ?? Colors.yellow,
-            colorsTheme?.green ?? Colors.green,
+            colorsTheme.yellowThemeColor,
+            colorsTheme.greenThemeColor,
           ],
         ),
       ),

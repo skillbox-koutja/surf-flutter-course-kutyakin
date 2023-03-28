@@ -4,7 +4,9 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
+import 'package:places/ui/place/image_widget.dart';
 import 'package:places/ui/place/photo/image.dart';
+import 'package:places/ui/place/photo/image_widget.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_dialog.dart';
 import 'package:places/ui/sight/image_overlay/image_overlay.dart';
@@ -118,7 +120,10 @@ class _RemovableListItem extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Material(child: _ListItem(placePhoto: placePhoto)),
+          Material(
+            color: Colors.transparent,
+            child: _ListItem(placePhoto: placePhoto),
+          ),
           Positioned(
             top: 6,
             right: 6,
@@ -153,14 +158,10 @@ class _Image extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         clipBehavior: Clip.hardEdge,
         child: ImageOverlay(
-          image: Ink(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: PlacePhotoImage(placePhoto).image, // Background image
-              ),
-            ),
+          image: PlacePhotoImageWidget(
+            borderRadius: BorderRadius.circular(12),
+            photo: placePhoto,
+            fit: BoxFit.cover,
           ),
         ),
       ),

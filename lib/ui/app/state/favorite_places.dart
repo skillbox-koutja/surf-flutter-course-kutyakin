@@ -92,11 +92,19 @@ class FavoritePlacesState<T> extends ChangeNotifier {
     return placesIds.contains(placeEntity.id);
   }
 
+  FavoritePlace? findFavoritePlace(PlaceEntity placeEntity) {
+    return places.data.fold(
+      (failure) => null,
+      (favoritePlaces) => favoritePlaces.firstWhere((p) => p.placeEntity.id == placeEntity.id),
+    );
+  }
+
   void init(SearchFilters searchFilters) {
     places = FavoritePlacesData.loading();
 
     getPlaces(searchFilters).then((data) {
       places = FavoritePlacesData.loaded(data);
+      notifyListeners();
     });
   }
 
