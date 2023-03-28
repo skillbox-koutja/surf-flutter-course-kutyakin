@@ -11,6 +11,7 @@ import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/menu/svg_icons.dart';
 import 'package:places/ui/components/progress_indicator/circular.dart';
 import 'package:places/ui/place/empty_state/widget.dart';
+import 'package:places/ui/place/hero_image_widget.dart';
 import 'package:places/ui/sight/edit_sight/edit_place_screen.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
@@ -242,7 +243,13 @@ class _PlaceCard extends StatelessWidget {
     return SightCard(
       placeEntity: placeEntity,
       header: SightCardHeader(
-        image: SightImage(place: place, fit: BoxFit.fitWidth),
+        image: PlaceHeroImageWidget(
+          placeEntity: placeEntity,
+          child: SightImage(
+            place: place,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
         typeText: SightTypeText(place: place),
         actions: SightActions(
           children: [

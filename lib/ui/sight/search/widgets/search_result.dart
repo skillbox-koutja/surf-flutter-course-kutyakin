@@ -8,6 +8,7 @@ import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/icons/empty/svg_icons.dart';
 import 'package:places/ui/components/progress_indicator/circular.dart';
+import 'package:places/ui/place/hero_image_widget.dart';
 import 'package:places/ui/place/image_widget.dart';
 import 'package:places/ui/place/photo/image.dart';
 import 'package:places/ui/sight/sight_card/widgets/image.dart';
@@ -105,9 +106,12 @@ class _Row extends StatelessWidget {
             size: const Size.square(56),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: SightImage(
-                place: place,
-                fit: BoxFit.cover,
+              child: PlaceHeroImageWidget(
+                placeEntity: placeEntity,
+                child: SightImage(
+                  place: place,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
