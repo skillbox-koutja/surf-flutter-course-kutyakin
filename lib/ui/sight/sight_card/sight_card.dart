@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:places/domain/places/place/entity.dart';
+import 'package:places/ui/components/back_button.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/header.dart';
 import 'package:places/ui/sight/sight_details/sight_details_bottom_sheet.dart';
+import 'package:places/ui/sight/sight_details/sight_details_screen.dart';
+import 'package:places/ui/sight/sight_details/widgets/sight_details.dart';
 
 class SightCard extends StatelessWidget {
   final PlaceEntity placeEntity;
@@ -27,12 +30,13 @@ class SightCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
-        onTap: () {
-          showModalBottomSheet<void>(
-            context: context,
-            isScrollControlled: true,
-            builder: (_) => SightDetailsBottomSheet(
-              placeEntity: placeEntity,
+        onTap: () async {
+          await Navigator.push<SightDetails>(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SightDetailsScreen(
+                placeEntity: placeEntity,
+              ),
             ),
           );
         },

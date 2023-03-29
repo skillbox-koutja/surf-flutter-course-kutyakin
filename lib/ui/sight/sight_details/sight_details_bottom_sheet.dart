@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/place/entity.dart';
 import 'package:places/ui/components/close_card_button.dart';
-import 'package:places/ui/sight/sight_details/widgets/sight_details_body.dart';
-import 'package:places/ui/sight/sight_details/widgets/sight_details_header.dart';
+import 'package:places/ui/sight/sight_details/widgets/sight_details.dart';
 
 class SightDetailsBottomSheet extends StatelessWidget {
   final PlaceEntity placeEntity;
@@ -13,7 +12,6 @@ class SightDetailsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final place = placeEntity.place;
 
     return SizedBox(
       height: MediaQuery.of(context).size.height - 64,
@@ -28,22 +26,8 @@ class SightDetailsBottomSheet extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    flexibleSpace: SightDetailsHeader(place: place),
-                    automaticallyImplyLeading: false,
-                    expandedHeight: 360,
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                    sliver: SliverList(
-                      delegate: SliverChildListDelegate([
-                        SightDetailsBody(place: place),
-                      ]),
-                    ),
-                  ),
-                ],
+              SightDetails(
+                placeEntity: placeEntity,
               ),
               Positioned(
                 top: 0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/place/status.dart';
+import 'package:places/ui/place/hero_image_widget.dart';
 import 'package:places/ui/sight/sight_card/sight_card.dart';
 import 'package:places/ui/sight/sight_card/widgets/body.dart';
 import 'package:places/ui/sight/sight_card/widgets/details_text.dart';
@@ -29,7 +30,13 @@ class FavoriteSightCard extends StatelessWidget {
     return SightCard(
       placeEntity: favoritePlace.placeEntity,
       header: SightCardHeader(
-        image: SightImage(place: place, fit: BoxFit.fitWidth),
+        image: PlaceHeroImageWidget(
+          placeEntity: placeEntity,
+          child: SightImage(
+            place: place,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
         typeText: SightTypeText(place: place),
         actions: actions,
         flex: 2,

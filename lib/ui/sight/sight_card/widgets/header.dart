@@ -3,7 +3,7 @@ import 'package:places/ui/sight/sight_card/widgets/image.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
 
 class SightCardHeader extends StatelessWidget {
-  final SightImage image;
+  final Widget image;
   final SightTypeText typeText;
   final Widget actions;
   final int flex;
