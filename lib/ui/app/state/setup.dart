@@ -21,31 +21,44 @@ import 'package:places/domain/places/search/history/use_case/add/use_case.dart';
 import 'package:places/domain/places/search/history/use_case/clear/use_case.dart';
 import 'package:places/domain/places/search/history/use_case/get_history/use_case.dart';
 import 'package:places/domain/places/search/history/use_case/remove/use_case.dart';
+import 'package:places/domain/user_preferences/model.dart';
+import 'package:places/domain/user_preferences/repository.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/app/state/places.dart';
-import 'package:places/ui/app/state/settings_state.dart';
+import 'package:places/ui/app/state/user_preferences_state.dart';
 import 'package:provider/provider.dart';
 
-Map<Object, Create<Object>> setupStates({
-  required PlaceRemoteDataSource remoteDataSource,
+Map<Object, Create<Object>> setupUserPreferencesState({
+  required UserPreferencesModel userPreferences,
+  required UserPreferencesRepository userPreferencesRepository,
+}) {
+  return {
+    UserPreferencesState: (_) => UserPreferencesState(
+      userPreferences: userPreferences,
+      userPreferencesRepository: userPreferencesRepository,
+    ),
+  };
+}
+Map<Object, Create<Object>> setupPlaceFiltersState({
+  required UserPreferencesModel userPreferences,
+  required UserPreferencesRepository userPreferencesRepository,
   required RangeValues distanceLimit,
   required SearchFilters searchFilters,
 }) {
   return {
-    SettingsState: (_) => SettingsState(),
     PlaceFiltersState: (_) => PlaceFiltersState(
-          radius: searchFilters.geoFilter.radius,
-          distanceLimit: distanceLimit,
-          filters: searchFilters,
-        ),
-    ..._setupPlacesStates(remoteDataSource: remoteDataSource),
-    ..._setupFavoritePlacesStates(),
+      userPreferences: userPreferences,
+      userPreferencesRepository: userPreferencesRepository,
+      radius: searchFilters.geoFilter.radius,
+      distanceLimit: distanceLimit,
+      filters: searchFilters,
+    ),
   };
 }
 
-Map<Object, Create<Object>> _setupPlacesStates({
+Map<Object, Create<Object>> setupPlacesStates({
   required PlaceRemoteDataSource remoteDataSource,
 }) {
   final placeRepository = PlaceRepositoryImpl(
@@ -71,7 +84,7 @@ Map<Object, Create<Object>> _setupPlacesStates({
   };
 }
 
-Map<Object, Create<Object>> _setupFavoritePlacesStates() {
+Map<Object, Create<Object>> setupFavoritePlacesStates() {
   final favoritePlaceRepository = FavoritePlaceRepositoryImpl.create();
 
   return {

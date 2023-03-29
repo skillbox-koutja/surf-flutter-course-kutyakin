@@ -125,7 +125,7 @@ final lightTheme = ThemeData(
   ),
   inputDecorationTheme: buildInputDecorationTheme(
     color: AppColors.whiteGreen.withOpacity(0.4),
-    fillColor:  AppColors.background,
+    fillColor: AppColors.background,
     errorColor: AppColors.whiteRed.withOpacity(0.4),
   ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
@@ -242,3 +242,31 @@ final darkTheme = ThemeData(
     CustomTextStyles.dark,
   ],
 );
+
+enum AppThemeMode {
+  light,
+  dark;
+
+  factory AppThemeMode.fromString(String str) {
+    return values.firstWhere(
+      (e) => e.toString() == 'AppThemeMode.$str',
+      orElse: () => AppThemeMode.light,
+    );
+  }
+}
+
+class AppTheme {
+  final ThemeData _themeData;
+
+  ThemeData get themeData => _themeData;
+
+  const AppTheme(this._themeData);
+
+  factory AppTheme.fromMode(AppThemeMode mode) {
+    if (AppThemeMode.dark == mode) {
+      return AppTheme(darkTheme);
+    }
+
+    return AppTheme(lightTheme);
+  }
+}

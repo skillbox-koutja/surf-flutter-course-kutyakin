@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/ui/app/state/settings_state.dart';
+import 'package:places/ui/app/state/user_preferences_state.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
 
-    return Consumer<SettingsState>(
+    return Consumer<UserPreferencesState>(
       builder: (_, settings, __) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
