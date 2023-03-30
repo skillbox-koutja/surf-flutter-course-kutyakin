@@ -61,6 +61,10 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void initState() {
     super.initState();
     textEditingController.addListener(onSearchChanged);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PlaceSearchState>().load();
+    });
   }
 
   @override

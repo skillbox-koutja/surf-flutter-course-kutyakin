@@ -98,6 +98,7 @@ class PlaceSearchState extends ChangeNotifier {
     required String query,
     required SearchFilters searchFilters,
   }) {
+    addSearchHistory(query);
     response = SearchResponse.empty(
       query: query,
     );

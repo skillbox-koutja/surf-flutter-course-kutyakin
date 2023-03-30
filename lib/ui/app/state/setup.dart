@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/data/places/data_source/remote.dart';
 import 'package:places/data/places/repository/favorite_place_repository.dart';
 import 'package:places/data/places/repository/place_repository.dart';
-import 'package:places/data/places/repository/search_history_repository.dart';
+import 'package:places/data/places/search_history/repository.dart';
 import 'package:places/domain/places/favorite/use_case/add_to_favorites/use_case.dart';
 import 'package:places/domain/places/favorite/use_case/add_to_visited/use_case.dart';
 import 'package:places/domain/places/favorite/use_case/get_favorite_places/use_case.dart';
@@ -60,11 +60,11 @@ Map<Object, Create<Object>> setupPlaceFiltersState({
 
 Map<Object, Create<Object>> setupPlacesStates({
   required PlaceRemoteDataSource remoteDataSource,
+  required SearchHistoryRepositoryImpl searchHistoryRepository,
 }) {
   final placeRepository = PlaceRepositoryImpl(
     remoteDataSource: remoteDataSource,
   );
-  final searchHistoryRepository = SearchHistoryRepositoryImpl();
 
   return {
     PlacesState: (_) => PlacesState.create(

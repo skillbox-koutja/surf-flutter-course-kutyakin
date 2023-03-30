@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:places/assets/theme/theme.dart';
 import 'package:places/core/dio.dart';
 import 'package:places/data/places/data_source/remote.dart';
+import 'package:places/data/places/search_history/repository.dart';
 import 'package:places/data/user_preferences/repository.dart';
 import 'package:places/domain/geo/filter.dart';
 import 'package:places/domain/geo/geo.dart';
@@ -16,8 +17,8 @@ import 'package:places/ui/app/state/observer.dart';
 import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/app/state/places.dart';
-import 'package:places/ui/app/state/user_preferences_state.dart';
 import 'package:places/ui/app/state/setup.dart';
+import 'package:places/ui/app/state/user_preferences_state.dart';
 import 'package:places/ui/components/icons/splash_screen/svg_icons.dart';
 import 'package:places/ui/components/icons/tutorial/svg_icons.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,7 @@ void main() async {
 
 Future<Map<Object, Create<Object>>> _createProviderFactories() async {
   final userPreferencesRepository = await HiveUserPreferencesRepository.init();
-
+  final searchHistoryRepository = await SearchHistoryRepositoryImpl.init();
   final categorySelector = CategorySelector.fromAvailableForSelection();
 
   final userPreferences = await userPreferencesRepository.get(UserPreferencesModel(
@@ -107,6 +108,7 @@ Future<Map<Object, Create<Object>>> _createProviderFactories() async {
     ),
     ...setupPlacesStates(
       remoteDataSource: _remoteDataSource,
+      searchHistoryRepository: searchHistoryRepository,
     ),
     ...setupFavoritePlacesStates(),
   };
