@@ -4,7 +4,7 @@ import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/app/state/observer.dart';
 import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/places.dart';
-import 'package:places/ui/app/state/settings_state.dart';
+import 'package:places/ui/app/state/user_preferences_state.dart';
 import 'package:places/ui/home_screen/home_screen.dart';
 import 'package:places/ui/onboarding/onboarding_screen.dart';
 import 'package:places/ui/splash_screen/splash_screen.dart';
@@ -33,7 +33,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.select<SettingsState, bool>((settings) => settings.isDark);
+    final isDark = context.select<UserPreferencesState, bool>((settings) => settings.isDark);
 
     return MaterialApp(
       title: 'Places',
@@ -67,32 +67,38 @@ class _HomeState extends State<_Home> {
     widget.appStateObserver.init();
   }
 
+  void gotoHome() {
+    _navigator.currentState?.pushReplacement<void, void>(
+      MaterialPageRoute(
+        builder: (_) {
+          return const HomeScreen();
+        },
+      ),
+    );
+  }
+
+  void gotoOnboardingScreen() {
+    _navigator.currentState?.pushReplacement<void, void>(
+      MaterialPageRoute(
+        builder: (_) => OnboardingScreen(
+          onSkip: gotoHome,
+          onStart: gotoHome,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    void gotoHome() {
-      _navigator.currentState?.pushReplacement<void, void>(
-        MaterialPageRoute(
-          builder: (_) {
-            return const HomeScreen();
-          },
-        ),
-      );
-    }
-
-    void gotoOnboardingScreen() {
-      _navigator.currentState?.pushReplacement<void, void>(
-        MaterialPageRoute(
-          builder: (_) => OnboardingScreen(
-            onSkip: gotoHome,
-            onStart: gotoHome,
-          ),
-        ),
-      );
-    }
+    final isSeenOnboarding = context.select<UserPreferencesState, bool>((settings) => settings.isSeenOnboarding);
+    final userPreferencesState = context.read<UserPreferencesState>();
 
     return _Unfocus(
       child: SplashScreen(
-        onReady: gotoOnboardingScreen,
+        onReady: isSeenOnboarding ? gotoHome : () {
+          userPreferencesState.makeSeenOnboarding();
+          gotoOnboardingScreen();
+        },
       ),
     );
   }
@@ -129,6 +135,7 @@ class _AppStateConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context
+      ..read<UserPreferencesState>()
       ..read<PlaceFiltersState>()
       ..read<PlacesState>()
       ..read<VisitedPlacesState>()

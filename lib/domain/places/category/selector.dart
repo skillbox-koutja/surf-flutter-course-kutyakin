@@ -41,10 +41,12 @@ class CategorySelector with _$CategorySelector {
   }
 
   CategorySelector selectCategories(BuiltList<CategoryOption> categories) {
+    final types = categories.map((category) => category.type);
+
     return copyWith(
       list: list.rebuild(
         (b) => b.map((category) {
-          if (categories.contains(category)) {
+          if (types.contains(category.type)) {
             return category.select();
           }
 
@@ -55,10 +57,12 @@ class CategorySelector with _$CategorySelector {
   }
 
   CategorySelector unselectCategories(BuiltList<CategoryOption> categories) {
+    final types = categories.map((category) => category.type);
+
     return copyWith(
       list: list.rebuild(
-            (b) => b.map((category) {
-          if (categories.contains(category)) {
+        (b) => b.map((category) {
+          if (types.contains(category.type)) {
             return category.unselect();
           }
 
