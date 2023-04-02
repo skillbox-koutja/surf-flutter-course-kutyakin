@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/domain/core/use_case/use_case.dart';
-import 'package:places/domain/places/search/history/use_case/clear/use_case.dart';
-import 'package:places/domain/places/search/history/use_case/remove/use_case.dart';
 import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +64,7 @@ class _HistoryList extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final colorsTheme = theme.extension<CustomColors>();
-    final clearHistory = context.select<PlaceSearchState, ClearSearchHistory>((s) => s.clearSearchHistory);
-    final removeHistoryItem = context.select<PlaceSearchState, RemoveSearchHistory>((s) => s.removeSearchHistory);
+    final placeSearchState = context.read<PlaceSearchState>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,13 +80,13 @@ class _HistoryList extends StatelessWidget {
             return _Row(
               query: query,
               onSelectItem: onSelectItem,
-              removeHistoryItem: removeHistoryItem,
+              removeHistoryItem: placeSearchState.removeHistoryItem,
             );
           },
         ),
         const SizedBox(height: 28),
         GestureDetector(
-          onTap: () => clearHistory(NoArgs()),
+          onTap: placeSearchState.clearHistory,
           child: Text(
             AppMessages.searchSights.clearHistoryTitle,
             style: textTheme?.text?.copyWith(
@@ -105,7 +101,7 @@ class _HistoryList extends StatelessWidget {
 
 class _Row extends StatelessWidget {
   final String query;
-  final RemoveSearchHistory removeHistoryItem;
+  final ValueChanged<String> removeHistoryItem;
   final ValueChanged<String> onSelectItem;
 
   const _Row({

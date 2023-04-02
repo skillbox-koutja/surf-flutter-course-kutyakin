@@ -21,6 +21,7 @@ import 'package:places/ui/sight/sight_card/widgets/header.dart';
 import 'package:places/ui/sight/sight_card/widgets/image.dart';
 import 'package:places/ui/sight/sight_card/widgets/name_text.dart';
 import 'package:places/ui/sight/sight_card/widgets/type_text.dart';
+import 'package:places/ui/sight/sight_list/widgets/separator.dart';
 import 'package:provider/provider.dart';
 
 class PlacesContainerWidget extends StatelessWidget {
@@ -174,16 +175,14 @@ class _PlacesListWidget extends StatelessWidget {
           },
           (context, index) {
             final itemIndex = index ~/ 2;
-            if (index.isEven) {
-              return _PlaceCard(
-                placeEntity: placeEntities[itemIndex],
-                openEditPlaceScreen: openEditPlaceScreen,
-              );
+            if (index.isOdd) {
+              return placesSeparatorWidget;
             }
 
-            const separator = SizedBox(height: 16);
-
-            return separator;
+            return _PlaceCard(
+              placeEntity: placeEntities[itemIndex],
+              openEditPlaceScreen: openEditPlaceScreen,
+            );
           },
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
+import 'package:places/ui/app/state/favorite_places_data.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
@@ -19,27 +20,42 @@ import 'package:places/ui/sight/favorite_sights/widgets/favorite_sight_list.dart
 import 'package:places/ui/sight/sight_card/widgets/actions.dart';
 import 'package:provider/provider.dart';
 
-
 class WishedSightsWidget extends StatelessWidget {
   const WishedSightsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<WishedPlacesState>();
+    final wishedState = context.read<WishedPlacesState>();
+    final visitedState = context.read<VisitedPlacesState>();
     final favoritePlacesData = context.select<WishedPlacesState, FavoritePlacesData>((s) => s.places);
 
     void onRemove(FavoritePlace favoritePlace) {
-      state.remove(favoritePlace);
+      wishedState.remove(favoritePlace);
+    }
+
+    void onAddToVisited({
+      required FavoritePlace favoritePlace,
+      required DateTime date,
+    }) {
+      wishedState.removeFromState(favoritePlace);
+      visitedState.add(
+        favoritePlace: favoritePlace,
+        date: date,
+      );
     }
 
     void onReorder({
       required int index,
+      required int targetPriority,
       required FavoritePlace favoritePlace,
     }) {
-      state.reorder(ReorderArgs(
-        index: index,
-        favoritePlace: favoritePlace,
-      ));
+      wishedState.reorder(
+        index,
+        ReorderArgs(
+          targetPriority: targetPriority,
+          favoritePlace: favoritePlace,
+        ),
+      );
     }
 
     if (favoritePlacesData.loading) {
@@ -63,8 +79,15 @@ class WishedSightsWidget extends StatelessWidget {
             return FavoriteSightCard(
               favoritePlace: favoritePlace,
               actions: _PlannedFavoriteActions(
+                favoritePlace: favoritePlace,
                 onRemove: () {
                   onRemove(favoritePlace);
+                },
+                onAddToVisited: (date) {
+                  onAddToVisited(
+                    favoritePlace: favoritePlace,
+                    date: date,
+                  );
                 },
               ),
             );
@@ -95,10 +118,14 @@ class _WishedEmptyState extends StatelessWidget {
 }
 
 class _PlannedFavoriteActions extends StatelessWidget {
+  final FavoritePlace favoritePlace;
   final VoidCallback onRemove;
+  final ValueChanged<DateTime> onAddToVisited;
 
   const _PlannedFavoriteActions({
+    required this.favoritePlace,
     required this.onRemove,
+    required this.onAddToVisited,
     Key? key,
   }) : super(key: key);
 
@@ -108,17 +135,28 @@ class _PlannedFavoriteActions extends StatelessWidget {
       children: [
         IconActionWidget(
           onPressed: () async {
-            if (Platform.isIOS) {
-              final date = await _showCupertinoDatePickerModal(context);
-
-              if (date != null) debugPrint('Selected date: $date');
-            } else {
-              final time = await showTimePicker(
+            if (!Platform.isIOS) {
+              final date = await _showCupertinoDatePickerModal(
                 context: context,
-                initialTime: TimeOfDay.now(),
+                favoritePlace: favoritePlace,
               );
 
-              if (time != null) debugPrint('Selected time: $time');
+              debugPrint('(isIOS)Selected date: $date');
+              if (date != null) {
+                onAddToVisited(date);
+              }
+            } else {
+              final date = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: favoritePlace.status.date,
+                lastDate: DateTime.now(),
+              );
+
+              debugPrint('Selected date: $date');
+              if (date != null) {
+                onAddToVisited(date);
+              }
             }
           },
           icon: const CalendarSvgIcon(
@@ -136,29 +174,49 @@ class _PlannedFavoriteActions extends StatelessWidget {
   }
 }
 
-Future<DateTime?> _showCupertinoDatePickerModal(BuildContext context) async {
-  DateTime? date;
+Future<DateTime?> _showCupertinoDatePickerModal({
+  required BuildContext context,
+  required FavoritePlace favoritePlace,
+}) async {
+  DateTime? date = DateTime.now();
 
-  await showCupertinoModalPopup<void>(
+  return showCupertinoModalPopup<DateTime?>(
     context: context,
     builder: (context) => Container(
-      height: 216,
+      height: 500,
       padding: const EdgeInsets.only(top: 6.0),
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       color: CupertinoColors.systemBackground.resolveFrom(context),
-      child: SafeArea(
-        top: false,
-        child: CupertinoDatePicker(
-          initialDateTime: DateTime.now(),
-          onDateTimeChanged: (value) {
-            date = value;
-          },
-        ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 400,
+            child: CupertinoDatePicker(
+              minimumDate: favoritePlace.status.date,
+              initialDateTime: DateTime.now(),
+              maximumDate: DateTime.now(),
+              onDateTimeChanged: (value) {
+                date = value;
+              },
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CupertinoButton(
+                child: Text(AppMessages.favoriteSights.okButtonLabel),
+                onPressed: () => Navigator.of(context).pop(date),
+              ),
+              CupertinoButton(
+                child: Text(AppMessages.favoriteSights.cancelButtonLabel),
+                onPressed: () => Navigator.of(context).pop(null),
+              ),
+            ],
+          ),
+        ],
       ),
     ),
   );
-
-  return date;
 }

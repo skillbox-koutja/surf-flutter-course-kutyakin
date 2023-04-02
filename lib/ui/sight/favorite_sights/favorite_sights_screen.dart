@@ -109,13 +109,9 @@ class _TabBarState extends State<_TabBar> with SingleTickerProviderStateMixin {
   late final Animation<double> opacity;
 
   void runOpacityAnimation() {
-    final tabIndex = index.value;
-    debugPrint('(tabIndex)$tabIndex == ${widget.tabController.index}(tabController)');
-
     index.value = widget.tabController.index;
     animationController.forward();
   }
-
 
   @override
   void initState() {
@@ -130,14 +126,14 @@ class _TabBarState extends State<_TabBar> with SingleTickerProviderStateMixin {
       CurvedAnimation(parent: animationController, curve: Curves.linear),
     );
 
-    widget.tabController.animation?.addListener(runOpacityAnimation);
+    widget.tabController.addListener(runOpacityAnimation);
 
     animationController.forward();
   }
 
   @override
   void dispose() {
-    widget.tabController.animation?.removeListener(runOpacityAnimation);
+    widget.tabController.removeListener(runOpacityAnimation);
     animationController.dispose();
     super.dispose();
   }

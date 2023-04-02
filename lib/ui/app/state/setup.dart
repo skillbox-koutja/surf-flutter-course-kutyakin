@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/places/data_source/remote.dart';
-import 'package:places/data/places/repository/favorite_place_repository.dart';
 import 'package:places/data/places/repository/place_repository.dart';
-import 'package:places/data/places/search_history/repository.dart';
+import 'package:places/domain/places/favorite/repository/repository.dart';
 import 'package:places/domain/places/favorite/use_case/add_to_favorites/use_case.dart';
 import 'package:places/domain/places/favorite/use_case/add_to_visited/use_case.dart';
 import 'package:places/domain/places/favorite/use_case/get_favorite_places/use_case.dart';
@@ -17,6 +16,7 @@ import 'package:places/domain/places/place/use_case/get_place_details/use_case.d
 import 'package:places/domain/places/place/use_case/get_places/use_case.dart';
 import 'package:places/domain/places/place/use_case/search_places/use_case.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
+import 'package:places/domain/places/search/history/repository/repository.dart';
 import 'package:places/domain/places/search/history/use_case/add/use_case.dart';
 import 'package:places/domain/places/search/history/use_case/clear/use_case.dart';
 import 'package:places/domain/places/search/history/use_case/get_history/use_case.dart';
@@ -36,11 +36,12 @@ Map<Object, Create<Object>> setupUserPreferencesState({
 }) {
   return {
     UserPreferencesState: (_) => UserPreferencesState(
-      userPreferences: userPreferences,
-      userPreferencesRepository: userPreferencesRepository,
-    ),
+          userPreferences: userPreferences,
+          userPreferencesRepository: userPreferencesRepository,
+        ),
   };
 }
+
 Map<Object, Create<Object>> setupPlaceFiltersState({
   required UserPreferencesModel userPreferences,
   required UserPreferencesRepository userPreferencesRepository,
@@ -49,18 +50,18 @@ Map<Object, Create<Object>> setupPlaceFiltersState({
 }) {
   return {
     PlaceFiltersState: (_) => PlaceFiltersState(
-      userPreferences: userPreferences,
-      userPreferencesRepository: userPreferencesRepository,
-      radius: searchFilters.geoFilter.radius,
-      distanceLimit: distanceLimit,
-      filters: searchFilters,
-    ),
+          userPreferences: userPreferences,
+          userPreferencesRepository: userPreferencesRepository,
+          radius: searchFilters.geoFilter.radius,
+          distanceLimit: distanceLimit,
+          filters: searchFilters,
+        ),
   };
 }
 
 Map<Object, Create<Object>> setupPlacesStates({
   required PlaceRemoteDataSource remoteDataSource,
-  required SearchHistoryRepositoryImpl searchHistoryRepository,
+  required SearchHistoryRepository searchHistoryRepository,
 }) {
   final placeRepository = PlaceRepositoryImpl(
     remoteDataSource: remoteDataSource,
@@ -84,9 +85,9 @@ Map<Object, Create<Object>> setupPlacesStates({
   };
 }
 
-Map<Object, Create<Object>> setupFavoritePlacesStates() {
-  final favoritePlaceRepository = FavoritePlaceRepositoryImpl.create();
-
+Map<Object, Create<Object>> setupFavoritePlacesStates(
+  FavoritePlaceRepository favoritePlaceRepository,
+) {
   return {
     WishedPlacesState: (_) => WishedPlacesState.create(
           addPlace: AddToFavorites(favoritePlaceRepository: favoritePlaceRepository),

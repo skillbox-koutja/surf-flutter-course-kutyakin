@@ -5,7 +5,7 @@ import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/favorite/repository/repository.dart';
 import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
 
-class ReorderVisited implements UseCase<FavoritePlaces, ReorderArgs> {
+class ReorderVisited implements UseCase<void, ReorderArgs> {
   final FavoritePlaceRepository favoritePlaceRepository;
 
   const ReorderVisited({
@@ -13,9 +13,9 @@ class ReorderVisited implements UseCase<FavoritePlaces, ReorderArgs> {
   });
 
   @override
-  Future<Either<Failure, FavoritePlaces>> call(ReorderArgs params) {
+  Future<Either<Failure, void>> call(ReorderArgs params) {
     return favoritePlaceRepository.reorderVisited(
-      index: params.index,
+      targetPriority: params.targetPriority,
       favoritePlace: params.favoritePlace,
     );
   }

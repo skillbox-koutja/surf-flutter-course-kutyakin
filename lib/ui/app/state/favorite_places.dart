@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:places/domain/core/error/failure.dart';
 import 'package:places/domain/core/use_case/use_case.dart';
 import 'package:places/domain/places/favorite/model.dart';
+import 'package:places/domain/places/favorite/use_case/add_to_visited/use_case.dart';
 import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
 import 'package:places/domain/places/place/entity.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
+import 'package:places/ui/app/state/favorite_places_data.dart';
 
 class WishedPlacesState extends FavoritePlacesState<PlaceEntity> {
   WishedPlacesState({
@@ -20,10 +22,10 @@ class WishedPlacesState extends FavoritePlacesState<PlaceEntity> {
   });
 
   factory WishedPlacesState.create({
-    required UseCase<FavoritePlaces, PlaceEntity> addPlace,
+    required UseCase<FavoritePlace, PlaceEntity> addPlace,
     required UseCase<FavoritePlaces, SearchFilters> getPlaces,
-    required UseCase<FavoritePlaces, FavoritePlace> removePlace,
-    required UseCase<FavoritePlaces, ReorderArgs> reorderPlaces,
+    required UseCase<void, FavoritePlace> removePlace,
+    required UseCase<void, ReorderArgs> reorderPlaces,
   }) {
     return WishedPlacesState(
       addPlace: addPlace,
@@ -36,12 +38,29 @@ class WishedPlacesState extends FavoritePlacesState<PlaceEntity> {
   }
 
   void add(PlaceEntity placeEntity) {
-    addPlace(placeEntity).then(updatePlaces);
+    places = places.startLoading();
+
+    addPlace(placeEntity).then((data) {
+      data.fold(
+        invalidLoaded,
+        (favoritePlace) {
+          places.data.fold(
+            invalidLoaded,
+            (favoritePlaces) {
+              final nextPlaces = favoritePlaces.rebuild((b) => b.insert(0, favoritePlace));
+
+              updatePlaces(Right(nextPlaces));
+            },
+          );
+        },
+      );
+    });
+
     notifyListeners();
   }
 }
 
-class VisitedPlacesState extends FavoritePlacesState<FavoritePlace> {
+class VisitedPlacesState extends FavoritePlacesState<AddToVisitedArgs> {
   VisitedPlacesState({
     required super.addPlace,
     required super.getPlaces,
@@ -52,10 +71,10 @@ class VisitedPlacesState extends FavoritePlacesState<FavoritePlace> {
   });
 
   factory VisitedPlacesState.create({
-    required UseCase<FavoritePlaces, FavoritePlace> addPlace,
+    required UseCase<FavoritePlace, AddToVisitedArgs> addPlace,
     required UseCase<FavoritePlaces, SearchFilters> getPlaces,
-    required UseCase<FavoritePlaces, FavoritePlace> removePlace,
-    required UseCase<FavoritePlaces, ReorderArgs> reorderPlaces,
+    required UseCase<void, FavoritePlace> removePlace,
+    required UseCase<void, ReorderArgs> reorderPlaces,
   }) {
     return VisitedPlacesState(
       addPlace: addPlace,
@@ -66,13 +85,41 @@ class VisitedPlacesState extends FavoritePlacesState<FavoritePlace> {
       placesIds: <int>{},
     );
   }
+
+  void add({
+    required FavoritePlace favoritePlace,
+    required DateTime date,
+  }) {
+    places = places.startLoading();
+
+    addPlace(AddToVisitedArgs(
+      wishedPlace: favoritePlace,
+      date: date,
+    )).then((data) {
+      data.fold(
+        invalidLoaded,
+        (favoritePlace) {
+          places.data.fold(
+            invalidLoaded,
+            (favoritePlaces) {
+              final nextPlaces = favoritePlaces.rebuild((b) => b.insert(0, favoritePlace));
+
+              updatePlaces(Right(nextPlaces));
+            },
+          );
+        },
+      );
+    });
+
+    notifyListeners();
+  }
 }
 
 class FavoritePlacesState<T> extends ChangeNotifier {
-  UseCase<FavoritePlaces, T> addPlace;
+  UseCase<FavoritePlace, T> addPlace;
   UseCase<FavoritePlaces, SearchFilters> getPlaces;
-  UseCase<FavoritePlaces, FavoritePlace> removePlace;
-  UseCase<FavoritePlaces, ReorderArgs> reorderPlaces;
+  UseCase<void, FavoritePlace> removePlace;
+  UseCase<void, ReorderArgs> reorderPlaces;
 
   FavoritePlacesData places;
   Set<int> placesIds;
@@ -100,16 +147,13 @@ class FavoritePlacesState<T> extends ChangeNotifier {
   }
 
   void init(SearchFilters searchFilters) {
-    places = FavoritePlacesData.loading();
+    places = places.startLoading();
 
-    getPlaces(searchFilters).then((data) {
-      places = FavoritePlacesData.loaded(data);
-      notifyListeners();
-    });
+    getPlaces(searchFilters).then(updatePlaces);
   }
 
   void loadPlaces(SearchFilters searchFilters) {
-    places = FavoritePlacesData.loading();
+    places = places.startLoading();
 
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
@@ -121,57 +165,69 @@ class FavoritePlacesState<T> extends ChangeNotifier {
   }
 
   void remove(FavoritePlace favoritePlace) {
-    removePlace(favoritePlace).then(updatePlaces);
+    removePlace(favoritePlace).then((_) {
+      places.data.fold(
+        invalidLoaded,
+        (favoritePlaces) {
+          final nextPlaces = favoritePlaces.rebuild((b) => b.remove(favoritePlace));
+
+          updatePlaces(Right(nextPlaces));
+        },
+      );
+    });
     notifyListeners();
   }
 
-  void reorder(ReorderArgs args) {
-    reorderPlaces(args).then(updatePlaces);
-    notifyListeners();
+  void removeFromState(FavoritePlace favoritePlace) {
+    places.data.fold(
+      (_) {},
+      (favoritePlaces) {
+        final nextPlaces = favoritePlaces.rebuild((b) => b.remove(favoritePlace));
+
+        updatePlaces(Right(nextPlaces));
+      },
+    );
+  }
+
+  void reorder(int index, ReorderArgs args) {
+    reorderPlaces(args);
+
+    places.data.fold(
+      (_) {},
+      (favoritePlaces) {
+        final reordered = _reorder(
+          favoritePlaces: favoritePlaces,
+          index: index,
+          favoritePlace: args.favoritePlace,
+        );
+
+        updatePlaces(Right(reordered));
+      },
+    );
   }
 
   void updatePlaces(Either<Failure, FavoritePlaces> data) {
-    places = FavoritePlacesData.loaded(data);
+    places = places.finishLoading(data);
     data.fold(
       (_) => placesIds = {},
       (favoritePlaces) => placesIds = favoritePlaces.map((p) => p.placeEntity.id).toSet(),
     );
     notifyListeners();
   }
-}
 
-class FavoritePlacesData {
-  final bool loading;
-  final bool loaded;
-  final Either<Failure, FavoritePlaces> data;
+  void invalidLoaded(Failure failure) {
+    places = places.finishLoading(Left(failure));
 
-  const FavoritePlacesData({
-    required this.data,
-    required this.loading,
-    required this.loaded,
-  });
-
-  factory FavoritePlacesData.init() {
-    return FavoritePlacesData(
-      data: Right(emptyFavoritePlaces),
-      loading: false,
-      loaded: false,
-    );
+    notifyListeners();
   }
 
-  factory FavoritePlacesData.loading() {
-    return FavoritePlacesData(
-      data: Right(emptyFavoritePlaces),
-      loading: true,
-      loaded: false,
-    );
-  }
-
-  factory FavoritePlacesData.loaded(Either<Failure, FavoritePlaces> data) {
-    return FavoritePlacesData(
-      data: data,
-      loading: false,
-      loaded: true,
-    );
+  FavoritePlaces _reorder({
+    required FavoritePlaces favoritePlaces,
+    required int index,
+    required FavoritePlace favoritePlace,
+  }) {
+    return favoritePlaces.rebuild((b) => b
+      ..remove(favoritePlace)
+      ..insert(index, favoritePlace));
   }
 }

@@ -4,8 +4,6 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/place/photo.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
-import 'package:places/ui/place/image_widget.dart';
-import 'package:places/ui/place/photo/image.dart';
 import 'package:places/ui/place/photo/image_widget.dart';
 import 'package:places/ui/sight/edit_sight/edit_sight_state.dart';
 import 'package:places/ui/sight/edit_sight/widgets/form_fields/add_photo_dialog.dart';

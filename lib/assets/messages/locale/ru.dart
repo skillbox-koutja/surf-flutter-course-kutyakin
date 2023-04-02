@@ -55,6 +55,8 @@ class _FavoriteSightsMessages {
   String get emptyWishedListDescription => 'Отмечайте понравившиеся места и они появятся здесь.';
   String get emptyVisitedListDescription => 'Завершите маршрут, чтобы место попало сюда.';
   String get removeSightButtonLabel => 'Удалить';
+  String get okButtonLabel => 'Ok';
+  String get cancelButtonLabel => 'Отмена';
 
   const _FavoriteSightsMessages();
 }

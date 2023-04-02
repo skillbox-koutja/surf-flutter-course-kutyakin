@@ -17,18 +17,21 @@ class SearchHistoryRepositoryImpl implements SearchHistoryRepository {
   });
 
   @override
-  Future<Either<Failure, void>> add(String query) {
+  Future<Either<Failure, void>> add(String query) async {
     _history
       ..remove(query)
       ..insert(0, query);
-    box.put('model', _history);
+
+    await box.put('model', _history);
+    await box.flush();
 
     return Future.value(const Right(null));
   }
 
   @override
-  Future<Either<Failure, void>> clear() {
-    box.clear();
+  Future<Either<Failure, void>> clear() async {
+    await box.clear();
+    await box.flush();
 
     return Future.value(const Right(null));
   }
@@ -39,9 +42,11 @@ class SearchHistoryRepositoryImpl implements SearchHistoryRepository {
   }
 
   @override
-  Future<Either<Failure, void>> remove(String query) {
+  Future<Either<Failure, void>> remove(String query) async {
     _history.remove(query);
-    box.put('model', _history);
+
+    await box.put('model', _history);
+    await box.flush();
 
     return Future.value(const Right(null));
   }
@@ -52,6 +57,7 @@ class SearchHistoryRepositoryImpl implements SearchHistoryRepository {
     final history = box.get('model');
     if (history == null) {
       await box.put('model', []);
+      await box.flush();
     }
 
     return SearchHistoryRepositoryImpl(box: box);

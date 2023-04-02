@@ -4,11 +4,10 @@ import 'package:places/domain/core/error/failure.dart';
 import 'package:places/domain/geo/distance.dart';
 import 'package:places/domain/geo/geo.dart';
 import 'package:places/domain/places/favorite/model.dart';
-import 'package:places/domain/places/favorite/repository/repository.dart';
 import 'package:places/domain/places/place/entity.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
 
-class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
+class FavoritePlaceRepositoryImpl {
   FavoritePlaces favorites;
 
   FavoritePlaces get wishedPlaces => favorites.where((favoritePlace) => favoritePlace.status.isPlanned).toBuiltList();
@@ -34,12 +33,8 @@ class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
   }
 
   @override
-  Future<Either<Failure, FavoritePlaces>> addToFavorites(PlaceEntity placeEntity) {
-    final favorite = FavoritePlace.certainPlanned(
-      placeEntity: placeEntity,
-      date: DateTime.now(),
-    );
-    favorites = favorites.rebuild((b) => b.insert(0, favorite));
+  Future<Either<Failure, FavoritePlaces>> addToFavorites(FavoritePlace favoritePlace) {
+    favorites = favorites.rebuild((b) => b.insert(0, favoritePlace));
 
     return Future.value(Right(wishedPlaces));
   }
@@ -74,7 +69,7 @@ class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
   }
 
   @override
-  Future<Either<Failure, FavoritePlaces>> reorderFavorites({
+  Future<Either<Failure, void>> reorderFavorites({
     required int index,
     required FavoritePlace favoritePlace,
   }) {
@@ -86,7 +81,7 @@ class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
   }
 
   @override
-  Future<Either<Failure, FavoritePlaces>> reorderVisited({
+  Future<Either<Failure, void>> reorderVisited({
     required int index,
     required FavoritePlace favoritePlace,
   }) {
@@ -97,7 +92,7 @@ class FavoritePlaceRepositoryImpl implements FavoritePlaceRepository {
     );
   }
 
-  Future<Either<Failure, FavoritePlaces>> _reorderFavorites({
+  Future<Either<Failure, void>> _reorderFavorites({
     required FavoritePlaces places,
     required int index,
     required FavoritePlace favoritePlace,

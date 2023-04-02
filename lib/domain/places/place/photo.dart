@@ -8,6 +8,12 @@ class PlacePhoto {
   PlacePhoto({
     required this.imageProvider,
   });
+
+  factory PlacePhoto.fromUrl(String url) {
+    return PlacePhoto(
+      imageProvider: PlacePhotoProvider.network(url),
+    );
+  }
 }
 
 @freezed

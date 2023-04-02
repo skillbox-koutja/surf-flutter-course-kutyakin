@@ -174,7 +174,7 @@ class __$$_PlaceDtoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDto implements _PlaceDto {
+class _$_PlaceDto extends _PlaceDto {
   const _$_PlaceDto(
       {required this.id,
       required this.name,
@@ -183,7 +183,8 @@ class _$_PlaceDto implements _PlaceDto {
       required this.description,
       required this.placeType,
       required final List<String> urls})
-      : _urls = urls;
+      : _urls = urls,
+        super._();
 
   factory _$_PlaceDto.fromJson(Map<String, dynamic> json) =>
       _$$_PlaceDtoFromJson(json);
@@ -248,7 +249,7 @@ class _$_PlaceDto implements _PlaceDto {
   }
 }
 
-abstract class _PlaceDto implements PlaceDto {
+abstract class _PlaceDto extends PlaceDto {
   const factory _PlaceDto(
       {required final int id,
       required final String name,
@@ -257,6 +258,7 @@ abstract class _PlaceDto implements PlaceDto {
       required final String description,
       required final String placeType,
       required final List<String> urls}) = _$_PlaceDto;
+  const _PlaceDto._() : super._();
 
   factory _PlaceDto.fromJson(Map<String, dynamic> json) = _$_PlaceDto.fromJson;
 
