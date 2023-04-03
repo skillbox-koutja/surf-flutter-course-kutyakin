@@ -6,22 +6,22 @@ import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/favorite/repository/repository.dart';
 
 class ReorderArgs extends Equatable {
-  final int index;
+  final int targetPriority;
   final FavoritePlace favoritePlace;
 
   @override
   List<Object?> get props => [
-        index,
+        targetPriority,
         favoritePlace,
       ];
 
   const ReorderArgs({
-    required this.index,
+    required this.targetPriority,
     required this.favoritePlace,
   });
 }
 
-class ReorderFavorites implements UseCase<FavoritePlaces, ReorderArgs> {
+class ReorderFavorites implements UseCase<void, ReorderArgs> {
   final FavoritePlaceRepository favoritePlaceRepository;
 
   const ReorderFavorites({
@@ -29,9 +29,9 @@ class ReorderFavorites implements UseCase<FavoritePlaces, ReorderArgs> {
   });
 
   @override
-  Future<Either<Failure, FavoritePlaces>> call(ReorderArgs params) {
+  Future<Either<Failure, void>> call(ReorderArgs params) {
     return favoritePlaceRepository.reorderFavorites(
-      index: params.index,
+      targetPriority: params.targetPriority,
       favoritePlace: params.favoritePlace,
     );
   }

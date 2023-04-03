@@ -4,6 +4,7 @@ import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
+import 'package:places/ui/app/state/favorite_places_data.dart';
 import 'package:places/ui/components/empty_state.dart';
 import 'package:places/ui/components/error_state.dart';
 import 'package:places/ui/components/icon_action.dart';
@@ -30,10 +31,11 @@ class VisitedSightsWidget extends StatelessWidget {
 
     Future<void> onReorder({
       required int index,
+      required int targetPriority,
       required FavoritePlace favoritePlace,
     }) async {
-      state.reorder(ReorderArgs(
-        index: index,
+      state.reorder(index, ReorderArgs(
+        targetPriority: targetPriority,
         favoritePlace: favoritePlace,
       ));
     }
@@ -53,7 +55,6 @@ class VisitedSightsWidget extends StatelessWidget {
 
         return FavoriteSightList(
           favoritePlaces: favoritePlaces,
-          onRemove: onRemove,
           onReorder: onReorder,
           buildCard: ({required favoritePlace}) {
             return FavoriteSightCard(
@@ -61,9 +62,6 @@ class VisitedSightsWidget extends StatelessWidget {
               actions: _VisitedActions(
                 onShare: () {
                   print('ShareSvgIcon: ${favoritePlace.placeEntity.place.name}'); // ignore: avoid_print
-                },
-                onRemove: () {
-                  onRemove(favoritePlace);
                 },
               ),
             );
@@ -95,11 +93,9 @@ class _VisitedEmptyState extends StatelessWidget {
 
 class _VisitedActions extends StatelessWidget {
   final VoidCallback onShare;
-  final VoidCallback onRemove;
 
   const _VisitedActions({
     required this.onShare,
-    required this.onRemove,
     Key? key,
   }) : super(key: key);
 
@@ -110,12 +106,6 @@ class _VisitedActions extends StatelessWidget {
         IconActionWidget(
           onPressed: onShare,
           icon: const ShareSvgIcon(
-            color: AppColors.white,
-          ),
-        ),
-        IconActionWidget(
-          onPressed: onRemove,
-          icon: const CloseSvgIcon(
             color: AppColors.white,
           ),
         ),

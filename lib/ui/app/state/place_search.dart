@@ -98,6 +98,8 @@ class PlaceSearchState extends ChangeNotifier {
     required String query,
     required SearchFilters searchFilters,
   }) {
+    addSearchHistory(query);
+    history = history.rebuild((b) => b.insert(0, query));
     response = SearchResponse.empty(
       query: query,
     );
@@ -134,12 +136,14 @@ class PlaceSearchState extends ChangeNotifier {
 
   void clearHistory() {
     clearSearchHistory(NoArgs());
+    history = BuiltList(<String>[]);
 
     notifyListeners();
   }
 
   void removeHistoryItem(String query) {
     removeSearchHistory(query);
+    history = history.rebuild((b) => b.remove(query));
 
     notifyListeners();
   }

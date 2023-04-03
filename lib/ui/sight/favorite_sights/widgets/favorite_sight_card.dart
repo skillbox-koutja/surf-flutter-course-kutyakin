@@ -28,6 +28,7 @@ class FavoriteSightCard extends StatelessWidget {
     final place = placeEntity.place;
 
     return SightCard(
+      key: ValueKey(favoritePlace.placeEntity.id),
       placeEntity: favoritePlace.placeEntity,
       header: SightCardHeader(
         image: PlaceHeroImageWidget(
