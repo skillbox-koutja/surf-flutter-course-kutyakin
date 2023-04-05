@@ -6,15 +6,13 @@ import 'package:places/domain/places/favorite/repository/repository.dart';
 import 'package:places/domain/places/favorite/use_case/reorder_favorites/use_case.dart';
 
 class ReorderVisited implements UseCase<void, ReorderArgs> {
-  final FavoritePlaceRepository favoritePlaceRepository;
+  final FavoritePlaceRepository _repository;
 
-  const ReorderVisited({
-    required this.favoritePlaceRepository,
-  });
+  const ReorderVisited(this._repository);
 
   @override
   Future<Either<Failure, void>> call(ReorderArgs params) {
-    return favoritePlaceRepository.reorderVisited(
+    return _repository.reorderVisited(
       targetPriority: params.targetPriority,
       favoritePlace: params.favoritePlace,
     );

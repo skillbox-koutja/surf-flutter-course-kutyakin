@@ -5,14 +5,12 @@ import 'package:places/domain/core/use_case/use_case.dart';
 import 'package:places/domain/places/search/history/repository/repository.dart';
 
 class GetSearchHistory implements UseCase<BuiltList<String>, NoArgs> {
-  final SearchHistoryRepository searchHistoryRepository;
+  final SearchHistoryRepository _repository;
 
-  const GetSearchHistory({
-    required this.searchHistoryRepository,
-  });
+  const GetSearchHistory(this._repository);
 
   @override
   Future<Either<Failure, BuiltList<String>>> call(NoArgs params) {
-    return searchHistoryRepository.getHistory();
+    return _repository.getHistory();
   }
 }

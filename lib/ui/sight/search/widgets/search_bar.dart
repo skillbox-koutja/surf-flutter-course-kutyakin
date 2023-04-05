@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBarWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final TextEditingController? controller;
   final List<Widget>? suffixIcons;
 
-  const SearchBar({
+  const SearchBarWidget({
     this.onTap,
     this.controller,
     this.suffixIcons,
@@ -48,7 +48,7 @@ class SearchBar extends StatelessWidget {
             ? null
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min, // added line
+                mainAxisSize: MainAxisSize.min,
                 children: suffixIcons,
               ),
       ),

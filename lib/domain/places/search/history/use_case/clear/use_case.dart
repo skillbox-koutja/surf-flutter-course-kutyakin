@@ -4,14 +4,12 @@ import 'package:places/domain/core/use_case/use_case.dart';
 import 'package:places/domain/places/search/history/repository/repository.dart';
 
 class ClearSearchHistory implements UseCase<void, NoArgs> {
-  final SearchHistoryRepository searchHistoryRepository;
+  final SearchHistoryRepository _repository;
 
-  const ClearSearchHistory({
-    required this.searchHistoryRepository,
-  });
+  const ClearSearchHistory(this._repository);
 
   @override
   Future<Either<Failure, void>> call(NoArgs params) {
-    return searchHistoryRepository.clear();
+    return _repository.clear();
   }
 }

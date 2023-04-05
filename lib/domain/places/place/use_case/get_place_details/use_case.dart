@@ -5,14 +5,12 @@ import 'package:places/domain/places/place/entity.dart';
 import 'package:places/domain/places/place/repository/repository.dart';
 
 class GetPlaceDetails implements UseCase<PlaceEntity, int> {
-  final PlaceRepository placeRepository;
+  final PlaceRepository _repository;
 
-  const GetPlaceDetails({
-    required this.placeRepository,
-  });
+  const GetPlaceDetails(this._repository);
 
   @override
   Future<Either<Failure, PlaceEntity>> call(int id) async {
-    return placeRepository.getPlace(id);
+    return _repository.getPlace(id);
   }
 }

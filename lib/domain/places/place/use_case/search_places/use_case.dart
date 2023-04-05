@@ -27,15 +27,13 @@ class SearchPlaceFilters extends Equatable {
 }
 
 class SearchPlaces implements UseCase<PlaceEntities, SearchPlaceFilters> {
-  final PlaceRepository placeRepository;
+  final PlaceRepository _repository;
 
-  const SearchPlaces({
-    required this.placeRepository,
-  });
+  const SearchPlaces(this._repository);
 
   @override
   Future<Either<Failure, PlaceEntities>> call(SearchPlaceFilters filters) {
-    return placeRepository.searchPlaces(
+    return _repository.searchPlaces(
       nameFilter: filters.nameFilter,
       geoFilter: filters.geoFilter,
       categorySelector: filters.categorySelector,

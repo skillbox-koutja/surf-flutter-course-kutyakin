@@ -1,11 +1,13 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:places/data/places/data_source/place/edit/request.dart';
 import 'package:places/data/places/data_source/place/new/request.dart';
 import 'package:places/data/places/data_source/place/response.dart';
 import 'package:places/data/places/data_source/place/search/request.dart';
 import 'package:places/data/places/data_source/place/search/response.dart';
+import 'package:places/data/places/data_source/place/upload_images/request.dart';
 import 'package:places/data/places/data_source/remote.dart';
 import 'package:places/domain/core/error/failure.dart';
 import 'package:places/domain/geo/filter.dart';
@@ -41,7 +43,8 @@ class PlaceRepositoryImpl implements PlaceRepository {
   }
 
   @override
-  Future<Either<Failure, PlaceEntity>> editPlace(int id, EditablePlace place) async {
+  Future<Either<Failure, PlaceEntity>> editPlace(
+      int id, EditablePlace place) async {
     try {
       final request = EditPlaceRequest.fromPlace(place);
       final dto = await remoteDataSource.editPlace(id.toString(), request);
@@ -74,11 +77,13 @@ class PlaceRepositoryImpl implements PlaceRepository {
       if (typeFilter != null && typeFilter.isEmpty) {
         typeFilter = null;
       }
+      final geo = geoFilter?.geo;
+
       final placeDtoList = await remoteDataSource.searchPlaces(
         SearchPlaceRequest(
           nameFilter: nameFilter,
-          lat: geoFilter?.geo.lat,
-          lng: geoFilter?.geo.lng,
+          lat: geo?.lat,
+          lng: geo?.lng,
           radius: geoFilter?.radius,
           typeFilter: typeFilter,
         ),
@@ -86,6 +91,22 @@ class PlaceRepositoryImpl implements PlaceRepository {
       final places = placeDtoList.map(_searchDtoToPlaceEntity).toBuiltList();
 
       return Right(places);
+    } on DioError {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, BuiltList<PlacePhoto>>> uploadPlaceImages(
+    List<XFile> images,
+  ) async {
+    try {
+      final request = UploadPlaceImagesRequest(images: images);
+      final files = await request.multipartFiles();
+      final urls = await remoteDataSource.uploadFiles(files: files);
+      final photos = urls.map(_toPlacePhoto).toBuiltList();
+
+      return Right(photos);
     } on DioError {
       return Left(ServerFailure());
     }

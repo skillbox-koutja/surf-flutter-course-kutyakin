@@ -6,11 +6,9 @@ import 'package:places/domain/places/favorite/repository/repository.dart';
 import 'package:places/domain/places/place/entity.dart';
 
 class AddToFavorites implements UseCase<FavoritePlace, PlaceEntity> {
-  final FavoritePlaceRepository favoritePlaceRepository;
+  final FavoritePlaceRepository _repository;
 
-  const AddToFavorites({
-    required this.favoritePlaceRepository,
-  });
+  const AddToFavorites(this._repository);
 
   @override
   Future<Either<Failure, FavoritePlace>> call(PlaceEntity placeEntity) {
@@ -21,6 +19,6 @@ class AddToFavorites implements UseCase<FavoritePlace, PlaceEntity> {
       priority: priority,
     );
 
-    return favoritePlaceRepository.addToFavorites(favoritePlace);
+    return _repository.addToFavorites(favoritePlace);
   }
 }

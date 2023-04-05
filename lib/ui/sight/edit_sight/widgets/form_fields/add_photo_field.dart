@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/domain/places/place/photo.dart';
+import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/icon_action.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/place/photo/image_widget.dart';

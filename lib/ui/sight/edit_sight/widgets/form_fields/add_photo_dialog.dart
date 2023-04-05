@@ -1,14 +1,23 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
 import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/domain/places/place/photo.dart';
+import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
+import 'package:provider/provider.dart';
+
+final _failedUploadPlaceImageSnackBar = SnackBar(
+  content: Text(AppMessages.editingSight.failedUploadPlaceImage),
+);
 
 class AddPhotoDialog extends StatelessWidget {
-  const AddPhotoDialog({Key? key}) : super(key: key);
+  const AddPhotoDialog({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +37,11 @@ class AddPhotoDialog extends StatelessWidget {
                 color: theme.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   _Camera(),
                   Divider(height: 26),
                   _Photo(),
-                  Divider(height: 26),
-                  _File(),
                 ],
               ),
             ),
@@ -49,7 +56,6 @@ class AddPhotoDialog extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 textStyle: const AppButtonStyle(),
-                // minimumSize: Size.fromHeight(56),
               ),
               child: SizedBox(
                 width: double.infinity,
@@ -73,10 +79,32 @@ class _Camera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = context.themeTextStyles;
+    final placesState = context.read<PlacesState>();
 
     return _Item(
       icon: CameraSvgIcon(color: textTheme.textDialog?.color),
       title: AppMessages.editingSight.addPhotoDialogCameraTitle,
+      onTap: () async {
+        final picker = ImagePicker();
+
+        final image = await picker.pickImage(
+          source: ImageSource.camera,
+        );
+
+        if (image == null) return;
+
+        final data = await placesState.uploadPlaceImages([image]);
+        data.fold(
+          (failure) {
+            Navigator.of(context).pop();
+            ScaffoldMessenger.of(context)
+                .showSnackBar(_failedUploadPlaceImageSnackBar);
+          },
+          (photos) {
+            Navigator.of(context).pop<PlacePhoto>(photos.first);
+          },
+        );
+      },
     );
   }
 }
@@ -87,24 +115,32 @@ class _Photo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = context.themeTextStyles;
+    final placesState = context.read<PlacesState>();
 
     return _Item(
       icon: PhotoSvgIcon(color: textTheme.textDialog?.color),
       title: AppMessages.editingSight.addPhotoDialogPhotoTitle,
-    );
-  }
-}
+      onTap: () async {
+        final picker = ImagePicker();
 
-class _File extends StatelessWidget {
-  const _File({Key? key}) : super(key: key);
+        final image = await picker.pickImage(
+          source: ImageSource.gallery,
+        );
 
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = context.themeTextStyles;
+        if (image == null) return;
 
-    return _Item(
-      icon: FileSvgIcon(color: textTheme.textDialog?.color),
-      title: AppMessages.editingSight.addPhotoDialogFileTitle,
+        final data = await placesState.uploadPlaceImages([image]);
+        data.fold(
+          (failure) {
+            Navigator.of(context).pop();
+            ScaffoldMessenger.of(context)
+                .showSnackBar(_failedUploadPlaceImageSnackBar);
+          },
+          (photos) {
+            Navigator.of(context).pop<PlacePhoto>(photos.first);
+          },
+        );
+      },
     );
   }
 }
@@ -112,10 +148,12 @@ class _File extends StatelessWidget {
 class _Item extends StatelessWidget {
   final Widget icon;
   final String title;
+  final Future<void> Function() onTap;
 
   const _Item({
     required this.icon,
     required this.title,
+    required this.onTap,
   });
 
   @override
@@ -124,13 +162,7 @@ class _Item extends StatelessWidget {
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () {
-        final rng = Random();
-        final photo = PlacePhoto(
-          imageProvider: PlacePhotoProvider.network('https://picsum.photos/300/400?_c=${rng.nextDouble()}'),
-        );
-        Navigator.of(context).pop<PlacePhoto>(photo);
-      },
+      onTap: onTap,
       child: Row(
         children: [
           icon,
