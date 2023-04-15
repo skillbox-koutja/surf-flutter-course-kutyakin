@@ -151,14 +151,15 @@ class __$$_SearchPlaceRequestCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_SearchPlaceRequest implements _SearchPlaceRequest {
+class _$_SearchPlaceRequest extends _SearchPlaceRequest {
   const _$_SearchPlaceRequest(
       {this.nameFilter,
       this.lat,
       this.lng,
       this.radius,
       final List<String>? typeFilter})
-      : _typeFilter = typeFilter;
+      : _typeFilter = typeFilter,
+        super._();
 
   factory _$_SearchPlaceRequest.fromJson(Map<String, dynamic> json) =>
       _$$_SearchPlaceRequestFromJson(json);
@@ -220,13 +221,14 @@ class _$_SearchPlaceRequest implements _SearchPlaceRequest {
   }
 }
 
-abstract class _SearchPlaceRequest implements SearchPlaceRequest {
+abstract class _SearchPlaceRequest extends SearchPlaceRequest {
   const factory _SearchPlaceRequest(
       {final String? nameFilter,
       final double? lat,
       final double? lng,
       final double? radius,
       final List<String>? typeFilter}) = _$_SearchPlaceRequest;
+  const _SearchPlaceRequest._() : super._();
 
   factory _SearchPlaceRequest.fromJson(Map<String, dynamic> json) =
       _$_SearchPlaceRequest.fromJson;

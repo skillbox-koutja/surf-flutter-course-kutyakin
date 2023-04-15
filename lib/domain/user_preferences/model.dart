@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:places/assets/theme/theme.dart';
+import 'package:places/domain/geo/geo.dart';
 import 'package:places/domain/places/category/option.dart';
 
 part 'model.freezed.dart';
@@ -14,6 +15,8 @@ class UserPreferencesModel with _$UserPreferencesModel {
     required double radius,
     required BuiltList<CategoryOption> selectedCategories,
     required bool seenOnboarding,
+    required Geo location,
+    @Default(false) bool allowedUseLocation,
   }) = _UserPreferencesModel;
 
   const UserPreferencesModel._();
@@ -45,6 +48,24 @@ class UserPreferencesModel with _$UserPreferencesModel {
     return copyWith(
       radius: radius,
       selectedCategories: selectedCategories,
+    );
+  }
+
+  UserPreferencesModel allowUseLocation() {
+    return copyWith(
+      allowedUseLocation: true,
+    );
+  }
+
+  UserPreferencesModel denyUseLocation() {
+    return copyWith(
+      allowedUseLocation: false,
+    );
+  }
+
+  UserPreferencesModel editLocation(Geo location) {
+    return copyWith(
+      location: location,
     );
   }
 }

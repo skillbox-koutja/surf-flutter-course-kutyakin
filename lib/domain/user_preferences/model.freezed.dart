@@ -21,6 +21,8 @@ mixin _$UserPreferencesModel {
   BuiltList<CategoryOption> get selectedCategories =>
       throw _privateConstructorUsedError;
   bool get seenOnboarding => throw _privateConstructorUsedError;
+  Geo get location => throw _privateConstructorUsedError;
+  bool get allowedUseLocation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserPreferencesModelCopyWith<UserPreferencesModel> get copyWith =>
@@ -37,7 +39,9 @@ abstract class $UserPreferencesModelCopyWith<$Res> {
       {AppThemeMode themeMode,
       double radius,
       BuiltList<CategoryOption> selectedCategories,
-      bool seenOnboarding});
+      bool seenOnboarding,
+      Geo location,
+      bool allowedUseLocation});
 }
 
 /// @nodoc
@@ -58,6 +62,8 @@ class _$UserPreferencesModelCopyWithImpl<$Res,
     Object? radius = null,
     Object? selectedCategories = null,
     Object? seenOnboarding = null,
+    Object? location = null,
+    Object? allowedUseLocation = null,
   }) {
     return _then(_value.copyWith(
       themeMode: null == themeMode
@@ -76,6 +82,14 @@ class _$UserPreferencesModelCopyWithImpl<$Res,
           ? _value.seenOnboarding
           : seenOnboarding // ignore: cast_nullable_to_non_nullable
               as bool,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Geo,
+      allowedUseLocation: null == allowedUseLocation
+          ? _value.allowedUseLocation
+          : allowedUseLocation // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -92,7 +106,9 @@ abstract class _$$_UserPreferencesModelCopyWith<$Res>
       {AppThemeMode themeMode,
       double radius,
       BuiltList<CategoryOption> selectedCategories,
-      bool seenOnboarding});
+      bool seenOnboarding,
+      Geo location,
+      bool allowedUseLocation});
 }
 
 /// @nodoc
@@ -110,6 +126,8 @@ class __$$_UserPreferencesModelCopyWithImpl<$Res>
     Object? radius = null,
     Object? selectedCategories = null,
     Object? seenOnboarding = null,
+    Object? location = null,
+    Object? allowedUseLocation = null,
   }) {
     return _then(_$_UserPreferencesModel(
       themeMode: null == themeMode
@@ -128,6 +146,14 @@ class __$$_UserPreferencesModelCopyWithImpl<$Res>
           ? _value.seenOnboarding
           : seenOnboarding // ignore: cast_nullable_to_non_nullable
               as bool,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Geo,
+      allowedUseLocation: null == allowedUseLocation
+          ? _value.allowedUseLocation
+          : allowedUseLocation // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -139,7 +165,9 @@ class _$_UserPreferencesModel extends _UserPreferencesModel {
       {required this.themeMode,
       required this.radius,
       required this.selectedCategories,
-      required this.seenOnboarding})
+      required this.seenOnboarding,
+      required this.location,
+      this.allowedUseLocation = false})
       : super._();
 
   @override
@@ -150,10 +178,15 @@ class _$_UserPreferencesModel extends _UserPreferencesModel {
   final BuiltList<CategoryOption> selectedCategories;
   @override
   final bool seenOnboarding;
+  @override
+  final Geo location;
+  @override
+  @JsonKey()
+  final bool allowedUseLocation;
 
   @override
   String toString() {
-    return 'UserPreferencesModel(themeMode: $themeMode, radius: $radius, selectedCategories: $selectedCategories, seenOnboarding: $seenOnboarding)';
+    return 'UserPreferencesModel(themeMode: $themeMode, radius: $radius, selectedCategories: $selectedCategories, seenOnboarding: $seenOnboarding, location: $location, allowedUseLocation: $allowedUseLocation)';
   }
 
   @override
@@ -167,12 +200,22 @@ class _$_UserPreferencesModel extends _UserPreferencesModel {
             const DeepCollectionEquality()
                 .equals(other.selectedCategories, selectedCategories) &&
             (identical(other.seenOnboarding, seenOnboarding) ||
-                other.seenOnboarding == seenOnboarding));
+                other.seenOnboarding == seenOnboarding) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.allowedUseLocation, allowedUseLocation) ||
+                other.allowedUseLocation == allowedUseLocation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, themeMode, radius,
-      const DeepCollectionEquality().hash(selectedCategories), seenOnboarding);
+  int get hashCode => Object.hash(
+      runtimeType,
+      themeMode,
+      radius,
+      const DeepCollectionEquality().hash(selectedCategories),
+      seenOnboarding,
+      location,
+      allowedUseLocation);
 
   @JsonKey(ignore: true)
   @override
@@ -187,7 +230,9 @@ abstract class _UserPreferencesModel extends UserPreferencesModel {
       {required final AppThemeMode themeMode,
       required final double radius,
       required final BuiltList<CategoryOption> selectedCategories,
-      required final bool seenOnboarding}) = _$_UserPreferencesModel;
+      required final bool seenOnboarding,
+      required final Geo location,
+      final bool allowedUseLocation}) = _$_UserPreferencesModel;
   const _UserPreferencesModel._() : super._();
 
   @override
@@ -198,6 +243,10 @@ abstract class _UserPreferencesModel extends UserPreferencesModel {
   BuiltList<CategoryOption> get selectedCategories;
   @override
   bool get seenOnboarding;
+  @override
+  Geo get location;
+  @override
+  bool get allowedUseLocation;
   @override
   @JsonKey(ignore: true)
   _$$_UserPreferencesModelCopyWith<_$_UserPreferencesModel> get copyWith =>

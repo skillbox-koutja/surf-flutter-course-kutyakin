@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GeoFilter {
+  bool get enabled => throw _privateConstructorUsedError;
   Geo get geo => throw _privateConstructorUsedError;
   double get radius => throw _privateConstructorUsedError;
 
@@ -29,7 +30,7 @@ abstract class $GeoFilterCopyWith<$Res> {
   factory $GeoFilterCopyWith(GeoFilter value, $Res Function(GeoFilter) then) =
       _$GeoFilterCopyWithImpl<$Res, GeoFilter>;
   @useResult
-  $Res call({Geo geo, double radius});
+  $Res call({bool enabled, Geo geo, double radius});
 }
 
 /// @nodoc
@@ -45,10 +46,15 @@ class _$GeoFilterCopyWithImpl<$Res, $Val extends GeoFilter>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? enabled = null,
     Object? geo = null,
     Object? radius = null,
   }) {
     return _then(_value.copyWith(
+      enabled: null == enabled
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       geo: null == geo
           ? _value.geo
           : geo // ignore: cast_nullable_to_non_nullable
@@ -68,7 +74,7 @@ abstract class _$$_GeoFilterCopyWith<$Res> implements $GeoFilterCopyWith<$Res> {
       __$$_GeoFilterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Geo geo, double radius});
+  $Res call({bool enabled, Geo geo, double radius});
 }
 
 /// @nodoc
@@ -82,10 +88,15 @@ class __$$_GeoFilterCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? enabled = null,
     Object? geo = null,
     Object? radius = null,
   }) {
     return _then(_$_GeoFilter(
+      enabled: null == enabled
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       geo: null == geo
           ? _value.geo
           : geo // ignore: cast_nullable_to_non_nullable
@@ -101,8 +112,12 @@ class __$$_GeoFilterCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GeoFilter extends _GeoFilter {
-  const _$_GeoFilter({required this.geo, required this.radius}) : super._();
+  const _$_GeoFilter(
+      {required this.enabled, required this.geo, required this.radius})
+      : super._();
 
+  @override
+  final bool enabled;
   @override
   final Geo geo;
   @override
@@ -110,7 +125,7 @@ class _$_GeoFilter extends _GeoFilter {
 
   @override
   String toString() {
-    return 'GeoFilter(geo: $geo, radius: $radius)';
+    return 'GeoFilter(enabled: $enabled, geo: $geo, radius: $radius)';
   }
 
   @override
@@ -118,12 +133,13 @@ class _$_GeoFilter extends _GeoFilter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GeoFilter &&
+            (identical(other.enabled, enabled) || other.enabled == enabled) &&
             (identical(other.geo, geo) || other.geo == geo) &&
             (identical(other.radius, radius) || other.radius == radius));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, geo, radius);
+  int get hashCode => Object.hash(runtimeType, enabled, geo, radius);
 
   @JsonKey(ignore: true)
   @override
@@ -134,9 +150,13 @@ class _$_GeoFilter extends _GeoFilter {
 
 abstract class _GeoFilter extends GeoFilter {
   const factory _GeoFilter(
-      {required final Geo geo, required final double radius}) = _$_GeoFilter;
+      {required final bool enabled,
+      required final Geo geo,
+      required final double radius}) = _$_GeoFilter;
   const _GeoFilter._() : super._();
 
+  @override
+  bool get enabled;
   @override
   Geo get geo;
   @override

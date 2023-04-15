@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/theme.dart';
+import 'package:places/data/device_location/data_source.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/app/state/observer.dart';
 import 'package:places/ui/app/state/place_filters.dart';
@@ -25,6 +26,11 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   void dispose() {
     widget.appStateObserver.dispose();
@@ -61,12 +67,6 @@ class _Home extends StatefulWidget {
 }
 
 class _HomeState extends State<_Home> {
-  @override
-  void initState() {
-    super.initState();
-    widget.appStateObserver.init();
-  }
-
   void gotoHome() {
     _navigator.currentState?.pushReplacement<void, void>(
       MaterialPageRoute(
@@ -90,12 +90,18 @@ class _HomeState extends State<_Home> {
 
   @override
   Widget build(BuildContext context) {
-    final isSeenOnboarding = context.select<UserPreferencesState, bool>((settings) => settings.isSeenOnboarding);
     final userPreferencesState = context.read<UserPreferencesState>();
 
     return _Unfocus(
       child: SplashScreen(
-        onReady: isSeenOnboarding ? gotoHome : () {
+        init: widget.appStateObserver.init,
+        onReady: () {
+          if (userPreferencesState.isSeenOnboarding) {
+            gotoHome();
+
+            return;
+          }
+
           userPreferencesState.makeSeenOnboarding();
           gotoOnboardingScreen();
         },
