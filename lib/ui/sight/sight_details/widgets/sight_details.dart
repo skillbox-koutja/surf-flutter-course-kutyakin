@@ -39,7 +39,7 @@ class SightDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              SightDetailsBody(place: placeEntity.place),
+              SightDetailsBody(placeEntity: placeEntity),
             ]),
           ),
         ),
