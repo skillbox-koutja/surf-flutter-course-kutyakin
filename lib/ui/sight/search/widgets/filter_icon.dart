@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/colors.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
 import 'package:places/ui/sight/filters/filters_screen.dart';
 
@@ -12,8 +13,7 @@ class SearchFilterIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorsTheme = theme.extension<CustomColors>();
+    final colorsTheme = context.themeColors;
 
     return GestureDetector(
       onTap: () {
@@ -27,7 +27,7 @@ class SearchFilterIcon extends StatelessWidget {
           },
         );
       },
-      child: FilterSvgIcon(color: colorsTheme?.green),
+      child: FilterSvgIcon(color: colorsTheme.green),
     );
   }
 }

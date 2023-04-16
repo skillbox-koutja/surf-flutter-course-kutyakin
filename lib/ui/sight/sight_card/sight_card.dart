@@ -9,13 +9,15 @@ import 'package:places/ui/sight/sight_details/widgets/sight_details.dart';
 
 class SightCard extends StatelessWidget {
   final PlaceEntity placeEntity;
-  final SightCardHeader header;
-  final SightCardBody body;
+  final Widget header;
+  final Widget body;
+  final Color? cardColor;
 
   const SightCard({
     required this.placeEntity,
     required this.header,
     required this.body,
+    this.cardColor,
     Key? key,
   }) : super(key: key);
 
@@ -24,14 +26,14 @@ class SightCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      color: theme.cardColor,
+      color: cardColor ?? theme.cardColor,
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
-        onTap: () async {
-          await Navigator.push<SightDetails>(
+        onTap: () {
+          Navigator.push<SightDetails>(
             context,
             MaterialPageRoute(
               builder: (context) => SightDetailsScreen(

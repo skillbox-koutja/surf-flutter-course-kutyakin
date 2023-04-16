@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/ui/app/bottom_navigation_bar.dart';
+import 'package:places/ui/map_screen/map_screen.dart';
 import 'package:places/ui/settings/settings_screen.dart';
 import 'package:places/ui/sight/favorite_sights/favorite_sights_screen.dart';
 import 'package:places/ui/sight/sight_list/sight_list_screen.dart';
@@ -17,13 +18,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: PageView(
         controller: pageController,
+        physics: selectedIndex == 1 ? const NeverScrollableScrollPhysics() : null,
         onPageChanged: onPageChanged,
         children: const [
           SightListScreen(),
-          Center(child: Text('MapScreen is coming soon')),
+          MapScreen(),
           FavoriteSightsScreen(),
           SettingsScreen(),
         ],

@@ -14,14 +14,15 @@ import 'package:places/domain/places/place/use_case/upload_images/use_case.dart'
 import 'package:places/domain/places/search/filters/filters.dart';
 
 class PlacesState extends ChangeNotifier {
-  CreatePlaceEntity createPlaceEntity;
-  EditPlaceEntity editPlaceEntity;
-  GetPlaceDetails getPlaceDetails;
-  GetPlaces getPlaces;
-  SearchPlaces searchPlaces;
-  UploadPlaceImages uploadPlaceImages;
-
+  final CreatePlaceEntity createPlaceEntity;
+  final EditPlaceEntity editPlaceEntity;
+  final GetPlaceDetails getPlaceDetails;
+  final GetPlaces getPlaces;
+  final SearchPlaces searchPlaces;
+  final UploadPlaceImages uploadPlaceImages;
   PlacesData places;
+
+  PlaceEntity? selectedPlace;
 
   Timer? _debounce;
 
@@ -56,6 +57,7 @@ class PlacesState extends ChangeNotifier {
 
   void init(SearchFilters searchFilters) {
     places = PlacesData.loading();
+    selectedPlace = null;
 
     getPlaces(searchFilters).then((data) {
       places = PlacesData.loaded(data);
@@ -65,6 +67,7 @@ class PlacesState extends ChangeNotifier {
 
   void loadPlaces(SearchFilters searchFilters) {
     places = PlacesData.loading();
+    selectedPlace = null;
 
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
@@ -74,6 +77,18 @@ class PlacesState extends ChangeNotifier {
         notifyListeners();
       });
     });
+
+    notifyListeners();
+  }
+
+  void selectPlace(PlaceEntity placeEntity) {
+    selectedPlace = placeEntity;
+
+    notifyListeners();
+  }
+
+  void unselectPlace() {
+    selectedPlace = null;
 
     notifyListeners();
   }

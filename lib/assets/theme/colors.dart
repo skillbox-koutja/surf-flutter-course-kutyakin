@@ -10,12 +10,14 @@ class AppColors {
   static const inactive = Color.fromRGBO(124, 126, 146, 0.56);
   static const splash = Color.fromRGBO(196, 196, 196, 0.5);
   static const timer = Color(0xFFC4C4C4);
-  // white
+  static const mapBoxShadow = Color.fromRGBO(26, 26, 32, 0.16);
+
+  // White theme.
   static const whiteMain = Color(0xFF252849);
   static const whiteGreen = Color(0xFF4CAF50);
   static const whiteYellow = Color(0xFFFCDD3D);
   static const whiteRed = Color(0xFFEF4343);
-  // black
+  // Black theme.
   static const blackMain = Color(0xFF21222C);
   static const blackGreen = Color(0xFF6ADA6F);
   static const blackYellow = Color(0xFFFFE769);
@@ -31,6 +33,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     red: AppColors.whiteRed,
     icon: AppColors.whiteMain,
     iconBackground: AppColors.white,
+    mapItemBackground: AppColors.white,
   );
 
   static const dark = CustomColors(
@@ -40,6 +43,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     red: AppColors.blackRed,
     icon: AppColors.white,
     iconBackground: AppColors.blackMain,
+    mapItemBackground: AppColors.secondary,
   );
 
   final Color? main;
@@ -48,6 +52,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? red;
   final Color? icon;
   final Color? iconBackground;
+  final Color? mapItemBackground;
 
   Color get yellowThemeColor => yellow ?? Colors.yellow;
   Color get greenThemeColor => green ?? Colors.green;
@@ -59,6 +64,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.red,
     required this.icon,
     required this.iconBackground,
+    required this.mapItemBackground,
   });
 
   @override
@@ -69,6 +75,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? red,
     Color? icon,
     Color? iconBackground,
+    Color? mapItemBackground,
   }) {
     return CustomColors(
       main: main ?? this.main,
@@ -77,6 +84,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       red: red ?? this.red,
       icon: icon ?? this.icon,
       iconBackground: iconBackground ?? this.iconBackground,
+      mapItemBackground: mapItemBackground ?? this.mapItemBackground,
     );
   }
 
@@ -93,6 +101,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       red: Color.lerp(red, other.red, t),
       icon: Color.lerp(icon, other.icon, t),
       iconBackground: Color.lerp(iconBackground, other.iconBackground, t),
+      mapItemBackground: Color.lerp(mapItemBackground, other.mapItemBackground, t),
     );
   }
 
@@ -104,5 +113,6 @@ class CustomColors extends ThemeExtension<CustomColors> {
       'red: $red, '
       'icon: $icon, '
       'iconBackground: $iconBackground, '
+      'mapItemBackground: $mapItemBackground, '
       ')';
 }

@@ -4,10 +4,12 @@ import 'package:places/core/utils/extensions/build_context_ext.dart';
 class MainGradientOverlay extends StatelessWidget {
   final Widget child;
   final BorderRadius? borderRadius;
+  final List<BoxShadow>? boxShadow;
 
   const MainGradientOverlay({
     required this.child,
     this.borderRadius,
+    this.boxShadow,
     Key? key,
   }) : super(key: key);
 
@@ -26,6 +28,7 @@ class MainGradientOverlay extends StatelessWidget {
             colorsTheme.greenThemeColor,
           ],
         ),
+        boxShadow: boxShadow,
       ),
       child: child,
     );

@@ -42,7 +42,8 @@ class SightDetailsBody extends StatelessWidget {
                 color: AppColors.white,
               ),
               onPressed: () {
-                print('AppMessages.sightDetails.makeRouteButtonLabel'); // ignore: avoid_print
+                // TODO(koutja): Построить маршрут.
+                debugPrint('Построить маршрут');
               },
               label: Text(
                 AppMessages.sightDetails.makeRouteButtonLabel,

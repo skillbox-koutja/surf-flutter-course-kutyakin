@@ -10,6 +10,7 @@ class AppMessages {
   static const placeholder = _PlaceholderMessages();
   static const failure = _FailureMessages();
   static const onboarding = _OnboardingMessages();
+  static const mapScreen = _MapScreenMessages();
 }
 
 const _shortMonths = {
@@ -231,4 +232,10 @@ class _FailureMessages {
   String failedCreateEntity(String entityName) {
     return 'Не удалось создать $entityName';
   }
+}
+
+class _MapScreenMessages {
+  String get screenTitle => 'Карта';
+
+  const _MapScreenMessages();
 }
