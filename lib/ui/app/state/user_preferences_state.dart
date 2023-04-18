@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:places/data/device_location/data_source.dart';
 import 'package:places/domain/user_preferences/model.dart';
 import 'package:places/domain/user_preferences/repository.dart';
@@ -9,6 +10,7 @@ class UserPreferencesState extends ChangeNotifier {
   final DeviceLocationDataSource _deviceLocationDataSource;
 
   UserPreferencesModel userPreferences;
+  List<AvailableMap> availableMaps = <AvailableMap>[];
 
   bool get isDark => userPreferences.isDark;
   bool get isSeenOnboarding => userPreferences.seenOnboarding;
@@ -21,6 +23,8 @@ class UserPreferencesState extends ChangeNotifier {
         _deviceLocationDataSource = deviceLocationDataSource;
 
   Future<void> init() async {
+    availableMaps = await MapLauncher.installedMaps;
+
     var model = await _userPreferencesRepository.get(userPreferences);
 
     final allowedUseLocation = await _deviceLocationDataSource.checkPermissions();

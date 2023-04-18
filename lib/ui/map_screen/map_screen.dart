@@ -5,12 +5,14 @@ import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/colors.dart';
 import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/domain/places/place/entity.dart';
+import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/places.dart';
 import 'package:places/ui/app/state/user_preferences_state.dart';
 import 'package:places/ui/components/add_new_place_floating_button.dart';
 import 'package:places/ui/components/add_to_favorite_button.dart';
 import 'package:places/ui/components/icons/svg_icons.dart';
+import 'package:places/ui/map_screen/widgets/available_maps_widget.dart';
 import 'package:places/ui/map_screen/widgets/map_action_button.dart';
 import 'package:places/ui/map_screen/widgets/map_geolocation_button.dart';
 import 'package:places/ui/map_screen/widgets/map_refresh_button.dart';
@@ -302,8 +304,14 @@ class _PlaceCard extends StatelessWidget {
                   padding: EdgeInsets.zero,
                 ),
                 onPressed: () {
-                  // TODO(koutja): Построить маршрут.
-                  debugPrint('Построить маршрут');
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (_) {
+                      return AvailableMapsWidget(
+                        placeEntity: placeEntity,
+                      );
+                    },
+                  );
                 },
                 child: const GoSvgIcon(
                   color: AppColors.white,
