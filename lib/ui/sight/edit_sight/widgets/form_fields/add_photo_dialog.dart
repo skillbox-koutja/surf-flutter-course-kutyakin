@@ -37,8 +37,8 @@ class AddPhotoDialog extends StatelessWidget {
                 color: theme.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Column(
-                children: [
+              child: Column(
+                children: const [
                   _Camera(),
                   Divider(height: 26),
                   _Photo(),

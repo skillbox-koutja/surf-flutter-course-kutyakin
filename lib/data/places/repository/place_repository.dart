@@ -77,16 +77,24 @@ class PlaceRepositoryImpl implements PlaceRepository {
       if (typeFilter != null && typeFilter.isEmpty) {
         typeFilter = null;
       }
-      final geo = geoFilter?.geo;
+
+      var request = SearchPlaceRequest(
+        nameFilter: nameFilter,
+        typeFilter: typeFilter,
+      );
+
+      if (geoFilter != null && geoFilter.enabled) {
+        final geo = geoFilter.geo;
+
+        request = request.copyWith(
+          lat: geo.lat,
+          lng: geo.lng,
+          radius: geoFilter.radius,
+        );
+      }
 
       final placeDtoList = await remoteDataSource.searchPlaces(
-        SearchPlaceRequest(
-          nameFilter: nameFilter,
-          lat: geo?.lat,
-          lng: geo?.lng,
-          radius: geoFilter?.radius,
-          typeFilter: typeFilter,
-        ),
+        request,
       );
       final places = placeDtoList.map(_searchDtoToPlaceEntity).toBuiltList();
 

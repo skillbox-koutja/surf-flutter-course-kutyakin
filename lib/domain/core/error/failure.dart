@@ -9,6 +9,8 @@ abstract class Failure extends Equatable {
   const Failure({String? message}) : message = message ?? '';
 }
 
+class ServiceFailure extends Failure {}
+
 class ServerFailure extends Failure {}
 
 class NotFoundEntity extends Failure {}

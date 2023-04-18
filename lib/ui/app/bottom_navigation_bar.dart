@@ -46,7 +46,7 @@ class AppBottomNavigationBar extends StatelessWidget {
               icon: MapSvgIcon(
                 color: bottomNavigationBarTheme.unselectedItemColor,
               ),
-              activeIcon: MapSvgIcon(
+              activeIcon: MapSvgIcon.filled(
                 color: bottomNavigationBarTheme.selectedItemColor,
               ),
               label: '',

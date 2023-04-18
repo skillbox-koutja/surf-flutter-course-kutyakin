@@ -15,13 +15,13 @@ class SearchFilters with _$SearchFilters {
 
   const SearchFilters._();
 
-  SearchFilters editRadius (double radius) {
+  SearchFilters editRadius(double radius) {
     return copyWith(
       geoFilter: geoFilter.editRadius(radius),
     );
   }
 
-  SearchFilters changeGeoLocation (Geo geo) {
+  SearchFilters changeGeoLocation(Geo geo) {
     return copyWith(
       geoFilter: geoFilter.changeGeoLocation(geo),
     );
@@ -30,6 +30,18 @@ class SearchFilters with _$SearchFilters {
   SearchFilters toggleCategory(CategoryOption category) {
     return copyWith(
       categorySelector: categorySelector.toggle(category),
+    );
+  }
+
+  SearchFilters enableGeoFilter() {
+    return copyWith(
+      geoFilter: geoFilter.enable(),
+    );
+  }
+
+  SearchFilters disableGeoFilter() {
+    return copyWith(
+      geoFilter: geoFilter.disable(),
     );
   }
 }

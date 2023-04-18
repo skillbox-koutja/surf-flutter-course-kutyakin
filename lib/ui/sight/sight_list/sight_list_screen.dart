@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
-import 'package:places/ui/app/state/place_filters.dart';
-import 'package:places/ui/app/state/places.dart';
-import 'package:places/ui/components/icons/svg_icons.dart';
-import 'package:places/ui/components/main_gradient_overlay.dart';
-import 'package:places/ui/sight/edit_sight/add_place_screen.dart';
+import 'package:places/ui/components/add_new_place_floating_button.dart';
 import 'package:places/ui/sight/search/sight_search_screen.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
 import 'package:places/ui/sight/search/widgets/search_bar.dart';
 import 'package:places/ui/sight/sight_list/widgets/places.dart';
-import 'package:provider/provider.dart';
 
-final _successAddedPlaceSnackBar = SnackBar(
-  content: Text(AppMessages.sightsList.successAddedPlace),
-);
 final _successEditedPlaceSnackBar = SnackBar(
   content: Text(AppMessages.sightsList.successEditedPlace),
 );
@@ -29,48 +21,10 @@ class SightListScreen extends StatefulWidget {
 class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const _Body(),
+    return const Scaffold(
+      body: _Body(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        elevation: 0,
-        extendedPadding: EdgeInsets.zero,
-        backgroundColor: Colors.transparent,
-        focusElevation: 0,
-        hoverElevation: 0,
-        focusColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        enableFeedback: false,
-        highlightElevation: 0,
-        icon: const _FloatingButtonText(),
-        label: const SizedBox(),
-        onPressed: openAddSightScreen,
-      ),
-    );
-  }
-
-  void openAddSightScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<AddPlaceScreen>(
-        builder: (context) {
-          final filtersState = context.read<PlaceFiltersState>();
-          final placesState = context.read<PlacesState>();
-
-          return AddPlaceScreen(
-            onSave: (editablePlace) {
-              placesState.createPlaceEntity(editablePlace);
-              filtersState.clear();
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(_successAddedPlaceSnackBar);
-            },
-            onClose: () {
-              Navigator.of(context).pop();
-            },
-          );
-        },
-      ),
+      floatingActionButton: AddNewPlaceFloatingButton(),
     );
   }
 }
@@ -126,6 +80,7 @@ class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
     final theme = Theme.of(context);
     final textTheme = theme.extension<CustomTextStyles>();
     final collapsed = shrinkOffset / expandedHeight > 0.2;
+    final screenTitle = AppMessages.sightsList.screenTitle;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -144,7 +99,7 @@ class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
                           width: double.infinity,
                           child: Center(
                             child: Text(
-                              AppMessages.sightsList.screenTitle,
+                              screenTitle,
                               style: textTheme?.subtitle,
                             ),
                           ),
@@ -156,7 +111,7 @@ class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16, top: 40),
                           child: Text(
-                            AppMessages.sightsList.screenTitle,
+                            screenTitle,
                             style: textTheme?.largeTitle,
                             textAlign: TextAlign.left,
                           ),
@@ -194,7 +149,6 @@ class _LandscapeSliverAppBar extends SliverPersistentHeaderDelegate {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: theme.scaffoldBackgroundColor,
-            // color: Colors.red,
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -243,36 +197,6 @@ class _SearchBar extends StatelessWidget {
               MaterialPageRoute<SightSearchScreen>(builder: (_) => const SightSearchScreen()),
             );
           },
-        ),
-      ),
-    );
-  }
-}
-
-class _FloatingButtonText extends StatelessWidget {
-  const _FloatingButtonText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.only(left: 9),
-      child: MainGradientOverlay(
-        borderRadius: const BorderRadius.all(Radius.circular(24)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 22),
-          child: Row(
-            children: [
-              PlusSvgIcon(
-                color: theme.floatingActionButtonTheme.foregroundColor,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                AppMessages.sightsList.newButtonLabel,
-              ),
-            ],
-          ),
         ),
       ),
     );

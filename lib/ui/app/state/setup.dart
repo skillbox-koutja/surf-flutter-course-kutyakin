@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/device_location/data_source.dart';
 import 'package:places/data/places/data_source/remote.dart';
 import 'package:places/data/places/repository/place_repository.dart';
 import 'package:places/domain/places/favorite/repository/repository.dart';
@@ -25,6 +26,7 @@ import 'package:places/domain/places/search/history/use_case/remove/use_case.dar
 import 'package:places/domain/user_preferences/model.dart';
 import 'package:places/domain/user_preferences/repository.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
+import 'package:places/ui/app/state/observer.dart';
 import 'package:places/ui/app/state/place_filters.dart';
 import 'package:places/ui/app/state/place_search.dart';
 import 'package:places/ui/app/state/places.dart';
@@ -33,26 +35,28 @@ import 'package:provider/provider.dart';
 
 Map<Object, Create<Object>> setupUserPreferencesState({
   required UserPreferencesModel userPreferences,
+  required DeviceLocationDataSource deviceLocationDataSource,
   required UserPreferencesRepository userPreferencesRepository,
 }) {
   return {
     UserPreferencesState: (_) => UserPreferencesState(
           userPreferences: userPreferences,
           userPreferencesRepository: userPreferencesRepository,
+          deviceLocationDataSource: deviceLocationDataSource,
         ),
   };
 }
 
 Map<Object, Create<Object>> setupPlaceFiltersState({
-  required UserPreferencesModel userPreferences,
-  required UserPreferencesRepository userPreferencesRepository,
+  required AppStateObserver appStateObserver,
   required RangeValues distanceLimit,
   required SearchFilters searchFilters,
 }) {
   return {
     PlaceFiltersState: (_) => PlaceFiltersState(
-          userPreferences: userPreferences,
-          userPreferencesRepository: userPreferencesRepository,
+          onChange: (state) {
+            appStateObserver.get<UserPreferencesState>().onChangePlaceFiltersState(state);
+          },
           radius: searchFilters.geoFilter.radius,
           distanceLimit: distanceLimit,
           filters: searchFilters,

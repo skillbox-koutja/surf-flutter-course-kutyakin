@@ -15,5 +15,7 @@ class SearchPlaceRequest with _$SearchPlaceRequest {
     List<String>? typeFilter,
   }) = _SearchPlaceRequest;
 
+  const SearchPlaceRequest._();
+
   factory SearchPlaceRequest.fromJson(Map<String, dynamic> json) => _$SearchPlaceRequestFromJson(json);
 }

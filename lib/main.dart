@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:places/assets/theme/theme.dart';
 import 'package:places/core/dio.dart';
 import 'package:places/data/database.dart';
+import 'package:places/data/device_location/data_source.dart';
 import 'package:places/data/places/data_source/remote.dart';
 import 'package:places/data/places/favorite_place/converter.dart';
 import 'package:places/data/places/favorite_place/repository.dart';
@@ -29,13 +32,16 @@ import 'package:provider/provider.dart';
 const _minDistance = 100.0;
 const _radius = 5000.0;
 const _maxDistance = 10000.0;
-const _initialGeo = Geo(lat: 55.7522, lng: 37.6156);
+const _initialLocation = Geo(lat: 55.7522, lng: 37.6156);
 const RangeValues _distanceLimit = RangeValues(_minDistance, _maxDistance);
 final _remoteDataSource = PlaceRemoteDataSource(
   buildDioClient('https://test-backend-flutter.surfstudio.ru/'),
 );
 
-final _appStateObserver = AppStateObserver();
+final _deviceLocationDataSource = DeviceLocationDataSource();
+final _appStateObserver = AppStateObserver(
+    _deviceLocationDataSource,
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,12 +82,15 @@ void main() async {
         createProvider<WishedPlacesState>(),
         createProvider<VisitedPlacesState>(),
       ],
-      child: App(appStateObserver: _appStateObserver),
+      child: App(
+        appStateObserver: _appStateObserver,
+      ),
     ),
   );
 }
 
 Future<Map<Object, Create<Object>>> _createProviderFactories() async {
+  final deviceLocationDataSource = DeviceLocationDataSource();
   final userPreferencesRepository = await HiveUserPreferencesRepository.init();
   final searchHistoryRepository = await SearchHistoryRepositoryImpl.init();
   final database = AppDb();
@@ -94,24 +103,27 @@ Future<Map<Object, Create<Object>>> _createProviderFactories() async {
   final userPreferences = await userPreferencesRepository.get(UserPreferencesModel(
     themeMode: AppThemeMode.light,
     radius: _radius,
+    location: _initialLocation,
     selectedCategories: categorySelector.selected,
     seenOnboarding: false,
   ));
 
   return {
     ...setupUserPreferencesState(
+      deviceLocationDataSource: deviceLocationDataSource,
       userPreferencesRepository: userPreferencesRepository,
       userPreferences: userPreferences,
     ),
     ...setupPlaceFiltersState(
-      userPreferencesRepository: userPreferencesRepository,
-      userPreferences: userPreferences,
+      appStateObserver: _appStateObserver,
       distanceLimit: _distanceLimit,
       searchFilters: SearchFilters(
-        geoFilter: GeoFilter(geo: _initialGeo, radius: userPreferences.radius),
-        categorySelector: categorySelector.selectCategories(
-          userPreferences.selectedCategories,
+        geoFilter: const GeoFilter(
+          geo: _initialLocation,
+          radius: _radius,
+          enabled: false,
         ),
+        categorySelector: categorySelector,
       ),
     ),
     ...setupPlacesStates(

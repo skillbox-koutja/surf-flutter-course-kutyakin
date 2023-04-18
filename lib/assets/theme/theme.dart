@@ -67,6 +67,7 @@ InputDecorationTheme buildInputDecorationTheme({
 }
 
 final lightTheme = ThemeData(
+  brightness: Brightness.light,
   colorScheme: const ColorScheme.light(
     error: AppColors.whiteRed,
   ),
@@ -156,6 +157,7 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
+  brightness: Brightness.dark,
   colorScheme: const ColorScheme.dark(
     error: AppColors.blackRed,
   ),

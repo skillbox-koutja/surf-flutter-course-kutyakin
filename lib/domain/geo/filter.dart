@@ -6,11 +6,24 @@ part 'filter.freezed.dart';
 @freezed
 class GeoFilter with _$GeoFilter {
   const factory GeoFilter({
+    required bool enabled,
     required Geo geo,
     required double radius,
   }) = _GeoFilter;
 
   const GeoFilter._();
+
+  GeoFilter enable() {
+    return copyWith(
+      enabled: true,
+    );
+  }
+
+  GeoFilter disable() {
+    return copyWith(
+      enabled: false,
+    );
+  }
 
   GeoFilter editRadius(double radius) {
     return copyWith(

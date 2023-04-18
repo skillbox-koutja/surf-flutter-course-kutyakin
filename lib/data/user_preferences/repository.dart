@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:places/assets/theme/theme.dart';
+import 'package:places/data/device_location/data_source.dart';
 import 'package:places/domain/places/category/option.dart';
 import 'package:places/domain/places/place/type.dart';
 import 'package:places/domain/user_preferences/model.dart';
@@ -10,20 +11,20 @@ import 'package:places/domain/user_preferences/repository.dart';
 part 'repository.g.dart';
 
 class HiveUserPreferencesRepository implements UserPreferencesRepository {
-  final Box<HiveUserPreferences> box;
+  final Box<HiveUserPreferences> _box;
 
-  const HiveUserPreferencesRepository({
-    required this.box,
-  });
+  const HiveUserPreferencesRepository(
+    this._box,
+  );
 
   @override
   Future<UserPreferencesModel> get(UserPreferencesModel defaultModel) async {
-    var userPreferences = box.get('model');
+    var userPreferences = _box.get('model');
 
     if (userPreferences == null) {
       userPreferences = HiveUserPreferences.fromModel(defaultModel);
 
-      await box.add(userPreferences);
+      await _box.add(userPreferences);
     }
 
     return UserPreferencesModel(
@@ -31,18 +32,22 @@ class HiveUserPreferencesRepository implements UserPreferencesRepository {
       radius: userPreferences.radius,
       selectedCategories: userPreferences.selectedCategories,
       seenOnboarding: userPreferences.seenOnboarding,
+      location: defaultModel.location,
+      allowedUseLocation: defaultModel.allowedUseLocation,
     );
   }
 
   @override
   void save(UserPreferencesModel model) {
-    box.put('model', HiveUserPreferences.fromModel(model));
+    _box.put('model', HiveUserPreferences.fromModel(model));
   }
 
   static Future<HiveUserPreferencesRepository> init() async {
     final box = await Hive.openBox<HiveUserPreferences>('user_preferences');
 
-    return HiveUserPreferencesRepository(box: box);
+    return HiveUserPreferencesRepository(
+      box,
+    );
   }
 }
 

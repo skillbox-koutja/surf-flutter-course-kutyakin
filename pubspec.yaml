@@ -21,6 +21,7 @@ dependencies:
   flutter_markdown: ^0.6.13
   flutter_svg: ^2.0.0
   freezed_annotation: ^2.2.0
+  geolocator: ^9.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http_parser: ^4.0.2
@@ -36,6 +37,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.13
   uuid: ^3.0.7
   verify: ^2.0.0
+  yandex_mapkit: ^3.2.0
 
 dev_dependencies:
   build_runner: ^2.3.3
@@ -53,6 +55,9 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/map/
+    - assets/images/map/place/
+    - assets/images/map/user_location/
     - assets/icons/
     - assets/icons/category/
     - assets/icons/empty/

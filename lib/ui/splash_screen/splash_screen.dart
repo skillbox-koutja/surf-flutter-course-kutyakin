@@ -3,10 +3,12 @@ import 'package:places/ui/components/icons/splash_screen/svg_icons.dart';
 import 'package:places/ui/components/main_gradient_overlay.dart';
 
 class SplashScreen extends StatefulWidget {
+  final Future<void> Function() init;
   final VoidCallback onReady;
 
   const SplashScreen({
     super.key,
+    required this.init,
     required this.onReady,
   });
 
@@ -19,20 +21,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    _navigateToNext();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _run();
+    });
   }
 
-  void _navigateToNext() {
-    Future<bool>.delayed(const Duration(seconds: 2), () => true).then(
-      (isInitialized) {
-        if (isInitialized) {
-          widget.onReady();
-          debugPrint('Initializing done');
-        } else {
-          debugPrint('Initializing failed');
-        }
-      },
-    );
+  Future<void> _run() async{
+    await widget.init();
+
+    widget.onReady();
   }
 
   @override

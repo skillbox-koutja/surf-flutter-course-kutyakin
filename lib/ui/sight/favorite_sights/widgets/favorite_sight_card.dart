@@ -44,16 +44,19 @@ class FavoriteSightCard extends StatelessWidget {
       ),
       body: SightCardBody(
         flex: 3,
-        children: [
-          SightNameText(place: place),
-          const SizedBox(height: 2),
-          SightStatusText(
-            status: favoritePlace.status,
-            color: _StatusColors(favoritePlace).color,
-          ),
-          const SizedBox(height: 12),
-          SightDetailsText(place: place),
-        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SightNameText(place: place),
+            const SizedBox(height: 2),
+            SightStatusText(
+              status: favoritePlace.status,
+              color: _StatusColors(favoritePlace).color,
+            ),
+            const SizedBox(height: 12),
+            SightDetailsText(place: place),
+          ],
+        ),
       ),
     );
   }
