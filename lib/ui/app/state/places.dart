@@ -10,6 +10,7 @@ import 'package:places/domain/places/place/use_case/edit/use_case.dart';
 import 'package:places/domain/places/place/use_case/get_place_details/use_case.dart';
 import 'package:places/domain/places/place/use_case/get_places/use_case.dart';
 import 'package:places/domain/places/place/use_case/search_places/use_case.dart';
+import 'package:places/domain/places/place/use_case/upload_images/use_case.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
 
 class PlacesState extends ChangeNotifier {
@@ -18,6 +19,7 @@ class PlacesState extends ChangeNotifier {
   GetPlaceDetails getPlaceDetails;
   GetPlaces getPlaces;
   SearchPlaces searchPlaces;
+  UploadPlaceImages uploadPlaceImages;
 
   PlacesData places;
 
@@ -30,6 +32,7 @@ class PlacesState extends ChangeNotifier {
     required this.getPlaces,
     required this.searchPlaces,
     required this.places,
+    required this.uploadPlaceImages,
   });
 
   factory PlacesState.create({
@@ -38,6 +41,7 @@ class PlacesState extends ChangeNotifier {
     required GetPlaceDetails getPlaceDetails,
     required GetPlaces getPlaces,
     required SearchPlaces searchPlaces,
+    required UploadPlaceImages uploadPlaceImages,
   }) {
     return PlacesState(
       createPlaceEntity: createPlaceEntity,
@@ -45,6 +49,7 @@ class PlacesState extends ChangeNotifier {
       getPlaceDetails: getPlaceDetails,
       getPlaces: getPlaces,
       searchPlaces: searchPlaces,
+      uploadPlaceImages: uploadPlaceImages,
       places: PlacesData.init(),
     );
   }

@@ -23,11 +23,9 @@ class EditPlaceArgs extends Equatable {
 }
 
 class EditPlaceEntity implements UseCase<PlaceEntity, EditPlaceArgs>{
-  final PlaceRepository placeRepository;
+  final PlaceRepository _repository;
 
-  const EditPlaceEntity({
-    required this.placeRepository,
-  });
+  const EditPlaceEntity(this._repository);
 
   @override
   Future<Either<Failure, PlaceEntity>> call(EditPlaceArgs args) {
@@ -35,6 +33,6 @@ class EditPlaceEntity implements UseCase<PlaceEntity, EditPlaceArgs>{
       return Future.value(Left(InvalidModel()));
     }
 
-    return placeRepository.editPlace(args.id, args.place);
+    return _repository.editPlace(args.id, args.place);
   }
 }

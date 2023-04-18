@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:places/data/places/data_source/place/upload_images/interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Dio buildDioClient(String baseUrl) {
@@ -17,6 +18,7 @@ Dio buildDioClient(String baseUrl) {
       requestBody: true,
       responseBody: false,
     ),
+    UploadPlaceImagesInterceptor(),
   ]);
 
   return dio;

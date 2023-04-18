@@ -6,14 +6,12 @@ import 'package:places/domain/places/favorite/repository/repository.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
 
 class GetVisitedPlaces implements UseCase<FavoritePlaces, SearchFilters> {
-  final FavoritePlaceRepository favoritePlaceRepository;
+  final FavoritePlaceRepository _repository;
 
-  const GetVisitedPlaces({
-    required this.favoritePlaceRepository,
-  });
+  const GetVisitedPlaces(this._repository);
 
   @override
   Future<Either<Failure, FavoritePlaces>> call(SearchFilters searchFilters) {
-    return favoritePlaceRepository.getVisitedPlaces(searchFilters);
+    return _repository.getVisitedPlaces(searchFilters);
   }
 }

@@ -6,11 +6,9 @@ import 'package:places/domain/places/place/repository/repository.dart';
 import 'package:places/domain/places/place/use_case/edit/model.dart';
 
 class CreatePlaceEntity implements UseCase<PlaceEntity, EditablePlace> {
-  final PlaceRepository placeRepository;
+  final PlaceRepository _repository;
 
-  const CreatePlaceEntity({
-    required this.placeRepository,
-  });
+  const CreatePlaceEntity(this._repository);
 
   @override
   Future<Either<Failure, PlaceEntity>> call(EditablePlace editablePlace) {
@@ -20,6 +18,6 @@ class CreatePlaceEntity implements UseCase<PlaceEntity, EditablePlace> {
 
     final place = editablePlace.toPlace();
 
-    return placeRepository.createPlace(place);
+    return _repository.createPlace(place);
   }
 }

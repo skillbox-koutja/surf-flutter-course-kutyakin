@@ -5,14 +5,12 @@ import 'package:places/domain/places/favorite/model.dart';
 import 'package:places/domain/places/favorite/repository/repository.dart';
 
 class RemoveFromVisited implements UseCase<void, FavoritePlace> {
-  final FavoritePlaceRepository favoritePlaceRepository;
+  final FavoritePlaceRepository _repository;
 
-  const RemoveFromVisited({
-    required this.favoritePlaceRepository,
-  });
+  const RemoveFromVisited(this._repository);
 
   @override
   Future<Either<Failure, void>> call(FavoritePlace favoritePlace) {
-    return favoritePlaceRepository.removeFromFavorites(favoritePlace);
+    return _repository.removeFromFavorites(favoritePlace);
   }
 }

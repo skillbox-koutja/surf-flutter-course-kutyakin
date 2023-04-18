@@ -27,7 +27,8 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   void initState() {
     super.initState();
 
-    sightModelNotifier = EditSightState(widget.model ?? EditablePlace.newPlace());
+    final place = widget.model ?? EditablePlace.newPlace();
+    sightModelNotifier = EditSightState(place);
   }
 
   @override
@@ -40,7 +41,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
     );
   }
 
-  Future<void> onSubmit() async {
+  void onSubmit() {
     sightModelNotifier.save();
     widget.onSave(sightModelNotifier.model);
   }

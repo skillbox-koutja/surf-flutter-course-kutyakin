@@ -26,17 +26,23 @@ abstract class PlaceRemoteDataSource {
 
   @GET('/place/{id}')
   Future<PlaceDto> getPlace(
-      @Path('id') String id,
+    @Path('id') String id,
   );
 
   @PUT('/place/{id}')
   Future<PlaceDto> editPlace(
-      @Path('id') String id,
-      @Body() EditPlaceRequest request,
+    @Path('id') String id,
+    @Body() EditPlaceRequest request,
   );
 
   @POST('/place')
   Future<PlaceDto> createPlace(
-      @Body() NewPlaceRequest request,
+    @Body() NewPlaceRequest request,
   );
+
+  @POST('/upload_file')
+  @MultiPart()
+  Future<List<String>> uploadFiles({
+    @Part() required List<MultipartFile> files,
+  });
 }

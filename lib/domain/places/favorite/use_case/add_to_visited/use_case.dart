@@ -22,11 +22,9 @@ class AddToVisitedArgs extends Equatable {
 }
 
 class AddToVisited implements UseCase<FavoritePlace, AddToVisitedArgs> {
-  final FavoritePlaceRepository favoritePlaceRepository;
+  final FavoritePlaceRepository _repository;
 
-  const AddToVisited({
-    required this.favoritePlaceRepository,
-  });
+  const AddToVisited(this._repository);
 
   @override
   Future<Either<Failure, FavoritePlace>> call(AddToVisitedArgs args) {
@@ -35,10 +33,10 @@ class AddToVisited implements UseCase<FavoritePlace, AddToVisitedArgs> {
       return Future.value(Left(InvalidModel()));
     }
 
-    favoritePlaceRepository.removeFromFavorites(wished);
+    _repository.removeFromFavorites(wished);
 
     final visited = wished.done(args.date);
 
-    return favoritePlaceRepository.addToFavorites(visited);
+    return _repository.addToFavorites(visited);
   }
 }

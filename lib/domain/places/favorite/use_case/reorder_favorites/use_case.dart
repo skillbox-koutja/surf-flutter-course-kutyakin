@@ -22,15 +22,13 @@ class ReorderArgs extends Equatable {
 }
 
 class ReorderFavorites implements UseCase<void, ReorderArgs> {
-  final FavoritePlaceRepository favoritePlaceRepository;
+  final FavoritePlaceRepository _repository;
 
-  const ReorderFavorites({
-    required this.favoritePlaceRepository,
-  });
+  const ReorderFavorites(this._repository);
 
   @override
   Future<Either<Failure, void>> call(ReorderArgs params) {
-    return favoritePlaceRepository.reorderFavorites(
+    return _repository.reorderFavorites(
       targetPriority: params.targetPriority,
       favoritePlace: params.favoritePlace,
     );

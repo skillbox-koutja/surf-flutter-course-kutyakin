@@ -152,6 +152,31 @@ class _PlaceRemoteDataSource implements PlaceRemoteDataSource {
     return value;
   }
 
+  @override
+  Future<List<String>> uploadFiles({required files}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.addAll(files.map((i) => MapEntry('files', i)));
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<String>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/upload_file',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!.cast<String>();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

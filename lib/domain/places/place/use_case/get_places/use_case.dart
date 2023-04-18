@@ -6,15 +6,13 @@ import 'package:places/domain/places/place/repository/repository.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
 
 class GetPlaces implements UseCase<PlaceEntities, SearchFilters> {
-  final PlaceRepository placeRepository;
+  final PlaceRepository _repository;
 
-  const GetPlaces({
-    required this.placeRepository,
-  });
+  const GetPlaces(this._repository);
 
   @override
   Future<Either<Failure, PlaceEntities>> call(SearchFilters filters) {
-    return placeRepository.searchPlaces(
+    return _repository.searchPlaces(
       geoFilter: filters.geoFilter,
       categorySelector: filters.categorySelector,
     );

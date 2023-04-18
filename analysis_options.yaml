@@ -35,6 +35,10 @@ dart_code_metrics:
     - prefer-conditional-expressions
     - prefer-intl-name
     - provide-correct-intl-args
+    - prefer-match-file-name:
+        exclude:
+          - lib/**
+          - test/**
 
 linter:
   rules:

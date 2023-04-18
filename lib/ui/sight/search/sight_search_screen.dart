@@ -141,7 +141,8 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select<PlaceSearchState, PlaceSearchingStatus>((s) => s.status);
+    final status =
+        context.select<PlaceSearchState, PlaceSearchingStatus>((s) => s.status);
 
     return Expanded(
       child: PlaceSearchingStatus.none == status
@@ -167,7 +168,7 @@ class _SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final query = context.select<PlaceSearchState, String>((s) => s.query);
 
-    return SearchBar(
+    return SearchBarWidget(
       controller: controller,
       suffixIcons: [
         if (query.isNotEmpty)
@@ -178,7 +179,6 @@ class _SearchBar extends StatelessWidget {
           SearchFilterIcon(
             onClose: onClose,
           ),
-        // const SizedBox(width: 12),
       ],
     );
   }

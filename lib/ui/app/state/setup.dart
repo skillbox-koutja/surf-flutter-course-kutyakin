@@ -15,6 +15,7 @@ import 'package:places/domain/places/place/use_case/edit/use_case.dart';
 import 'package:places/domain/places/place/use_case/get_place_details/use_case.dart';
 import 'package:places/domain/places/place/use_case/get_places/use_case.dart';
 import 'package:places/domain/places/place/use_case/search_places/use_case.dart';
+import 'package:places/domain/places/place/use_case/upload_images/use_case.dart';
 import 'package:places/domain/places/search/filters/filters.dart';
 import 'package:places/domain/places/search/history/repository/repository.dart';
 import 'package:places/domain/places/search/history/use_case/add/use_case.dart';
@@ -69,18 +70,19 @@ Map<Object, Create<Object>> setupPlacesStates({
 
   return {
     PlacesState: (_) => PlacesState.create(
-          createPlaceEntity: CreatePlaceEntity(placeRepository: placeRepository),
-          editPlaceEntity: EditPlaceEntity(placeRepository: placeRepository),
-          getPlaceDetails: GetPlaceDetails(placeRepository: placeRepository),
-          getPlaces: GetPlaces(placeRepository: placeRepository),
-          searchPlaces: SearchPlaces(placeRepository: placeRepository),
+          createPlaceEntity: CreatePlaceEntity(placeRepository),
+          editPlaceEntity: EditPlaceEntity(placeRepository),
+          getPlaceDetails: GetPlaceDetails(placeRepository),
+          getPlaces: GetPlaces(placeRepository),
+          searchPlaces: SearchPlaces(placeRepository),
+          uploadPlaceImages: UploadPlaceImages(placeRepository),
         ),
     PlaceSearchState: (_) => PlaceSearchState.create(
-          addSearchHistory: AddSearchHistory(searchHistoryRepository: searchHistoryRepository),
-          getSearchHistory: GetSearchHistory(searchHistoryRepository: searchHistoryRepository),
-          clearSearchHistory: ClearSearchHistory(searchHistoryRepository: searchHistoryRepository),
-          removeSearchHistory: RemoveSearchHistory(searchHistoryRepository: searchHistoryRepository),
-          searchPlaces: SearchPlaces(placeRepository: placeRepository),
+          addSearchHistory: AddSearchHistory(searchHistoryRepository),
+          getSearchHistory: GetSearchHistory(searchHistoryRepository),
+          clearSearchHistory: ClearSearchHistory(searchHistoryRepository),
+          removeSearchHistory: RemoveSearchHistory(searchHistoryRepository),
+          searchPlaces: SearchPlaces(placeRepository),
         ),
   };
 }
@@ -90,16 +92,16 @@ Map<Object, Create<Object>> setupFavoritePlacesStates(
 ) {
   return {
     WishedPlacesState: (_) => WishedPlacesState.create(
-          addPlace: AddToFavorites(favoritePlaceRepository: favoritePlaceRepository),
-          getPlaces: GetFavoritePlaces(favoritePlaceRepository: favoritePlaceRepository),
-          removePlace: RemoveFromFavorites(favoritePlaceRepository: favoritePlaceRepository),
-          reorderPlaces: ReorderFavorites(favoritePlaceRepository: favoritePlaceRepository),
+          addPlace: AddToFavorites(favoritePlaceRepository),
+          getPlaces: GetFavoritePlaces(favoritePlaceRepository),
+          removePlace: RemoveFromFavorites(favoritePlaceRepository),
+          reorderPlaces: ReorderFavorites(favoritePlaceRepository),
         ),
     VisitedPlacesState: (_) => VisitedPlacesState.create(
-          addPlace: AddToVisited(favoritePlaceRepository: favoritePlaceRepository),
-          getPlaces: GetVisitedPlaces(favoritePlaceRepository: favoritePlaceRepository),
-          removePlace: RemoveFromVisited(favoritePlaceRepository: favoritePlaceRepository),
-          reorderPlaces: ReorderVisited(favoritePlaceRepository: favoritePlaceRepository),
+          addPlace: AddToVisited(favoritePlaceRepository),
+          getPlaces: GetVisitedPlaces(favoritePlaceRepository),
+          removePlace: RemoveFromVisited(favoritePlaceRepository),
+          reorderPlaces: ReorderVisited(favoritePlaceRepository),
         ),
   };
 }

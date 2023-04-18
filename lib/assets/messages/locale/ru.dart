@@ -52,8 +52,10 @@ class _FavoriteSightsMessages {
   String get wishListTabTitle => 'Хочу посетить';
   String get visitedTabTitle => 'Посетил';
   String get emptyListTitle => 'Пусто';
-  String get emptyWishedListDescription => 'Отмечайте понравившиеся места и они появятся здесь.';
-  String get emptyVisitedListDescription => 'Завершите маршрут, чтобы место попало сюда.';
+  String get emptyWishedListDescription =>
+      'Отмечайте понравившиеся места и они появятся здесь.';
+  String get emptyVisitedListDescription =>
+      'Завершите маршрут, чтобы место попало сюда.';
   String get removeSightButtonLabel => 'Удалить';
   String get okButtonLabel => 'Ok';
   String get cancelButtonLabel => 'Отмена';
@@ -101,7 +103,8 @@ class _SightFilters {
     return 'ПОКАЗАТЬ ($value)';
   }
 
-  String distanceRangeSliderTitle({required double start, required double end}) {
+  String distanceRangeSliderTitle(
+      {required double start, required double end}) {
     if (start < 1000 && end < 1000) {
       return 'от ${_MetersFormatter(start)} до ${end.toStringAsFixed(0)} м';
     }
@@ -160,6 +163,7 @@ class _EditingSightMessages {
   String get addPhotoDialogPhotoTitle => 'Фотография';
   String get addPhotoDialogFileTitle => 'Файл';
   String get addPhotoDialogCancelButtonLabel => 'ОТМЕНА';
+  String get failedUploadPlaceImage => 'Не удалось сохранить изображение';
 
   const _EditingSightMessages();
 }

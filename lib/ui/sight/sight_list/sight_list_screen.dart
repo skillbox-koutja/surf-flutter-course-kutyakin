@@ -229,7 +229,7 @@ class _SearchBar extends StatelessWidget {
     return SliverPadding(
       padding: padding,
       sliver: SliverToBoxAdapter(
-        child: SearchBar(
+        child: SearchBarWidget(
           suffixIcons: [
             SearchFilterIcon(
               onClose: () {
