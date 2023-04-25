@@ -59,10 +59,6 @@ class EditSightState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void uploadImage() {
-
-  }
-
   void save() {
     if (!model.canSave) {
       return;
