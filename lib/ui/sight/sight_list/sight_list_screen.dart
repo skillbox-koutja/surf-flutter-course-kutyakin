@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
 import 'package:places/assets/theme/typography.dart';
+import 'package:places/core/utils/extensions/build_context_ext.dart';
+import 'package:places/environment/environment.dart';
 import 'package:places/ui/components/add_new_place_floating_button.dart';
 import 'package:places/ui/sight/search/sight_search_screen.dart';
 import 'package:places/ui/sight/search/widgets/filter_icon.dart';
@@ -78,9 +80,10 @@ class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
     final collapsed = shrinkOffset / expandedHeight > 0.2;
     final screenTitle = AppMessages.sightsList.screenTitle;
+    final envString = Environment.instance.buildConfig.envString;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -99,8 +102,8 @@ class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
                           width: double.infinity,
                           child: Center(
                             child: Text(
-                              screenTitle,
-                              style: textTheme?.subtitle,
+                              [screenTitle, envString].where((element) => element.isNotEmpty).join(' '),
+                              style: textTheme.subtitle,
                             ),
                           ),
                         ),
@@ -110,10 +113,19 @@ class _PortraitSliverAppBar extends SliverPersistentHeaderDelegate {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 16, top: 40),
-                          child: Text(
-                            screenTitle,
-                            style: textTheme?.largeTitle,
-                            textAlign: TextAlign.left,
+                          child: Column(
+                            children: [
+                              Text(
+                                screenTitle,
+                                style: textTheme.largeTitle,
+                                textAlign: TextAlign.left,
+                              ),
+                              Text(
+                                envString,
+                                style: textTheme.subtitle,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -141,7 +153,7 @@ class _LandscapeSliverAppBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final theme = Theme.of(context);
-    final textTheme = theme.extension<CustomTextStyles>();
+    final textTheme = context.themeTextStyles;
 
     return SizedBox(
       width: double.infinity,
@@ -159,8 +171,8 @@ class _LandscapeSliverAppBar extends SliverPersistentHeaderDelegate {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppMessages.sightsList.screenTitle,
-                  style: textTheme?.subtitle,
+                  [AppMessages.sightsList.screenTitle, Environment.instance.buildConfig.envString].where((element) => element.isNotEmpty).join(' '),
+                  style: textTheme.subtitle,
                 ),
               ],
             ),
