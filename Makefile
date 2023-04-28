@@ -6,3 +6,6 @@ code_clean:
 
 avd:
 	./scripts/run_avd.sh
+
+android_apk_release:
+	flutter build apk --split-per-abi
