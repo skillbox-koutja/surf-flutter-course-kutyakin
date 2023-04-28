@@ -45,6 +45,7 @@ class _AppState extends State<App> {
       title: 'Places',
       theme: isDark ? darkTheme : lightTheme,
       navigatorKey: _navigator,
+      debugShowCheckedModeBanner: false,
       home: _AppStateConsumer(
         child: _Home(
           appStateObserver: widget.appStateObserver,

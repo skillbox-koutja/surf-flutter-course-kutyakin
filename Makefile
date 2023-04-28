@@ -7,5 +7,8 @@ code_clean:
 avd:
 	./scripts/run_avd.sh
 
+app_icons_gen:
+	flutter pub run flutter_launcher_icons:main
+
 android_apk_release:
 	flutter build apk --split-per-abi
