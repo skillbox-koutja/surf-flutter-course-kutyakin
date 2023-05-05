@@ -181,6 +181,7 @@ class _PlacesListWidget extends StatelessWidget {
             }
 
             return _PlaceCard(
+              key: ValueKey(placeEntities[itemIndex].id),
               placeEntity: placeEntities[itemIndex],
               openEditPlaceScreen: openEditPlaceScreen,
             );
@@ -216,6 +217,7 @@ class _PlacesGridWidget extends StatelessWidget {
           childCount: placeEntities.length,
           (context, index) {
             return _PlaceCard(
+              key: ValueKey(placeEntities[index].id),
               placeEntity: placeEntities[index],
               openEditPlaceScreen: openEditPlaceScreen,
             );

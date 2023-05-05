@@ -20,13 +20,14 @@ class PlacePhotoImageWidget extends StatelessWidget {
     return photo.imageProvider.when(
       network: (src) => CachedNetworkImage(
         imageUrl: src,
+        // imageUrl: 'https://placehold.co/379x126.jpg',
         imageBuilder: (_, imageProvider) {
           return DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: borderRadius,
               image: DecorationImage(
                 fit: fit,
-                image: imageProvider, // Background image
+                image: imageProvider,
               ),
             ),
           );

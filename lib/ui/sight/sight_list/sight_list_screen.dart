@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/messages/locale/ru.dart';
-import 'package:places/assets/theme/typography.dart';
 import 'package:places/core/utils/extensions/build_context_ext.dart';
 import 'package:places/environment/environment.dart';
 import 'package:places/ui/components/add_new_place_floating_button.dart';
@@ -171,7 +170,9 @@ class _LandscapeSliverAppBar extends SliverPersistentHeaderDelegate {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  [AppMessages.sightsList.screenTitle, Environment.instance.buildConfig.envString].where((element) => element.isNotEmpty).join(' '),
+                  [AppMessages.sightsList.screenTitle, Environment.instance.buildConfig.envString]
+                      .where((element) => element.isNotEmpty)
+                      .join(' '),
                   style: textTheme.subtitle,
                 ),
               ],

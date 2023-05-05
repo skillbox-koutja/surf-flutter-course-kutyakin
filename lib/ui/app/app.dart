@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/assets/theme/theme.dart';
-import 'package:places/data/device_location/data_source.dart';
 import 'package:places/ui/app/state/favorite_places.dart';
 import 'package:places/ui/app/state/observer.dart';
 import 'package:places/ui/app/state/place_filters.dart';
